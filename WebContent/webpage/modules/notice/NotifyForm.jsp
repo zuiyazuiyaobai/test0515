@@ -71,6 +71,7 @@
 </head>
 <body class="hideScroll">
 	<form:form id="inputForm" modelAttribute="notify" action="${ctx}/notice/notify/save?noticeType=1" method="post" class="form-horizontal">
+
 <%-- 	<form:form id="inputForm" modelAttribute="notify" action="${ctx}/notice/notify/save?noticeType=1" method="post" class="form-horizontal"> --%>
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>	
