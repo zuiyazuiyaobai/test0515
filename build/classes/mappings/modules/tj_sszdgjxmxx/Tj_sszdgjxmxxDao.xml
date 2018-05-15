@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.tj_sszdgjxmxx.dao.Tj_sszdgjxmxxDao">
+    
+	<sql id="tj_sszdgjxmxxColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.category AS "sszdgjxmsl",
+		a.jhztz AS "jhztz",
+		a.ndjhtz AS "ndjhtz",
+		a.ndywctz AS "ndywctz",
+		a.tzwcl AS "tzwcl",
+		a.dywctz AS "dywctz",
+		a.ykgxmsl AS "ykgxmsl",
+		a.ytcxmsl AS "ytcxmsl",
+		a.xtcxmsl AS "xtcxmsl",
+		a.xdrxmsl AS "xdrxmsl",
+		a.xdcxmsl AS "xdcxmsl",
+		a.sign AS "sign",
+		b.name AS "region"
+	</sql>
+	
+	<sql id="tj_sszdgjxmxxJoins">
+	 left join sys_area b on a.region = b.id
+	</sql>
+	
+    
+	<select id="get" resultType="Tj_sszdgjxmxx" >
+		SELECT 
+			<include refid="tj_sszdgjxmxxColumns"/>
+		FROM tj_sszdgjxmxx a
+		<include refid="tj_sszdgjxmxxJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Tj_sszdgjxmxx" >
+		SELECT 
+			<include refid="tj_sszdgjxmxxColumns"/>
+		FROM tj_sszdgjxmxx a
+		<include refid="tj_sszdgjxmxxJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<if test="sign != null and sign != ''">
+			AND a.sign = #{sign}
+		</if>
+		<if test="sszdgjxmsl != null and sszdgjxmsl != ''">
+			AND a.region in (select id from sys_area where name like '%集聚区%')
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Tj_sszdgjxmxx" >
+		SELECT 
+			<include refid="tj_sszdgjxmxxColumns"/>
+		FROM tj_sszdgjxmxx a
+		<include refid="tj_sszdgjxmxxJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tj_sszdgjxmxx(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			category,
+			jhztz,
+			ndjhtz,
+			ndywctz,
+			tzwcl,
+			dywctz,
+			ykgxmsl,
+			ytcxmsl,
+			xtcxmsl,
+			xdrxmsl,
+			xdcxmsl,
+			sign,
+			region
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{sszdgjxmsl},
+			#{jhztz},
+			#{ndjhtz},
+			#{ndywctz},
+			#{tzwcl},
+			#{dywctz},
+			#{ykgxmsl},
+			#{ytcxmsl},
+			#{xtcxmsl},
+			#{xdrxmsl},
+			#{xdcxmsl},
+			#{sign},
+			#{region}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tj_sszdgjxmxx SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			category = #{sszdgjxmsl},
+			jhztz = #{jhztz},
+			ndjhtz = #{ndjhtz},
+			ndywctz = #{ndywctz},
+			tzwcl = #{tzwcl},
+			dywctz = #{dywctz},
+			ykgxmsl = #{ykgxmsl},
+			ytcxmsl = #{ytcxmsl},
+			xtcxmsl = #{xtcxmsl},
+			xdrxmsl = #{xdrxmsl},
+			xdcxmsl = #{xdcxmsl},
+			sign = #{sign},
+			region=#{region}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM tj_sszdgjxmxx
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE tj_sszdgjxmxx SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Tj_sszdgjxmxx" statementType="STATEMENT">
+		select * FROM tj_sszdgjxmxx  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

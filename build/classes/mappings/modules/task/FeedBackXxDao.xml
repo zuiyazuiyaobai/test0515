@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.task.dao.FeedBackXxDao">
+    
+	<sql id="feedBackXxColumns">
+		a.objname AS "objname",
+		a.objtype AS "objtype",
+		a.creditcode AS "creditcode",
+		a.executedt AS "executedt",
+		a.executeunit AS "executeunit",
+		a.accordingto AS "accordingto",
+		a.measurename AS "measurename",
+		a.matter AS "matter",
+		a.content AS "content",
+		a.money AS "money",
+		a.backtype AS "backtype",
+		a.result AS "result",
+		a.remark AS "remark",
+		a.flag AS "flag"
+	</sql>
+	<insert id="insert">
+		INSERT INTO feedbackxx(
+			objname,
+			objtype,
+			creditcode,
+			executedt,
+			executeunit,
+			accordingto,
+			content,
+			money,
+			backtype,
+			flag
+		) VALUES (
+			#{objname},
+			#{objtype},
+			#{creditcode},
+			#{executedt},
+			#{executeunit},
+			#{accordingto},
+			#{content},
+			#{money},
+			#{backtype},
+			#{flag}
+		)
+	</insert>
+	
+</mapper>

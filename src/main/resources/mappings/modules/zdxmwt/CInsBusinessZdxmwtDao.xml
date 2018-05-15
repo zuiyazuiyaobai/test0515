@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.zdxmwt.dao.CInsBusinessZdxmwtDao">
+    
+	<sql id="cInsBusinessZdxmwtColumns">
+		a.id AS "id",
+		a.projectid AS "projectid",
+		a.cbsnum AS "cbsnum",
+		a.wttype AS "wttype",
+		a.stagetype AS "stagetype",
+		a.wtdescribe AS "wtdescribe",
+		a.wtdescribexml AS "wtdescribexml",
+		a.createtime AS "createtime",
+		a.remark AS "remark",
+		a.zdgcxmbh AS "zdgcxmbh",
+		a.wtlevel AS "wtlevel",
+		a.status AS "status",
+		a.bltype AS "bltype",
+		a.ssgzr AS "ssgzr",
+		a.bjtime AS "bjtime"
+	</sql>
+	
+	<sql id="cInsBusinessZdxmwtJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessZdxmwt" >
+		SELECT 
+			<include refid="cInsBusinessZdxmwtColumns"/>
+		FROM c_ins_business_zdxmwt a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessZdxmwt" >
+		SELECT 
+			<include refid="cInsBusinessZdxmwtColumns"/>
+		FROM c_ins_business_zdxmwt a
+		<include refid="cInsBusinessZdxmwtJoins"/>
+		<where>
+		a.status='0'
+		<if test="projectid!=null and projectid!=''">and a.projectid=#{projectid}</if>
+		<if test="zdgcxmbh!=null and zdgcxmbh!=''">and a.zdgcxmbh=#{zdgcxmbh}</if>
+		<if test="wttype!=null and wttype!=''">and a.wttype=#{wttype}</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 问题解决页面列表展示查询 -->
+	<select id="findWtqkList" resultType="CInsBusinessZdxmwt" >
+		SELECT 
+			<include refid="cInsBusinessZdxmwtColumns"/>
+		FROM c_ins_business_zdxmwt a
+		<include refid="cInsBusinessZdxmwtJoins"/>
+		<where>
+		a.status!='3'
+		<if test="projectid!=null and projectid!=''">and a.projectid=#{projectid}</if>
+		<if test="zdgcxmbh!=null and zdgcxmbh!=''">and a.zdgcxmbh=#{zdgcxmbh}</if>
+		<if test="wttype!=null and wttype!=''">and a.wttype=#{wttype}</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 待办问题页面列表展示查询 -->
+	<select id="findWtList" resultType="CInsBusinessZdxmwt" >
+		SELECT 
+			h.id as hfid,
+			<include refid="cInsBusinessZdxmwtColumns"/>
+		FROM c_ins_business_zdxmwt a
+		LEFT JOIN C_INS_BUSINESS_ZDXMWTHF h ON a.id=h.wtid
+		<where>
+		h.sfhf='0' and h.deptid=#{deptid}
+		<if test="projectid!=null and projectid!=''">and a.projectid=#{projectid}</if>
+		<if test="zdgcxmbh!=null and zdgcxmbh!=''">and a.zdgcxmbh=#{zdgcxmbh}</if>
+		<if test="wttype!=null and wttype!=''">and a.wttype=#{wttype}</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="CInsBusinessZdxmwt" >
+		SELECT 
+			<include refid="cInsBusinessZdxmwtColumns"/>
+		FROM c_ins_business_zdxmwt a
+		<include refid="cInsBusinessZdxmwtJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAreaList" resultType="java.util.HashMap">
+		select w.ID as "wtid",a.ID as "deptid",a.NAME as "name" from
+		C_INS_BUSINESS_INFO i 
+		LEFT JOIN C_INS_BUSINESS_ZDXMWT w ON i.CBSNUM=w.CBSNUM
+		LEFT JOIN SYS_AREA a ON a.PARENT_ID=i.AREAID
+		 where i.CBSNUM=w.CBSNUM and w.ID=#{id}
+	</select>
+	<insert id="insert">
+		INSERT INTO c_ins_business_zdxmwt(
+			id,
+			projectid,
+			cbsnum,
+			wttype,
+			stagetype,
+			wtdescribe,
+			wtdescribexml,
+			createtime,
+			remark,
+			zdgcxmbh,
+			wtlevel,
+			status,
+			bltype,
+			ssgzr,
+			bjtime,
+			wtclyj
+		) VALUES (
+			#{id},
+			#{projectid},
+			#{cbsnum},
+			#{wttype},
+			#{stagetype},
+			#{wtdescribe},
+			#{wtdescribexml},
+			#{createtime},
+			#{remark},
+			#{zdgcxmbh},
+			#{wtlevel},
+			#{status},
+			#{bltype},
+			#{ssgzr},
+			#{bjtime},
+			#{wtclyj}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_zdxmwt SET 	
+			projectid = #{projectid},
+			cbsnum = #{cbsnum},
+			wttype = #{wttype},
+			stagetype = #{stagetype},
+			wtdescribe = #{wtdescribe},
+			wtdescribexml = #{wtdescribexml},
+			createtime = #{createtime},
+			remark = #{remark},
+			zdgcxmbh = #{zdgcxmbh},
+			wtlevel = #{wtlevel},
+			status = #{status},
+			bltype = #{bltype},
+			ssgzr = #{ssgzr},
+			bjtime = #{bjtime},
+			wtclyj=#{wtclyj}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_zdxmwt
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_zdxmwt SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessZdxmwt" statementType="STATEMENT">
+		select * FROM c_ins_business_zdxmwt  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

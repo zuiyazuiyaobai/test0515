@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.xmjbxx.dao.sub.CInsBusinessXmjbxxDeptRelationDao">
+
+	<!-- 主要查询本类的字段 -->
+	<sql id="cInsBusinessXmjbxxDeptRelationColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.xmjbxx_id AS "xmjbxx.id",
+		a.dept_id AS "dept.id",
+		a.status AS "status",
+		a.nrzt AS "nrzt",
+		a.zgcj AS "zgcj",
+		a.bs_date AS "bsDate",
+		a.zt AS "zt",
+		a.type AS "type",
+		c.grade AS "dept.grade"
+	</sql>
+
+	<!-- 根据需要查询关联类的各个字段 -->
+	<sql id="cInsBusinessXmjbxxDeptRelationFullColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.dept_id AS "dept.id",
+		a.status AS "status",
+		a.nrzt AS "nrzt",
+		a.bswh AS "bswh",
+		a.zgcj AS "zgcj",
+		a.bs_date AS "bsDate",
+		a.zt AS "zt",
+		a.type AS "type",
+		b.id AS "xmjbxx.id",
+		b.create_by AS "xmjbxx.createBy.id",
+		b.create_by_name AS "xmjbxx.createByName",
+		b.create_date AS "xmjbxx.createDate",
+		b.update_by AS "xmjbxx.updateBy.id",
+		b.update_date AS "xmjbxx.updateDate",
+		b.del_flag AS "xmjbxx.delFlag",
+		b.zdkbmgj AS "xmjbxx.zdkbmgj",
+		b.spjgptdm AS "xmjbxx.spjgptdm",
+		b.xmmc AS "xmjbxx.xmmc",
+		b.xmlx AS "xmjbxx.xmlx",
+		b.jsxz AS "xmjbxx.jsxz",
+		b.gb AS "xmjbxx.gb",
+		b.xmfrdw AS "xmjbxx.xmfrdw",
+		b.jsdd AS "xmjbxx.jsdd",
+		b.jsddxq AS "xmjbxx.jsddxq",
+		b.jsxxdz AS "xmjbxx.jsxxdz",
+		b.gbhy AS "xmjbxx.gbhy",
+		b.sshy AS "xmjbxx.sshy",
+		b.ztz AS "xmjbxx.ztz",
+		b.starttimen AS "xmjbxx.starttimen",
+		b.starttimey AS "xmjbxx.starttimey",
+		b.endtime AS "xmjbxx.endtime",
+		b.zyjsgm AS "xmjbxx.zyjsgm",
+		b.lhjsgm AS "xmjbxx.lhjsgm",
+		b.ndzhjsnr AS "xmjbxx.ndzhjsnr",
+		b.bz AS "xmjbxx.bz",
+		b.fhcyzc AS "xmjbxx.fhcyzc",
+		b.fhgh AS "xmjbxx.fhgh",
+		b.fhzdzn AS "xmjbxx.fhzdzn",
+		b.fhzftzfx AS "xmjbxx.fhzftzfx",
+		b.zrname AS "xmjbxx.zrname",
+		b.zrphone AS "xmjbxx.zrphone",
+		b.zrcall AS "xmjbxx.zrcall",
+		b.zremail AS "xmjbxx.zremail",
+		b.zrwxzh AS "xmjbxx.zrwxzh",
+		b.lxnameone AS "xmjbxx.lxnameone",
+		b.lxphoneone AS "xmjbxx.lxphoneone",
+		b.lxcallone AS "xmjbxx.lxcallone",
+		b.lxemailone AS "xmjbxx.lxemailone",
+		b.lxwxzhone AS "xmjbxx.lxwxzhone",
+		b.lxnametwo AS "xmjbxx.lxnametwo",
+		b.lxphonetwo AS "xmjbxx.lxphonetwo",
+		b.lxcalltwo AS "xmjbxx.lxcalltwo",
+		b.lxemailtwo AS "xmjbxx.lxemailtwo",
+		b.lxwxzhtwo AS "xmjbxx.lxwxzhtwo",
+		b.shfzbsone AS "xmjbxx.shfzbsone",
+		b.shfzbstwo AS "xmjbxx.shfzbstwo",
+		b.shfzbsthree AS "xmjbxx.shfzbsthree",
+		b.xmpx AS "xmjbxx.xmpx",
+		b.stage AS "xmjbxx.stage",
+		b.cj AS "xmjbxx.cj",
+		b.zt AS "xmjbxx.zt",
+		b.rcjgzjzrdw AS "xmjbxx.rcjgzjzrdw",
+		b.rcjgzrdwjgzrr AS "xmjbxx.rcjgzrdwjgzrr",
+		b.sfsqzyysnzj AS "xmjbxx.sfsqzyysnzj",
+		b.sfppp AS "xmjbxx.sfppp",
+		b.pppzl AS "xmjbxx.pppzl",
+		b.zfcyfs AS "xmjbxx.zfcyfs",
+		b.ncypppczms AS "xmjbxx.ncypppczms",
+		b.qtdw AS "xmjbxx.qtdw",
+		b.yzdw AS "xmjbxx.yzdw",
+		b.jsdw AS "xmjbxx.jsdw",
+		b.tjqk AS "xmjbxx.tjqk",
+		b.shbm AS "xmjbxx.shbm.id",
+		b.ks AS "xmjbxx.ks",
+		b.szt AS "xmjbxx.szt",
+		b.rcjgzjzrdwlxdh AS "xmjbxx.rcjgzjzrdwlxdh",
+		b.xmssjgmc AS "xmjbxx.xmssjgmc",
+		b.ssjgxz AS "xmjbxx.ssjgxz",
+		b.jhssnd AS "xmjbxx.jhssnd",
+		b.sfsqzxjsjj AS "xmjbxx.sfsqzxjsjj",
+		b.dfzbsf AS "xmjbxx.dfzbsf",
+		b.lx AS "xmjbxx.lx",
+		b.sfth AS "xmjbxx.sfth",
+		b.jtxmnr AS "xmjbxx.jtxmnr",
+		b.xmtze AS "xmjbxx.xmtze",
+		b.ssfabzjg AS "xmjbxx.ssfabzjg",
+		b.bzjgdm AS "xmjbxx.bzjgdm",
+		b.hbfs AS "xmjbxx.hbfs",
+		b.nhzqx AS "xmjbxx.nhzqx",
+		b.scdw AS "xmjbxx.scdw",
+		b.scfs AS "xmjbxx.scfs",
+		b.fapzsj AS "xmjbxx.fapzsj",
+		b.szfs AS "xmjbxx.szfs",
+		b.shzbf AS "xmjbxx.shzbf",
+		b.zfczrdb AS "xmjbxx.zfczrdb",
+		b.xmzbj AS "xmjbxx.xmzbj",
+		b.xmzbjShzb AS "xmjbxx.xmzbjShzb",
+		b.xmzbjZfcz AS "xmjbxx.xmzbjZfcz",
+		b.sfzjxmgs AS "xmjbxx.sfzjxmgs",
+		b.xmgszjrq AS "xmjbxx.xmgszjrq",
+		b.hzqx AS "xmjbxx.hzqx",
+		b.shzbyqsy AS "xmjbxx.shzbyqsy",
+		b.shzbzhnhsyl AS "xmjbxx.shzbzhnhsyl",
+		b.zxlb AS "xmjbxx.zxlb",
+		b.zxzqxxHbfs AS "xmjbxx.zxzqxxHbfs",
+		b.hbl AS "xmjbxx.hbl",
+		b.hbzq AS "xmjbxx.hbzq",
+		b.ldxg AS "xmjbxx.ldxg",
+		b.jyyh AS "xmjbxx.jyyh",
+		b.wjbt AS "xmjbxx.wjbt",
+		b.xmlsgx AS "xmjbxx.xmlsgx",
+		b.remarks AS "xmjbxx.remark",
+		c.grade AS "dept.grade"
+	</sql>
+
+	<sql id="cInsBusinessXmjbxxDeptRelationFullColumnscbk">
+		distinct 
+		b.id AS "xmjbxx.id",
+		b.create_by AS "xmjbxx.createBy.id",
+		b.create_by_name AS "xmjbxx.createByName",
+		b.create_date AS "xmjbxx.createDate",
+		b.update_by AS "xmjbxx.updateBy.id",
+		b.update_date AS "xmjbxx.updateDate",
+		b.del_flag AS "xmjbxx.delFlag",
+		b.zdkbmgj AS "xmjbxx.zdkbmgj",
+		b.spjgptdm AS "xmjbxx.spjgptdm",
+		b.xmmc AS "xmjbxx.xmmc",
+		b.xmlx AS "xmjbxx.xmlx",
+		b.jsxz AS "xmjbxx.jsxz",
+		b.gb AS "xmjbxx.gb",
+		b.xmfrdw AS "xmjbxx.xmfrdw",
+		b.jsdd AS "xmjbxx.jsdd",
+		b.jsddxq AS "xmjbxx.jsddxq",
+		b.jsxxdz AS "xmjbxx.jsxxdz",
+		b.gbhy AS "xmjbxx.gbhy",
+		b.sshy AS "xmjbxx.sshy",
+		b.ztz AS "xmjbxx.ztz",
+		b.starttimen AS "xmjbxx.starttimen",
+		b.starttimey AS "xmjbxx.starttimey",
+		b.endtime AS "xmjbxx.endtime",
+		b.zyjsgm AS "xmjbxx.zyjsgm",
+		b.lhjsgm AS "xmjbxx.lhjsgm",
+		b.ndzhjsnr AS "xmjbxx.ndzhjsnr",
+		b.bz AS "xmjbxx.bz",
+		b.fhcyzc AS "xmjbxx.fhcyzc",
+		b.fhgh AS "xmjbxx.fhgh",
+		b.fhzdzn AS "xmjbxx.fhzdzn",
+		b.fhzftzfx AS "xmjbxx.fhzftzfx",
+		b.zrname AS "xmjbxx.zrname",
+		b.zrphone AS "xmjbxx.zrphone",
+		b.zrcall AS "xmjbxx.zrcall",
+		b.zremail AS "xmjbxx.zremail",
+		b.zrwxzh AS "xmjbxx.zrwxzh",
+		b.lxnameone AS "xmjbxx.lxnameone",
+		b.lxphoneone AS "xmjbxx.lxphoneone",
+		b.lxcallone AS "xmjbxx.lxcallone",
+		b.lxemailone AS "xmjbxx.lxemailone",
+		b.lxwxzhone AS "xmjbxx.lxwxzhone",
+		b.lxnametwo AS "xmjbxx.lxnametwo",
+		b.lxphonetwo AS "xmjbxx.lxphonetwo",
+		b.lxcalltwo AS "xmjbxx.lxcalltwo",
+		b.lxemailtwo AS "xmjbxx.lxemailtwo",
+		b.lxwxzhtwo AS "xmjbxx.lxwxzhtwo",
+		b.shfzbsone AS "xmjbxx.shfzbsone",
+		b.shfzbstwo AS "xmjbxx.shfzbstwo",
+		b.shfzbsthree AS "xmjbxx.shfzbsthree",
+		b.xmpx AS "xmjbxx.xmpx",
+		b.stage AS "xmjbxx.stage",
+		b.cj AS "xmjbxx.cj",
+		b.zt AS "xmjbxx.zt",
+		b.rcjgzjzrdw AS "xmjbxx.rcjgzjzrdw",
+		b.rcjgzrdwjgzrr AS "xmjbxx.rcjgzrdwjgzrr",
+		b.sfsqzyysnzj AS "xmjbxx.sfsqzyysnzj",
+		b.sfppp AS "xmjbxx.sfppp",
+		b.pppzl AS "xmjbxx.pppzl",
+		b.zfcyfs AS "xmjbxx.zfcyfs",
+		b.ncypppczms AS "xmjbxx.ncypppczms",
+		b.qtdw AS "xmjbxx.qtdw",
+		b.yzdw AS "xmjbxx.yzdw",
+		b.jsdw AS "xmjbxx.jsdw",
+		b.tjqk AS "xmjbxx.tjqk",
+		b.shbm AS "xmjbxx.shbm.id",
+		b.ks AS "xmjbxx.ks",
+		b.szt AS "xmjbxx.szt",
+		b.rcjgzjzrdwlxdh AS "xmjbxx.rcjgzjzrdwlxdh",
+		b.xmssjgmc AS "xmjbxx.xmssjgmc",
+		b.ssjgxz AS "xmjbxx.ssjgxz",
+		b.jhssnd AS "xmjbxx.jhssnd",
+		b.sfsqzxjsjj AS "xmjbxx.sfsqzxjsjj",
+		b.dfzbsf AS "xmjbxx.dfzbsf",
+		b.lx AS "xmjbxx.lx",
+		b.sfth AS "xmjbxx.sfth",
+		b.jtxmnr AS "xmjbxx.jtxmnr",
+		b.xmtze AS "xmjbxx.xmtze",
+		b.ssfabzjg AS "xmjbxx.ssfabzjg",
+		b.bzjgdm AS "xmjbxx.bzjgdm",
+		b.hbfs AS "xmjbxx.hbfs",
+		b.nhzqx AS "xmjbxx.nhzqx",
+		b.scdw AS "xmjbxx.scdw",
+		b.scfs AS "xmjbxx.scfs",
+		b.fapzsj AS "xmjbxx.fapzsj",
+		b.szfs AS "xmjbxx.szfs",
+		b.shzbf AS "xmjbxx.shzbf",
+		b.zfczrdb AS "xmjbxx.zfczrdb",
+		b.xmzbj AS "xmjbxx.xmzbj",
+		b.xmzbjShzb AS "xmjbxx.xmzbjShzb",
+		b.xmzbjZfcz AS "xmjbxx.xmzbjZfcz",
+		b.sfzjxmgs AS "xmjbxx.sfzjxmgs",
+		b.xmgszjrq AS "xmjbxx.xmgszjrq",
+		b.hzqx AS "xmjbxx.hzqx",
+		b.shzbyqsy AS "xmjbxx.shzbyqsy",
+		b.shzbzhnhsyl AS "xmjbxx.shzbzhnhsyl",
+		b.zxlb AS "xmjbxx.zxlb",
+		b.zxzqxxHbfs AS "xmjbxx.zxzqxxHbfs",
+		b.hbl AS "xmjbxx.hbl",
+		b.hbzq AS "xmjbxx.hbzq",
+		b.ldxg AS "xmjbxx.ldxg",
+		b.jyyh AS "xmjbxx.jyyh",
+		b.wjbt AS "xmjbxx.wjbt",
+		b.xmlsgx AS "xmjbxx.xmlsgx",
+		b.JKSPURL AS "xmjbxx.JKSPURL",
+		c.grade AS "dept.grade",
+		c.name AS "dept.name"
+	</sql>
+
+	<sql id="cInsBusinessXmjbxxDeptRelationJoins">
+	</sql>
+
+	<sql id="cInsBusinessXmjbxxDeptRelationFullJoins">
+		LEFT JOIN xmjbxx b on b.id = a.xmjbxx_id
+		LEFT JOIN sys_office c ON c.id = a.dept_id
+		LEFT JOIN sys_user d ON d.id = a.create_by
+		LEFT JOIN sys_office e ON e.id = d.office_id
+	</sql>
+
+    
+	<select id="get" resultType="CInsBusinessXmjbxxDeptRelation" >
+		SELECT 
+			<include refid="cInsBusinessXmjbxxDeptRelationColumns"/>
+		FROM c_ins_business_xmjbxx_dept_relation a
+		<include refid="cInsBusinessXmjbxxDeptRelationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessXmjbxxDeptRelation" >
+		SELECT 
+			<include refid="cInsBusinessXmjbxxDeptRelationColumns"/>
+		FROM c_ins_business_xmjbxx_dept_relation a
+			<include refid="cInsBusinessXmjbxxDeptRelationFullJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="xmjbxx != null and xmjbxx.id != null and xmjbxx.id != ''">
+				AND a.xmjbxx_id = #{xmjbxx.id}
+			</if>
+			
+			<if test="dept != null and dept.id != null and dept.id != ''">
+				AND a.dept_id = #{dept.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="nrzt != null and nrzt != ''">
+				AND a.nrzt = #{nrzt}
+			</if>
+			<if test="zgcj != null and zgcj != ''">
+				AND a.zgcj = #{zgcj}
+			</if>
+			<if test="zt != null and zt != ''">
+				AND a.zt = #{zt}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessXmjbxxDeptRelation" >
+		SELECT 
+			<include refid="cInsBusinessXmjbxxDeptRelationColumns"/>
+		FROM c_ins_business_xmjbxx_dept_relation a
+		<include refid="cInsBusinessXmjbxxDeptRelationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_xmjbxx_dept_relation(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			xmjbxx_id,
+			dept_id,
+			status,
+			nrzt,
+			zgcj,
+			bs_date,
+			zt,
+			type,
+			bswh
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{xmjbxx.id},
+			#{dept.id},
+			#{status},
+			#{nrzt},
+			#{zgcj},
+			#{bsDate},
+			#{zt},
+			#{type},
+			#{bswh}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_xmjbxx_dept_relation SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			xmjbxx_id = #{xmjbxx.id},
+			dept_id = #{dept.id},
+			status = #{status},
+			nrzt = #{nrzt},
+			zgcj = #{zgcj},
+			bs_date = #{bsDate},
+			zt = #{zt},
+			type = #{type}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_xmjbxx_dept_relation
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_xmjbxx_dept_relation SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessXmjbxxDeptRelation" statementType="STATEMENT">
+		select * FROM c_ins_business_xmjbxx_dept_relation  where ${propertyName} = '${value}'
+	</select>
+	
+	<select id="findFullListByParametercbk" resultType="CInsBusinessXmjbxxDeptRelation" >
+		SELECT
+		<include refid="cInsBusinessXmjbxxDeptRelationFullColumnscbk"/>
+		FROM c_ins_business_xmjbxx_dept_relation a
+		<include refid="cInsBusinessXmjbxxDeptRelationFullJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND b.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="dept != null and dept.id != null and dept.id != ''">
+				AND a.dept_id = #{dept.id}
+			</if>
+			<if test="JKSPURL != null and JKSPURL != ''">
+				AND a.JKSPURL = #{JKSPURL}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="nrzt != null and nrzt != ''">
+				AND a.nrzt = #{nrzt}
+			</if>
+			<if test="zgcj != null and zgcj != ''">
+				AND a.zgcj = #{zgcj}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type >= #{type}
+			</if>
+			<if test="null != createDateStart">
+				AND a.create_date >= #{createDateStart}
+			</if>
+			<if test="null != createDateEnd">
+				AND a.create_date &lt;= #{createDateEnd}
+			</if>
+			<if test="null != bsDateStart">
+				AND a.bs_date >= #{bsDateStart}
+			</if>
+			<if test="null != bsDateEnd">
+				AND a.bs_date &lt;= #{bsDateEnd}
+			</if>
+			<if test="dept != null and dept.grade != null and dept.grade != ''">
+				AND c.grade = #{dept.grade}
+			</if>
+			<if test="null != ztzMin">
+				AND b.ztz >= #{ztzMin}
+			</if>
+			<if test="null != ztzMax">
+				AND b.ztz &lt;= #{ztzMax}
+			</if>
+			<if test="null !=xmjbxx">
+				<if test="xmjbxx.xmmc != null and xmjbxx.xmmc != ''">
+					AND b.xmmc like '%'||#{xmjbxx.xmmc}||'%'
+				</if>
+				
+                <if test="xmjbxx.spjgptdm != null and xmjbxx.spjgptdm != ''">
+					AND b.spjgptdm like '%'||#{xmjbxx.spjgptdm}||'%'
+				</if>
+				<if test="xmjbxx.shbm != null and xmjbxx.shbm != ''">
+					<if test="xmjbxx.shbm.name != null and xmjbxx.shbm.name != ''">
+						AND c.name like '%'||#{xmjbxx.shbm.name}||'%'
+					</if>
+				</if>
+				<if test="xmjbxx.xmlx != null and xmjbxx.xmlx != ''">
+					AND b.xmlx like '%'||#{xmjbxx.xmlx}||'%'
+				</if>
+				<if test="xmjbxx.sshy != null and xmjbxx.sshy != ''">
+					AND b.sshy like '%'||#{xmjbxx.sshy}||'%'
+				</if>
+				<if test="xmjbxx.fhzftzfx != null and xmjbxx.fhzftzfx != ''">
+					AND b.fhzftzfx like '%'||#{xmjbxx.fhzftzfx}||'%'
+				</if>
+				<if test="xmjbxx.fhzdzn != null and xmjbxx.fhzdzn != ''">
+					AND b.fhzdzn like '%'||#{xmjbxx.fhzdzn}||'%'
+				</if>
+				<if test="xmjbxx.shfzbsone != null and xmjbxx.shfzbsone != ''">
+					AND b.shfzbsone like '%'||#{xmjbxx.shfzbsone}||'%'
+				</if>
+				<if test="xmjbxx.jsdd != null and xmjbxx.jsdd != ''">
+					AND b.jsdd like '%'||#{xmjbxx.jsdd}||'%'
+				</if>
+				<if test="xmjbxx.xmfrdw != null and xmjbxx.xmfrdw != ''">
+					AND b.xmfrdw like '%'||#{xmjbxx.xmfrdw}||'%'
+				</if>
+			</if>
+			<if test="null != xmjbxxSearchParameter">
+				<if test="null != xmjbxxSearchParameter.updateDateStart">
+					AND b.update_date >= #{xmjbxxSearchParameter.updateDateStart}
+				</if>
+				<if test="null != xmjbxxSearchParameter.updateDateEnd">
+					AND b.update_date &lt;= #{xmjbxxSearchParameter.updateDateEnd}
+				</if>
+				<if test="null != xmjbxxSearchParameter.startTimeNStart and '' != xmjbxxSearchParameter.startTimeNStart">
+					AND to_number(b.starttimen) >= to_number(#{xmjbxxSearchParameter.startTimeNStart})
+				</if>
+				<if test="null != xmjbxxSearchParameter.startTimeNEnd and '' != xmjbxxSearchParameter.startTimeNEnd">
+					AND to_number(b.starttimen) &lt;= to_number(#{xmjbxxSearchParameter.startTimeNEnd})
+				</if>
+				<if test="null != xmjbxxSearchParameter.endTimeStart and '' != xmjbxxSearchParameter.endTimeStart">
+					AND to_number(b.endtime) >= to_number(#{xmjbxxSearchParameter.endTimeStart})
+				</if>
+				<if test="null != xmjbxxSearchParameter.endTimeEnd and '' != xmjbxxSearchParameter.endTimeEnd">
+					AND to_number(b.endtime) &lt;= to_number(#{xmjbxxSearchParameter.endTimeEnd})
+				</if>
+				<choose>
+					<when test="xmjbxxSearchParameter.xmscjd !=null and xmjbxxSearchParameter.xmscjd !='' and '1'.toString() == xmjbxxSearchParameter.xmscjd">
+						AND b.starttimen=to_char(sysdate,'yyyy')
+					</when>
+					<when test="xmjbxxSearchParameter.xmscjd !=null and xmjbxxSearchParameter.xmscjd !='' and '2'.toString() == xmjbxxSearchParameter.xmscjd">
+						AND b.starttimen=to_char (to_number (to_char(sysdate, 'yyyy' ) )+1)
+					</when>
+					<when test="xmjbxxSearchParameter.xmscjd !=null and xmjbxxSearchParameter.xmscjd !='' and '3'.toString() == xmjbxxSearchParameter.xmscjd">
+						AND to_number(b.starttimen) > to_number(to_char(sysdate,'yyyy'))+1
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY b.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findFullListByParameter" resultType="CInsBusinessXmjbxxDeptRelation" >
+		SELECT
+		<include refid="cInsBusinessXmjbxxDeptRelationFullColumns"/>
+		FROM c_ins_business_xmjbxx_dept_relation a
+		<include refid="cInsBusinessXmjbxxDeptRelationFullJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND b.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="dept != null and dept.id != null and dept.id != ''">
+				AND a.dept_id = #{dept.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="nrzt != null and nrzt != ''">
+				AND a.nrzt = #{nrzt}
+			</if>
+			<if test="zgcj != null and zgcj != ''">
+				AND a.zgcj = #{zgcj}
+			</if>
+			<if test="zt != null and zt != ''">
+				AND b.zt != #{zt}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="null != createDateStart">
+				AND a.create_date >= #{createDateStart}
+			</if>
+			<if test="null != createDateEnd">
+				AND a.create_date &lt;= #{createDateEnd}
+			</if>
+			<if test="null != bsDateStart">
+				AND a.bs_date >= #{bsDateStart}
+			</if>
+			<if test="null != bsDateEnd">
+				AND a.bs_date &lt;= #{bsDateEnd}
+			</if>
+			<if test="dept != null and dept.grade != null and dept.grade != ''">
+				AND c.grade = #{dept.grade}
+			</if>
+			<if test="null != ztzMin">
+				AND b.ztz >= #{ztzMin}
+			</if>
+			<if test="null != ztzMax">
+				AND b.ztz &lt;= #{ztzMax}
+			</if>
+			<choose>
+					<when test="remarks != null and '88'.toString() == remarks">
+						AND a.remarks in('1','2')
+					</when>
+					<when test="remarks != null and '99'.toString() == remarks">
+						AND a.remarks in('3','4')
+					</when>
+					<when test="remarks != null and '1'.toString() == remarks">
+						AND a.remarks = '1'
+					</when>
+					<when test="remarks != null and '2'.toString() == remarks">
+						AND a.remarks = '2'
+					</when>
+					<when test="remarks != null and '3'.toString() == remarks">
+						AND a.remarks = '3'
+					</when>
+					<when test="remarks != null and '4'.toString() == remarks">
+						AND a.remarks = '4'
+					</when>
+					<when test="remarks != null and '5'.toString() == remarks">
+						AND a.remarks = '5'
+					</when>
+					<when test="remarks != null and '6'.toString() == remarks">
+						AND a.remarks = '6'
+					</when>
+					<when test="remarks != null and '7'.toString() == remarks">
+						AND a.remarks = '7'
+					</when>
+					<when test="remarks != null and '8'.toString() == remarks">
+						AND a.remarks = '8'
+					</when>
+					<when test="remarks != null and '9'.toString() == remarks">
+						AND a.remarks = '9'
+					</when>
+					<when test="remarks != null and '10'.toString() == remarks">
+						AND a.remarks = '10'
+					</when>
+					<when test="remarks != null and '11'.toString() == remarks">
+						AND a.remarks = '11'
+					</when>
+			</choose>
+			<if test="xmjbxx != null">
+				<if test="xmjbxx.id != null and xmjbxx.id != ''">
+					AND a.xmjbxx_id = #{xmjbxx.id}
+				</if>
+				<if test="xmjbxx.shbm != null and xmjbxx.shbm.id != null and xmjbxx.shbm.id != ''">
+					AND b.shbm = #{xmjbxx.shbm.id}
+				</if>
+				<if test="xmjbxx.xmmc != null and xmjbxx.xmmc != ''">
+					AND b.xmmc like '%'||#{xmjbxx.xmmc}||'%'
+				</if>
+				<if test="xmjbxx.stage != null and xmjbxx.stage != ''">
+					AND b.stage = #{xmjbxx.stage}
+				</if>
+				<if test="xmjbxx.sshy != null and xmjbxx.sshy != ''">
+					AND b.sshy = #{xmjbxx.sshy}
+				</if>
+				<if test="xmjbxx.jsdd != null and xmjbxx.jsdd != ''">
+					AND b.jsdd = #{xmjbxx.jsdd}
+				</if>
+				<if test="xmjbxx.xmlx != null and xmjbxx.xmlx != ''">
+					AND b.xmlx = #{xmjbxx.xmlx}
+				</if>
+				<if test="xmjbxx.cj != null and xmjbxx.cj != ''">
+					AND b.cj = #{xmjbxx.cj}
+				</if>
+				<if test="xmjbxx.zt != null and xmjbxx.zt != ''">
+					AND b.zt = #{xmjbxx.zt}
+				</if>
+				<if test="xmjbxx.sfth != null and xmjbxx.sfth != ''">
+					AND b.sfth = #{xmjbxx.sfth}
+				</if>
+				<if test="xmjbxx.shfzbsone != null and xmjbxx.shfzbsone != ''">
+					AND b.shfzbsone like '%'||#{xmjbxx.shfzbsone}||'%'
+				</if>
+				<if test="xmjbxx.shfzbstwo != null and xmjbxx.shfzbstwo != ''">
+					AND b.shfzbstwo like '%'||#{xmjbxx.shfzbstwo}||'%'
+				</if>
+				<if test="xmjbxx.shfzbsthree != null and xmjbxx.shfzbsthree != ''">
+					AND b.shfzbsthree like '%'||#{xmjbxx.shfzbsthree}||'%'
+				</if>
+				<if test="xmjbxx.xmfrdw != null and xmjbxx.xmfrdw != ''">
+					AND b.xmfrdw like '%'||#{xmjbxx.xmfrdw}||'%'
+				</if>
+				<if test="xmjbxx.fhzftzfx != null and xmjbxx.fhzftzfx != ''">
+					AND b.fhzftzfx = #{xmjbxx.fhzftzfx}
+				</if>
+				<if test="xmjbxx.jyyh != null and xmjbxx.jyyh != ''">
+					AND b.jyyh = #{xmjbxx.jyyh}
+				</if>
+				<if test="xmjbxx.zxlb != null and xmjbxx.zxlb != ''">
+					AND b.zxlb = #{xmjbxx.zxlb}
+				</if>
+				<if test="xmjbxx.fhzdzn != null and xmjbxx.fhzdzn != ''">
+					AND b.fhzdzn = #{xmjbxx.fhzdzn}
+				</if>
+				<if test="xmjbxx.sfppp != null and xmjbxx.sfppp != ''">
+					AND b.sfppp = #{xmjbxx.sfppp}
+				</if>
+				<choose>
+					<when test="xmjbxx.szt != null and '0'.toString() == xmjbxx.szt">
+						AND b.szt = '0'
+					</when>
+					<when test="xmjbxx.szt != null and '1'.toString() == xmjbxx.szt">
+						AND b.szt in ('1','2','3','4')
+					</when>
+				</choose>
+				
+				<if test="null != xmjbxx.createBy and null != xmjbxx.createBy.office and '' != xmjbxx.createBy.office.id">
+					AND e.id = #{xmjbxx.createBy.office.id}
+				</if>
+				<if test="xmjbxx.sfsqzyysnzj != null and xmjbxx.sfsqzyysnzj != ''">
+					AND b.sfsqzyysnzj = #{xmjbxx.sfsqzyysnzj}
+				</if>
+				<if test="xmjbxx.sfsqzxjsjj != null and xmjbxx.sfsqzxjsjj != ''">
+					AND b.sfsqzxjsjj = #{xmjbxx.sfsqzxjsjj}
+				</if>
+				<if test="xmjbxx.bswh != null and xmjbxx.bswh != ''">
+					AND b.bswh like '%'||#{xmjbxx.bswh}||'%'
+				</if>
+				<if test="xmjbxx.wjbt != null and xmjbxx.wjbt != ''">
+					AND b.wjbt like '%'||#{xmjbxx.wjbt}||'%'
+				</if>
+			</if>
+			<if test="null != xmjbxxSearchParameter">
+				<if test="null != xmjbxxSearchParameter.updateDateStart">
+					AND b.update_date >= #{xmjbxxSearchParameter.updateDateStart}
+				</if>
+				<if test="null != xmjbxxSearchParameter.updateDateEnd">
+					AND b.update_date &lt;= #{xmjbxxSearchParameter.updateDateEnd}
+				</if>
+				<if test="null != xmjbxxSearchParameter.startTimeNStart and '' != xmjbxxSearchParameter.startTimeNStart">
+					AND to_number(b.starttimen) >= to_number(#{xmjbxxSearchParameter.startTimeNStart})
+				</if>
+				<if test="null != xmjbxxSearchParameter.startTimeNEnd and '' != xmjbxxSearchParameter.startTimeNEnd">
+					AND to_number(b.starttimen) &lt;= to_number(#{xmjbxxSearchParameter.startTimeNEnd})
+				</if>
+				<if test="null != xmjbxxSearchParameter.endTimeStart and '' != xmjbxxSearchParameter.endTimeStart">
+					AND to_number(b.endtime) >= to_number(#{xmjbxxSearchParameter.endTimeStart})
+				</if>
+				<if test="null != xmjbxxSearchParameter.endTimeEnd and '' != xmjbxxSearchParameter.endTimeEnd">
+					AND to_number(b.endtime) &lt;= to_number(#{xmjbxxSearchParameter.endTimeEnd})
+				</if>
+				<choose>
+					<when test="xmjbxxSearchParameter.xmscjd !=null and xmjbxxSearchParameter.xmscjd !='' and '1'.toString() == xmjbxxSearchParameter.xmscjd">
+						AND b.starttimen=to_char(sysdate,'yyyy')
+					</when>
+					<when test="xmjbxxSearchParameter.xmscjd !=null and xmjbxxSearchParameter.xmscjd !='' and '2'.toString() == xmjbxxSearchParameter.xmscjd">
+						AND b.starttimen=to_char (to_number (to_char(sysdate, 'yyyy' ) )+1)
+					</when>
+					<when test="xmjbxxSearchParameter.xmscjd !=null and xmjbxxSearchParameter.xmscjd !='' and '3'.toString() == xmjbxxSearchParameter.xmscjd">
+						AND to_number(b.starttimen) > to_number(to_char(sysdate,'yyyy'))+1
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

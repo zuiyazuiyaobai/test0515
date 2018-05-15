@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.zdxmwthf.dao.CInsBusinessZdxmwthfDao">
+    
+	<sql id="cInsBusinessZdxmwthfColumns">
+		a.id AS "id",
+		a.wtid AS "wtid",
+		a.deptid AS "deptid",
+		a.userid AS "userid",
+		a.hfnr AS "hfnr",
+		a.hfnrxml AS "hfnrxml",
+		a.sfhf AS "sfhf",
+		a.hftime AS "hftime",
+		a.remark AS "remark",
+		a.createtime AS "createtime",
+		a.ssgzr AS "ssgzr",
+		a.hzid AS "hzid",
+		a.ffidea AS "ffidea"
+	</sql>
+	
+	<sql id="cInsBusinessZdxmwthfJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessZdxmwthf" >
+		SELECT 
+			<include refid="cInsBusinessZdxmwthfColumns"/>
+		FROM c_ins_business_zdxmwthf a
+		<include refid="cInsBusinessZdxmwthfJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessZdxmwthf" >
+		SELECT 
+			<include refid="cInsBusinessZdxmwthfColumns"/>
+		FROM c_ins_business_zdxmwthf a
+		<include refid="cInsBusinessZdxmwthfJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessZdxmwthf" >
+		SELECT 
+			<include refid="cInsBusinessZdxmwthfColumns"/>
+		FROM c_ins_business_zdxmwthf a
+		<include refid="cInsBusinessZdxmwthfJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_zdxmwthf(
+			id,
+			wtid,
+			deptid,
+			userid,
+			hfnr,
+			hfnrxml,
+			sfhf,
+			hftime,
+			remark,
+			createtime,
+			ssgzr,
+			hzid,
+			ffidea
+		) VALUES (
+			#{id},
+			#{wtid},
+			#{deptid},
+			#{userid},
+			#{hfnr},
+			#{hfnrxml},
+			#{sfhf},
+			#{hftime},
+			#{remark},
+			#{createtime},
+			#{ssgzr},
+			#{hzid},
+			#{ffidea}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_zdxmwthf SET 	
+			wtid = #{wtid},
+			deptid = #{deptid},
+			userid = #{userid},
+			hfnr = #{hfnr},
+			hfnrxml = #{hfnrxml},
+			sfhf = #{sfhf},
+			hftime = #{hftime},
+			remark = #{remark},
+			createtime = #{createtime},
+			ssgzr = #{ssgzr},
+			hzid = #{hzid},
+			ffidea = #{ffidea}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_zdxmwthf
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_zdxmwthf SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessZdxmwthf" statementType="STATEMENT">
+		select * FROM c_ins_business_zdxmwthf  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

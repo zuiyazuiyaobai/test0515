@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.log.dao.CInsBusinessLogDao">
+    
+	<sql id="cInsBusinessLogColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.object_id AS "objectId",
+		a.object_name AS "objectName",
+		a.operate_user_id AS "operateUser.id",
+		a.operate_user_name AS "operateUserName",
+		a.operate_dept_id AS "operateDept.id",
+		a.operate_dept_name AS "operateDeptName",
+		a.receive_user_id AS "receiveUser.id",
+		a.receive_user_name AS "receiveUserName",
+		a.receive_dept_id AS "receiveDept.id",
+		a.receive_dept_name AS "receiveDeptName",
+		a.receive_office_id AS "receiveOffice.id",
+		a.operate AS "operate",
+		a.type AS "type"
+	</sql>
+	
+	<sql id="cInsBusinessLogJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessLog" >
+		SELECT 
+			<include refid="cInsBusinessLogColumns"/>
+		FROM c_ins_business_log a
+		<include refid="cInsBusinessLogJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessLog" >
+		SELECT 
+			<include refid="cInsBusinessLogColumns"/>
+		FROM c_ins_business_log a
+		<include refid="cInsBusinessLogJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="objectId != null and objectId != ''">
+				AND a.object_id = #{objectId}
+			</if>
+			<if test="objectName != null and objectName != ''">
+				AND a.object_name = #{objectName}
+			</if>
+			<if test="operateUser != null and operateUser.id != null and operateUser.id != ''">
+				AND a.operate_user_id = #{operateUser.id}
+			</if>
+			<if test="operateUserName != null and operateUserName != ''">
+				AND a.operate_user_name = #{operateUserName}
+			</if>
+			<if test="operateDept != null and operateDept.id != null and operateDept.id != ''">
+				AND a.operate_dept_id = #{operateDept.id}
+			</if>
+			<if test="operateDeptName != null and operateDeptName != ''">
+				AND a.operate_dept_name = #{operateDeptName}
+			</if>
+			<if test="receiveUser != null and receiveUser.id != null and receiveUser.id != ''">
+				AND a.receive_user_id = #{receiveUser.id}
+			</if>
+			<if test="receiveUserName != null and receiveUserName != ''">
+				AND a.receive_user_name = #{receiveUserName}
+			</if>
+			<if test="receiveDept != null and receiveDept.id != null and receiveDept.id != ''">
+				AND a.receive_dept_id = #{receiveDept.id}
+			</if>
+			<if test="receiveDeptName != null and receiveDeptName != ''">
+				AND a.receive_dept_name = #{receiveDeptName}
+			</if>
+			<if test="receiveOffice != null and receiveOffice.id != null and receiveOffice.id != ''">
+				AND a.receive_office_id = #{receiveOffice.id}
+			</if>
+			<if test="operate != null and operate != ''">
+				AND a.operate = #{operate}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessLog" >
+		SELECT 
+			<include refid="cInsBusinessLogColumns"/>
+		FROM c_ins_business_log a
+		<include refid="cInsBusinessLogJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_log(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			object_id,
+			object_name,
+			operate_user_id,
+			operate_user_name,
+			operate_dept_id,
+			operate_dept_name,
+			receive_user_id,
+			receive_user_name,
+			receive_dept_id,
+			receive_dept_name,
+			receive_office_id,
+			operate,
+			type
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{objectId},
+			#{objectName},
+			#{operateUser.id},
+			#{operateUserName},
+			#{operateDept.id},
+			#{operateDeptName},
+			#{receiveUser.id},
+			#{receiveUserName},
+			#{receiveDept.id},
+			#{receiveDeptName},
+			#{receiveOffice.id},
+			#{operate},
+			#{type}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_log SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			object_id = #{objectId},
+			object_name = #{objectName},
+			operate_user_id = #{operateUser.id},
+			operate_user_name = #{operateUserName},
+			operate_dept_id = #{operateDept.id},
+			operate_dept_name = #{operateDeptName},
+			receive_user_id = #{receiveUser.id},
+			receive_user_name = #{receiveUserName},
+			receive_dept_id = #{receiveDept.id},
+			receive_dept_name = #{receiveDeptName},
+			receive_office_id = #{receiveOffice.id},
+			operate = #{operate},
+			type = #{type}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_log
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_log SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessLog" statementType="STATEMENT">
+		select * FROM c_ins_business_log  where ${propertyName} = '${value}'
+	</select>
+
+	<select id="findPageByXmjbxxId" resultType="CInsBusinessXmjbxxLogVo">
+		SELECT
+			*
+		FROM c_ins_business_log a, xmjbxx b
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND b.id = a.object_id
+			AND a.object_name =  'Xmjbxx'
+			<if test="id != null and id != ''">
+				AND a.id LIKE
+				<if test="dbName == 'oracle'">#{id}||'%'</if>
+				<if test="dbName == 'mssql'">#{id}+'%'</if>
+				<if test="dbName == 'mysql'">concat(#{id},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findXmjbxxBusinessLogList" resultType="CInsBusinessLog" >
+		SELECT
+			a.id AS "id",
+			a.create_by AS "createBy.id",
+			a.create_date AS "createDate",
+			b.xmmc AS "objectName",
+			a.operate_user_name AS "operateUserName",
+			a.operate_dept_name AS "operateDeptName",
+			a.receive_user_name AS "receiveUserName",
+			a.receive_dept_name AS "receiveDeptName",
+			a.operate AS "operate"
+		FROM c_ins_business_log a
+		LEFT JOIN xmjbxx b on b.id = a.object_id
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND lower(a.object_name) = 'xmjbxx'
+			<if test="objectId != null and objectId != ''">
+				AND a.object_id = #{objectId}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date DESC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

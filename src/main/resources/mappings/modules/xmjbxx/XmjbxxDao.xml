@@ -1,0 +1,1789 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.xmjbxx.dao.XmjbxxDao">
+    
+	<sql id="xmjbxxColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_by_name AS "createByName",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.zdkbmgj AS "zdkbmgj",
+		a.spjgptdm AS "spjgptdm",
+		a.xmmc AS "xmmc",
+		a.xmlx AS "xmlx",
+		a.jsxz AS "jsxz",
+		a.gb AS "gb",
+		a.xmfrdw AS "xmfrdw",
+		a.jsdd AS "jsdd",
+		a.jsddxq AS "jsddxq",
+		a.jsxxdz AS "jsxxdz",
+		a.gbhy AS "gbhy",
+		a.sshy AS "sshy",
+		a.ztz as "ztz",
+		a.starttimen AS "starttimen",
+		a.starttimey AS "starttimey",
+		a.endtime AS "endtime",
+		a.zyjsgm AS "zyjsgm",
+		a.lhjsgm AS "lhjsgm",
+		a.ndzhjsnr AS "ndzhjsnr",
+		a.bz AS "bz",
+		a.fhcyzc AS "fhcyzc",
+		a.fhgh AS "fhgh",
+		a.fhzdzn AS "fhzdzn",
+		a.fhzftzfx AS "fhzftzfx",
+		a.zrname AS "zrname",
+		a.zrphone AS "zrphone",
+		a.zrcall AS "zrcall",
+		a.zremail AS "zremail",
+		a.zrwxzh AS "zrwxzh",
+		a.lxnameone AS "lxnameone",
+		a.lxphoneone AS "lxphoneone",
+		a.lxcallone AS "lxcallone",
+		a.lxemailone AS "lxemailone",
+		a.lxwxzhone AS "lxwxzhone",
+		a.lxnametwo AS "lxnametwo",
+		a.lxphonetwo AS "lxphonetwo",
+		a.lxcalltwo AS "lxcalltwo",
+		a.lxemailtwo AS "lxemailtwo",
+		a.lxwxzhtwo AS "lxwxzhtwo",
+		a.shfzbsone AS "shfzbsone",
+		a.shfzbstwo AS "shfzbstwo",
+		a.shfzbsthree AS "shfzbsthree",
+		a.xmpx AS "xmpx",
+		a.stage AS "stage",
+		a.cj AS "cj",
+		a.zt AS "zt",
+		a.rcjgzjzrdw AS "rcjgzjzrdw",
+		a.rcjgzrdwjgzrr AS "rcjgzrdwjgzrr",
+		a.sfsqzyysnzj AS "sfsqzyysnzj",
+		a.sfppp AS "sfppp",
+		a.pppzl AS "pppzl",
+		a.zfcyfs AS "zfcyfs",
+		a.ncypppczms AS "ncypppczms",
+		a.qtdw AS "qtdw",
+		a.yzdw AS "yzdw",
+		a.jsdw AS "jsdw",
+		a.tjqk AS "tjqk",
+		a.shbm AS "shbm.id",
+		a.ks AS "ks",
+		a.szt AS "szt",
+		a.rcjgzjzrdwlxdh AS "rcjgzjzrdwlxdh",
+		a.xmssjgmc AS "xmssjgmc",
+		a.ssjgxz AS "ssjgxz",
+		a.jhssnd AS "jhssnd",
+		a.sfsqzxjsjj AS "sfsqzxjsjj",
+		a.dfzbsf AS "dfzbsf",
+		a.lx AS "lx",
+		a.sfth AS "sfth",
+		a.jtxmnr AS "jtxmnr",
+		a.xmtze AS "xmtze",
+		a.ssfabzjg AS "ssfabzjg",
+		a.bzjgdm AS "bzjgdm",
+		a.hbfs AS "hbfs",
+		a.nhzqx AS "nhzqx",
+		a.scdw AS "scdw",
+		a.scfs AS "scfs",
+		a.fapzsj AS "fapzsj",
+		a.szfs AS "szfs",
+		a.shzbf AS "shzbf",
+		a.zfczrdb AS "zfczrdb",
+		a.xmzbj AS "xmzbj",
+		a.xmzbjShzb AS "xmzbjShzb",
+		a.xmzbjZfcz AS "xmzbjZfcz",
+		a.sfzjxmgs AS "sfzjxmgs",
+		a.xmgszjrq AS "xmgszjrq",
+		a.hzqx AS "hzqx",
+		a.shzbyqsy AS "shzbyqsy",
+		a.shzbzhnhsyl AS "shzbzhnhsyl",
+		a.zxlb AS "zxlb",
+		a.zxzqxxHbfs AS "zxzqxxHbfs",
+		a.hbl AS "hbl",
+		a.hbzq AS "hbzq",
+		a.ldxg AS "ldxg",
+		a.jyyh AS "jyyh",
+		a.wjbt AS "wjbt",
+		a.bswh AS "bswh",
+		a.jhbz_date AS "jhbzDate",
+		a.xmlsgx AS "xmlsgx",
+		a.heimd AS "heimd",
+		a.hongmd AS "hongmd",
+		b.name AS "createBy.name",
+		c.id AS "createBy.office.id",
+		c.grade AS "createBy.office.grade",
+		d.name AS "shbm.name",
+		d.grade AS "shbm.grade",
+		e.name AS "updateBy.name",
+    	a.incidtype AS incidtype,
+    	a.incid AS incid,
+    	
+    	sfjkylxm AS sfjkylxm,					
+    	jkyldwxz AS jkyldwxz,	
+    	jkylxmfj AS jkylxmfj,	
+   		jkylxmlx AS jkylxmlx	
+	</sql>
+	
+	<sql id="xmjbxxJoins">
+		LEFT JOIN sys_user b on b.id = a.create_by
+		LEFT JOIN sys_office c on c.id = b.office_id
+		LEFT JOIN sys_office d on d.id = a.shbm
+		LEFT JOIN sys_user e on e.id = a.update_by
+	</sql>
+	
+	<sql id="xmjbxxColumnsjh">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_by_name AS "createByName",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.zdkbmgj AS "zdkbmgj",
+		a.spjgptdm AS "spjgptdm",
+		a.xmmc AS "xmmc",
+		a.xmlx AS "xmlx",
+		a.jsxz AS "jsxz",
+		a.gb AS "gb",
+		a.xmfrdw AS "xmfrdw",
+		a.jsdd AS "jsdd",
+		a.jsddxq AS "jsddxq",
+		a.jsxxdz AS "jsxxdz",
+		a.gbhy AS "gbhy",
+		a.sshy AS "sshy",
+		a.ztz as "ztz",
+		a.starttimen AS "starttimen",
+		a.starttimey AS "starttimey",
+		a.endtime AS "endtime",
+		a.zyjsgm AS "zyjsgm",
+		a.lhjsgm AS "lhjsgm",
+		a.ndzhjsnr AS "ndzhjsnr",
+		a.bz AS "bz",
+		a.fhcyzc AS "fhcyzc",
+		a.fhgh AS "fhgh",
+		a.fhzdzn AS "fhzdzn",
+		a.fhzftzfx AS "fhzftzfx",
+		a.zrname AS "zrname",
+		a.zrphone AS "zrphone",
+		a.zrcall AS "zrcall",
+		a.zremail AS "zremail",
+		g.name AS "zrwxzh",
+		a.lxnameone AS "lxnameone",
+		a.lxphoneone AS "lxphoneone",
+		a.lxcallone AS "lxcallone",
+		a.lxemailone AS "lxemailone",
+		a.lxwxzhone AS "lxwxzhone",
+		a.lxnametwo AS "lxnametwo",
+		a.lxphonetwo AS "lxphonetwo",
+		a.lxcalltwo AS "lxcalltwo",
+		a.lxemailtwo AS "lxemailtwo",
+		a.lxwxzhtwo AS "lxwxzhtwo",
+		a.shfzbsone AS "shfzbsone",
+		a.shfzbstwo AS "shfzbstwo",
+		a.shfzbsthree AS "shfzbsthree",
+		a.xmpx AS "xmpx",
+		a.stage AS "stage",
+		a.cj AS "cj",
+		a.zt AS "zt",
+		a.rcjgzjzrdw AS "rcjgzjzrdw",
+		a.rcjgzrdwjgzrr AS "rcjgzrdwjgzrr",
+		a.sfsqzyysnzj AS "sfsqzyysnzj",
+		a.sfppp AS "sfppp",
+		a.pppzl AS "pppzl",
+		a.zfcyfs AS "zfcyfs",
+		a.ncypppczms AS "ncypppczms",
+		a.qtdw AS "qtdw",
+		a.yzdw AS "yzdw",
+		a.jsdw AS "jsdw",
+		a.tjqk AS "tjqk",
+		a.shbm AS "shbm.id",
+		a.ks AS "ks",
+		a.szt AS "szt",
+		a.rcjgzjzrdwlxdh AS "rcjgzjzrdwlxdh",
+		a.xmssjgmc AS "xmssjgmc",
+		a.ssjgxz AS "ssjgxz",
+		a.jhssnd AS "jhssnd",
+		a.sfsqzxjsjj AS "sfsqzxjsjj",
+		a.dfzbsf AS "dfzbsf",
+		a.lx AS "lx",
+		a.sfth AS "sfth",
+		a.jtxmnr AS "jtxmnr",
+		a.xmtze AS "xmtze",
+		a.ssfabzjg AS "ssfabzjg",
+		a.bzjgdm AS "bzjgdm",
+		a.hbfs AS "hbfs",
+		a.nhzqx AS "nhzqx",
+		a.scdw AS "scdw",
+		a.scfs AS "scfs",
+		a.fapzsj AS "fapzsj",
+		a.szfs AS "szfs",
+		a.shzbf AS "shzbf",
+		a.zfczrdb AS "zfczrdb",
+		a.xmzbj AS "xmzbj",
+		a.xmzbjShzb AS "xmzbjShzb",
+		a.xmzbjZfcz AS "xmzbjZfcz",
+		a.sfzjxmgs AS "sfzjxmgs",
+		a.xmgszjrq AS "xmgszjrq",
+		a.hzqx AS "hzqx",
+		a.shzbyqsy AS "shzbyqsy",
+		a.shzbzhnhsyl AS "shzbzhnhsyl",
+		a.zxlb AS "zxlb",
+		a.zxzqxxHbfs AS "zxzqxxHbfs",
+		a.hbl AS "hbl",
+		a.hbzq AS "hbzq",
+		a.ldxg AS "ldxg",
+		a.jyyh AS "jyyh",
+		a.wjbt AS "wjbt",
+		a.bswh AS "bswh",
+		a.JKSPURL AS "JKSPURL",
+		a.jhbz_date AS "jhbzDate",
+		a.xmlsgx AS "xmlsgx",
+		a.heimd AS "heimd",
+		a.hongmd AS "hongmd",
+		b.name AS "createBy.name",
+		c.id AS "createBy.office.id",
+		c.grade AS "createBy.office.grade",
+		d.name AS "shbm.name",
+		d.grade AS "shbm.grade",
+		e.name AS "updateBy.name",
+		h.dkxmmc AS "dkxmmc"
+	</sql>
+	
+	<sql id="xmjbxxJoinsjh">
+		LEFT JOIN sys_user b on b.id = a.create_by
+		LEFT JOIN sys_office c on c.id = b.office_id
+		LEFT JOIN sys_office d on d.id = a.shbm
+		LEFT JOIN sys_user e on e.id = a.update_by
+		LEFT JOIN c_ins_business_xmjbxx_dept_relation f on a.id = f.xmjbxx_id and f.type='2'
+        LEFT JOIN sys_office g on g.id = f.dept_id
+        LEFT JOIN dkxmxx h on h.project_id=a.id
+	</sql>
+	<!-- 按照所属行业和上报类型分类统计图 -->
+	<select id="findNumberBySshy" resultType="java.util.Map">
+		select a.name, nvl(a.num + nvl(b.num, 0), 0) num
+		  from (select s.name, s.id new_id, nvl(count(x.id), 0) num
+		          from sys_tree_dict s
+		          left join (select xx.id, xx.sshy
+		                      from xmjbxx xx
+		                      left join c_ins_business_zdxmk kk on xx.id =
+		                                                           kk.xmjbxx_id
+		                     where kk.sfsbsbib = '1') x on x.sshy = s.id
+		         where s.type = 'sshy'
+		           and parent_id = '0'
+		         group by s.name, s.id) a
+		  left join (select s.parent_id new_id, nvl(count(x.id), 0) num
+		               from sys_tree_dict s
+		               left join (select xx.id, xx.sshy
+		                           from xmjbxx xx
+		                           left join c_ins_business_zdxmk kk on xx.id =
+		                                                                kk.xmjbxx_id
+		                          where kk.sfsbsbib = '1') x on x.sshy = s.id
+		              where s.type = 'sshy'
+		                and parent_id in (select id
+		                                    from sys_tree_dict
+		                                   where type = 'sshy'
+		                                     and parent_id = '0')
+		              group by s.parent_id) b on a.new_id = b.new_id
+		 order by a.new_id
+	</select>
+	<!-- 根据地市按照上报类型 查询统计图-->
+	<select id="findNumber" resultType="java.util.Map" >
+		select name, nvl(a.num + nvl(b.num, 0), 0) num
+		  from (select s.id, s.name, nvl(x.num, 0) num
+		          from sys_area s
+		          left join (select jsdd, count(*) num
+		                      from xmjbxx xx
+		                      left join c_ins_business_zdxmk cc on xx.id =
+		                                                        cc.xmjbxx_id
+		<choose>
+			<when test="cj != null and cj != '' and '0'.toString()==cj">
+							  where cc.sfsbsbib = '1'
+			</when>
+			<when test="cj != null and cj != '' and '0'.toString()==cj">
+							  where cc.sfsbsbib = '0'
+			</when>
+		</choose>
+							  group by jsdd) x on x.jsdd = s.id
+		         where parent_id = '410000'
+		         group by s.id, name, num
+		         order by s.id) a
+		  left join (select parent_id id, num
+		               from (select s.parent_id, count(*) num
+		                       from (select xx.*
+		                               from xmjbxx xx
+		                               left join c_ins_business_zdxmk cc on xx.id =
+		                                                                    cc.xmjbxx_id
+		<choose>
+			<when test="cj != null and cj != '' and '0'.toString()==cj">
+							  			where cc.sfsbsbib = '1'
+			</when>
+			<when test="cj != null and cj != '' and '0'.toString()==cj">
+							  			where cc.sfsbsbib = '0'
+			</when>
+		</choose>
+		                              ) x
+		                       left join sys_area s on x.jsdd = s.id
+		                      group by s.parent_id)
+		              where parent_id in
+		                    (select id from sys_area where parent_id = '410000')
+		              order by parent_id) b on a.id = b.id
+		 order by a.id
+	</select>
+    <!-- 根据参数类 XmjbxxSearchParameter 查询列表，查询参数更多，返回信息更全 -->
+	<select id="findFullListByParameterjh" resultType="Xmjbxx" >
+		SELECT
+		<include refid="xmjbxxColumnsjh"/>
+		FROM xmjbxx a
+		<include refid="xmjbxxJoinsjh"/>
+		WHERE
+		a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="shbm != null and shbm.id != null and shbm.id != ''">
+			AND a.shbm = #{shbm.id}
+		</if>
+		<if test="shbm != null and shbm.name != null and shbm.name != ''">
+			AND d.name like '%'||#{shbm.name}||'%'
+		</if>
+		<if test="xmmc != null and xmmc != ''">
+			AND a.xmmc like '%'||#{xmmc}||'%'
+		</if>
+		<if test="bswh != null and bswh != ''">
+			AND a.bswh = #{bswh}
+		</if>
+		<if test="zdkbmgj != null and zdkbmgj != ''">
+			AND a.zdkbmgj like '%'||#{zdkbmgj}||'%'
+		</if>
+		<if test="stage != null and stage != ''">
+			AND a.stage = #{stage}
+		</if>
+		<if test="sshy != null and sshy != ''">
+			AND a.sshy = #{sshy}
+		</if>
+		<if test="jsdd != null and jsdd != ''">
+			AND a.jsdd = #{jsdd}
+		</if>
+		<if test="xmlx != null and xmlx != ''">
+			AND a.xmlx = #{xmlx}
+		</if>
+		<if test="cj != null and cj != ''">
+			AND a.cj = #{cj}
+		</if>
+		<if test="zt != null and zt != ''">
+			AND a.zt = #{zt}
+		</if>
+		<if test="sfth != null and sfth != ''">
+			AND a.sfth = #{sfth}
+		</if>
+		<if test="JKSPURL != null and JKSPURL != ''">
+			AND a.JKSPURL = #{JKSPURL}
+		</if>
+		<if test="fhzdzn != null and fhzdzn != ''">
+			AND a.fhzdzn = #{fhzdzn}
+		</if>
+		<if test="sfsqzxjsjj != null and sfsqzxjsjj != ''">
+			AND a.sfsqzxjsjj = #{sfsqzxjsjj}
+		</if>
+	
+		<choose>
+			<when test="szt != null and '0'.toString() == szt">
+				AND a.szt = '0'
+			</when>
+			<when test="szt != null and '1'.toString() == szt">
+				AND a.szt in ('1','2','3','4')
+			</when>
+		</choose>
+		<if test="null != jhbzDateEnd">
+			AND a.jhbz_date &lt;= #{jhbzDateEnd}
+		</if>
+		<if test="null != startTimeNStart and '' != startTimeNStart">
+			AND to_number(a.starttimen) >= to_number(#{startTimeNStart})
+		</if>
+		<if test="null != startTimeNEnd and '' != startTimeNEnd">
+			AND to_number(a.starttimen) &lt;= to_number(#{startTimeNEnd})
+		</if>
+		<if test="null != endTimeStart and '' != endTimeStart">
+			AND to_number(a.endtime) >= to_number(#{endTimeStart})
+		</if>
+		<if test="null != endTimeEnd and '' != endTimeEnd">
+			AND to_number(a.endtime) &lt;= to_number(#{endTimeEnd})
+		</if>
+		<if test="null != createBy and null != createBy.office and '' != createBy.office.id">
+			AND c.id = #{createBy.office.id}
+		</if>
+		
+		<choose>
+			<when test="null != sjly and '1'.toString() == sjly">
+				AND to_number(c.grade) = to_number(#{currentUser.office.grade})
+			</when>
+			<when test="null != sjly and '2'.toString() == sjly">
+				AND (to_number(c.grade) &lt; to_number(#{currentUser.office.grade}) or c.grade is null)
+			</when>
+		</choose>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date DESC
+			</otherwise>
+			
+		</choose>
+	
+	</select>
+    
+	<select id="get" resultType="Xmjbxx" >
+		SELECT 
+			<include refid="xmjbxxColumns"/>
+		FROM xmjbxx a
+		<include refid="xmjbxxJoins"/>
+		WHERE a.id = #{id}
+	</select>
+     
+	<!-- 根据 Xmjbxx 传入参数查询列表 -->
+	<select id="findList" resultType="Xmjbxx" >
+		SELECT
+		<include refid="xmjbxxColumns"/>
+		FROM xmjbxx a
+		<include refid="xmjbxxJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="xmmc != null and xmmc != ''">
+				AND a.xmmc like '%'||#{xmmc}||'%'
+			</if>
+			<if test="zdkbmgj != null and zdkbmgj != ''">
+				AND a.zdkbmgj like '%'||#{zdkbmgj}||'%'
+			</if>
+			<if test="stage != null and stage != ''">
+				AND a.stage = #{stage}
+			</if>
+			<if test="cj != null and cj != ''">
+				AND a.cj = #{cj}
+			</if>
+			<if test="zt != null and zt != ''">
+				AND a.zt = #{zt}
+			</if>
+			<if test="shbm != null and shbm.id != null and shbm.id != ''">
+				AND a.shbm = #{shbm.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 根据参数类 XmjbxxSearchParameter 查询列表，查询参数更多，返回信息更全 -->
+	<select id="findFullListByParameter" resultType="Xmjbxx" >
+		SELECT
+		<include refid="xmjbxxColumns"/>
+		FROM xmjbxx a
+		<include refid="xmjbxxJoins"/>
+		WHERE
+		a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="shbm != null and shbm.id != null and shbm.id != ''">
+			AND a.shbm = #{shbm.id}
+		</if>
+		<if test="xmmc != null and xmmc != ''">
+			AND a.xmmc like '%'||#{xmmc}||'%'
+		</if>
+		<if test="zdkbmgj != null and zdkbmgj != ''">
+			AND a.zdkbmgj like '%'||#{zdkbmgj}||'%'
+		</if>
+		<if test="stage != null and stage != ''">
+			AND a.stage = #{stage}
+		</if>
+		<if test="sshy != null and sshy != ''">
+			AND a.sshy = #{sshy}
+		</if>
+		<if test="jsdd != null and jsdd != ''">
+			AND a.jsdd = #{jsdd}
+		</if>
+		<if test="xmlx != null and xmlx != ''">
+			AND a.xmlx = #{xmlx}
+		</if>
+		<if test="cj != null and cj != ''">
+			AND a.cj = #{cj}
+		</if>
+		<if test="zt != null and zt != ''">
+			AND a.zt = #{zt}
+		</if>
+		<if test="sfth != null and sfth != ''">
+			AND a.sfth = #{sfth}
+		</if>
+		<if test="fhzdzn != null and fhzdzn != ''">
+			AND a.fhzdzn = #{fhzdzn}
+		</if>
+		<if test="sfsqzxjsjj != null and sfsqzxjsjj != ''">
+			AND a.sfsqzxjsjj = #{sfsqzxjsjj}
+		</if>
+		<if test="sfppp != null and sfppp != ''">
+			AND a.sfppp = #{sfppp}
+		</if>
+		<if test="fhzftzfx != null and fhzftzfx != ''">
+			AND a.fhzftzfx = #{fhzftzfx}
+		</if>
+		<if test="sfsqzyysnzj != null and sfsqzyysnzj != ''">
+			AND a.sfsqzyysnzj = #{sfsqzyysnzj}
+		</if>
+		<if test="shfzbsone != null and shfzbsone != ''">
+			AND a.shfzbsone like '%'||#{shfzbsone}||'%'
+		</if>
+		<if test="shfzbstwo != null and shfzbstwo != ''">
+			AND a.shfzbstwo like '%'||#{shfzbstwo}||'%'
+		</if>
+		<if test="shfzbsthree != null and shfzbsthree != ''">
+			AND a.shfzbsthree like '%'||#{shfzbsthree}||'%'
+		</if>
+		<if test="xmfrdw != null and xmfrdw != ''">
+			AND a.xmfrdw like '%'||#{xmfrdw}||'%'
+		</if>
+		<if test="remarks != null and remarks != ''">
+			AND a.remarks like '%'||#{remarks}||'%'
+		</if>
+		<choose>
+			<when test="szt != null and '0'.toString() == szt">
+				AND a.szt = '0'
+			</when>
+			<when test="szt != null and '1'.toString() == szt">
+				AND a.szt in ('1','2','3','4')
+			</when>
+		</choose>
+		<if test="bswh != null and bswh != ''">
+			AND a.bswh = #{bswh}
+		</if>
+		<if test="zxlb != null and zxlb != ''">
+			AND a.zxlb = #{zxlb}
+		</if>
+		<if test="jyyh != null and jyyh != ''">
+			AND a.jyyh = #{jyyh}
+		</if>
+		<if test="null != ztzMin">
+			AND a.ztz >= #{ztzMin}
+		</if>
+		<if test="null != ztzMax">
+			AND a.ztz &lt;= #{ztzMax}
+		</if>
+		<if test="null != createDateStart">
+			AND a.create_date >= #{createDateStart}
+		</if>
+		<if test="null != createDateEnd">
+			AND a.create_date &lt;= #{createDateEnd}
+		</if>
+		<if test="null != updateDateStart">
+			AND a.update_date >= #{updateDateStart}
+		</if>
+		<if test="null != updateDateEnd">
+			AND a.update_date &lt;= #{updateDateEnd}
+		</if>
+		<if test="null != jhbzDateStart">
+			AND a.jhbz_date >= #{jhbzDateStart}
+		</if>
+		<if test="null != jhbzDateEnd">
+			AND a.jhbz_date &lt;= #{jhbzDateEnd}
+		</if>
+		<if test="null != startTimeNStart and '' != startTimeNStart">
+			AND to_number(a.starttimen) >= to_number(#{startTimeNStart})
+		</if>
+		<if test="null != startTimeNEnd and '' != startTimeNEnd">
+			AND to_number(a.starttimen) &lt;= to_number(#{startTimeNEnd})
+		</if>
+		<if test="null != endTimeStart and '' != endTimeStart">
+			AND to_number(a.endtime) >= to_number(#{endTimeStart})
+		</if>
+		<if test="null != endTimeEnd and '' != endTimeEnd">
+			AND to_number(a.endtime) &lt;= to_number(#{endTimeEnd})
+		</if>
+		<if test="null != createBy and null != createBy.office and '' != createBy.office.id">
+			AND c.id = #{createBy.office.id}
+		</if>
+	
+		<choose>
+			<when test="null != sjly and '1'.toString() == sjly">
+				AND to_number(c.grade) = to_number(#{currentUser.office.grade})
+			</when>
+			<when test="null != sjly and '2'.toString() == sjly">
+				AND (to_number(c.grade) &lt; to_number(#{currentUser.office.grade}) or c.grade is null)
+			</when>
+		</choose>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date DESC
+			</otherwise>
+			
+		</choose>
+		
+			
+	
+	</select>
+
+	<select id="findAllList" resultType="Xmjbxx" >
+		SELECT 
+			<include refid="xmjbxxColumns"/>
+		FROM xmjbxx a
+		<include refid="xmjbxxJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+
+		<sql id="xmjbxxColumnsyj">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_by_name AS "createByName",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.zdkbmgj AS "zdkbmgj",
+		a.spjgptdm AS "spjgptdm",
+		a.xmmc AS "xmmc",
+		a.xmlx AS "xmlx",
+		a.jsxz AS "jsxz",
+		a.gb AS "gb",
+		a.xmfrdw AS "xmfrdw",
+		a.jsdd AS "jsdd",
+		a.jsddxq AS "jsddxq",
+		a.jsxxdz AS "jsxxdz",
+		a.gbhy AS "gbhy",
+		a.sshy AS "sshy",
+		a.ztz as "ztz",
+		a.starttimen AS "starttimen",
+		a.starttimey AS "starttimey",
+		a.endtime AS "endtime",
+		a.zyjsgm AS "zyjsgm",
+		a.lhjsgm AS "lhjsgm",
+		a.ndzhjsnr AS "ndzhjsnr",
+		a.bz AS "bz",
+		a.fhcyzc AS "fhcyzc",
+		a.fhgh AS "fhgh",
+		a.fhzdzn AS "fhzdzn",
+		a.fhzftzfx AS "fhzftzfx",
+		a.zrname AS "zrname",
+		a.zrphone AS "zrphone",
+		a.zrcall AS "zrcall",
+		a.zremail AS "zremail",
+		a.zrwxzh AS "zrwxzh",
+		a.lxnameone AS "lxnameone",
+		a.lxphoneone AS "lxphoneone",
+		a.lxcallone AS "lxcallone",
+		a.lxemailone AS "lxemailone",
+		a.lxwxzhone AS "lxwxzhone",
+		a.lxnametwo AS "lxnametwo",
+		a.lxphonetwo AS "lxphonetwo",
+		a.lxcalltwo AS "lxcalltwo",
+		a.lxemailtwo AS "lxemailtwo",
+		a.lxwxzhtwo AS "lxwxzhtwo",
+		a.shfzbsone AS "shfzbsone",
+		a.shfzbstwo AS "shfzbstwo",
+		a.shfzbsthree AS "shfzbsthree",
+		a.xmpx AS "xmpx",
+		a.stage AS "stage",
+		a.cj AS "cj",
+		a.zt AS "zt",
+		a.rcjgzjzrdw AS "rcjgzjzrdw",
+		a.rcjgzrdwjgzrr AS "rcjgzrdwjgzrr",
+		a.sfsqzyysnzj AS "sfsqzyysnzj",
+		a.sfppp AS "sfppp",
+		a.pppzl AS "pppzl",
+		a.zfcyfs AS "zfcyfs",
+		a.ncypppczms AS "ncypppczms",
+		a.qtdw AS "qtdw",
+		a.yzdw AS "yzdw",
+		a.jsdw AS "jsdw",
+		a.tjqk AS "tjqk",
+		a.shbm AS "shbm.id",
+		a.ks AS "ks",
+		a.szt AS "szt",
+		a.rcjgzjzrdwlxdh AS "rcjgzjzrdwlxdh",
+		a.xmssjgmc AS "xmssjgmc",
+		a.ssjgxz AS "ssjgxz",
+		a.jhssnd AS "jhssnd",
+		a.sfsqzxjsjj AS "sfsqzxjsjj",
+		a.dfzbsf AS "dfzbsf",
+		a.lx AS "lx",
+		a.sfth AS "sfth",
+		a.jtxmnr AS "jtxmnr",
+		a.xmtze AS "xmtze",
+		a.ssfabzjg AS "ssfabzjg",
+		a.bzjgdm AS "bzjgdm",
+		a.hbfs AS "hbfs",
+		a.nhzqx AS "nhzqx",
+		a.scdw AS "scdw",
+		a.scfs AS "scfs",
+		a.fapzsj AS "fapzsj",
+		a.szfs AS "szfs",
+		a.shzbf AS "shzbf",
+		a.zfczrdb AS "zfczrdb",
+		a.xmzbj AS "xmzbj",
+		a.xmzbjShzb AS "xmzbjShzb",
+		a.xmzbjZfcz AS "xmzbjZfcz",
+		a.sfzjxmgs AS "sfzjxmgs",
+		a.xmgszjrq AS "xmgszjrq",
+		a.hzqx AS "hzqx",
+		a.shzbyqsy AS "shzbyqsy",
+		a.shzbzhnhsyl AS "shzbzhnhsyl",
+		a.zxlb AS "zxlb",
+		a.zxzqxxHbfs AS "zxzqxxHbfs",
+		((f.ljwctz/a.ztz)*100) AS "hbl",
+		a.hbzq AS "hbzq",
+		a.ldxg AS "ldxg",
+		a.jyyh AS "jyyh",
+		a.wjbt AS "wjbt",
+		a.bswh AS "bswh",
+		a.jhbz_date AS "jhbzDate",
+		a.JKSPURL AS "JKSPURL",
+		a.xmlsgx AS "xmlsgx",
+		b.name AS "createBy.name",
+		c.id AS "createBy.office.id",
+		c.grade AS "createBy.office.grade",
+		d.name AS "shbm.name",
+		d.grade AS "shbm.grade",
+		e.name AS "updateBy.name",
+		h.SJKGSJ AS "ssjkgsj"
+	    
+	</sql>
+	
+	<sql id="xmjbxxJoinsyj">
+		LEFT JOIN sys_user b on b.id = a.create_by
+		LEFT JOIN sys_office c on c.id = b.office_id
+		LEFT JOIN sys_office d on d.id = a.shbm 
+		LEFT JOIN sys_user e on e.id = a.update_by
+		LEFT JOIN (SELECT XMJBXX_ID,SUM(NVL(LJWCTZ,0)) as ljwctz FROM C_INS_BUSINESS_TZQK where zjlb in( '中央预算内投资','其他中央财政性建设资金','中央专项建设基金','地方预算内投资','地方财政性建设资金') GROUP BY XMJBXX_ID)f 
+on a.id = f.xmjbxx_id
+        LEFT JOIN C_INS_BUSINESS_SSQK h on a.id=h.xmjbxx_id
+        LEFT JOIN C_INS_BUSINESS_XMJBXX_TASK_RELATION g on a.id = g.xmjbxx_id
+       
+      
+	</sql>
+	<!-- 根据参数类 XmjbxxSearchParameter 查询列表，查询参数更多，返回信息更全 -->
+	<select id="findFullListByParameteryj" resultType="Xmjbxx" >
+		SELECT distinct
+		<include refid="xmjbxxColumnsyj"/>
+		FROM xmjbxx a
+		<include refid="xmjbxxJoinsyj"/>
+		WHERE
+		a.del_flag = #{DEL_FLAG_NORMAL}
+		 and  g.Status='1'
+		 and d.GRADE   ='3'
+		 AND H.TYPE='2'
+        AND G.xmjbxx_id in
+           (
+                   select distinct
+                           xmjbxx_id
+                   from
+                           C_INS_BUSINESS_XMJBXX_DEPT_RELATION
+                   where
+                           dept_id=#{bmid}
+           )
+		<if test="shbm != null and shbm.id != null and shbm.id != ''">
+			AND a.shbm = #{shbm.id}
+		</if>
+		<if test="JKSPURL != null and JKSPURL != ''">
+			AND a.JKSPURL = #{JKSPURL}
+		</if>
+		<if test="xmmc != null and xmmc != ''">
+			AND a.xmmc like '%'||#{xmmc}||'%'
+		</if>
+		<if test="zdkbmgj != null and zdkbmgj != ''">
+			AND a.zdkbmgj like '%'||#{zdkbmgj}||'%'
+		</if>
+		<if test="stage != null and stage != ''">
+			AND a.stage = #{stage}
+		</if>
+		<if test="sshy != null and sshy != ''">
+			AND a.sshy = #{sshy}
+		</if>
+		<if test="JKSPURL != null and JKSPURL != ''">
+			AND a.JKSPURL = #{JKSPURL}
+		</if>
+		<if test="jsdd != null and jsdd != ''">
+			AND a.jsdd = #{jsdd}
+		</if>
+		<if test="xmlx != null and xmlx != ''">
+			AND a.xmlx = #{xmlx}
+		</if>
+		<if test="cj != null and cj != ''">
+			AND a.cj = #{cj}
+		</if>
+		<if test="zt != null and zt != ''">
+			AND a.zt = #{zt}
+		</if>
+		<if test="sfth != null and sfth != ''">
+			AND a.sfth = #{sfth}
+		</if>
+		<if test="fhzdzn != null and fhzdzn != ''">
+			AND a.fhzdzn = #{fhzdzn}
+		</if>
+		<if test="sfsqzxjsjj != null and sfsqzxjsjj != ''">
+			AND a.sfsqzxjsjj = #{sfsqzxjsjj}
+		</if>
+		<if test="sfppp != null and sfppp != ''">
+			AND a.sfppp = #{sfppp}
+		</if>
+		<if test="fhzftzfx != null and fhzftzfx != ''">
+			AND a.fhzftzfx = #{fhzftzfx}
+		</if>
+		<if test="sfsqzyysnzj != null and sfsqzyysnzj != ''">
+			AND a.sfsqzyysnzj = #{sfsqzyysnzj}
+		</if>
+		<if test="shfzbsone != null and shfzbsone != ''">
+			AND a.shfzbsone like '%'||#{shfzbsone}||'%'
+		</if>
+		<if test="shfzbstwo != null and shfzbstwo != ''">
+			AND a.shfzbstwo like '%'||#{shfzbstwo}||'%'
+		</if>
+		<if test="shfzbsthree != null and shfzbsthree != ''">
+			AND a.shfzbsthree like '%'||#{shfzbsthree}||'%'
+		</if>
+		<if test="xmfrdw != null and xmfrdw != ''">
+			AND a.xmfrdw like '%'||#{xmfrdw}||'%'
+		</if>
+		<choose>
+			<when test="szt != null and '0'.toString() == szt">
+				AND a.szt = '0'
+			</when>
+			<when test="szt != null and '1'.toString() == szt">
+				AND a.szt in ('1','2','3','4')
+			</when>
+		</choose>
+		<if test="bswh != null and bswh != ''">
+			AND a.bswh = #{bswh}
+		</if>
+		<if test="zxlb != null and zxlb != ''">
+			AND a.zxlb = #{zxlb}
+		</if>
+		<if test="jyyh != null and jyyh != ''">
+			AND a.jyyh = #{jyyh}
+		</if>
+		<if test="null != ztzMin">
+			AND a.ztz >= #{ztzMin}
+		</if>
+		<if test="null != ztzMax">
+			AND a.ztz &lt;= #{ztzMax}
+		</if>
+		<if test="null != createDateStart">
+			AND a.create_date >= #{createDateStart}
+		</if>
+		<if test="null != createDateEnd">
+			AND a.create_date &lt;= #{createDateEnd}
+		</if>
+		<if test="null != updateDateStart">
+			AND a.update_date >= #{updateDateStart}
+		</if>
+		<if test="null != updateDateEnd">
+			AND a.update_date &lt;= #{updateDateEnd}
+		</if>
+		<if test="null != jhbzDateStart">
+			AND a.jhbz_date >= #{jhbzDateStart}
+		</if>
+		<if test="null != jhbzDateEnd">
+			AND a.jhbz_date &lt;= #{jhbzDateEnd}
+		</if>
+		<if test="null != startTimeNStart and '' != startTimeNStart">
+			AND to_number(a.starttimen) >= to_number(#{startTimeNStart})
+		</if>
+		<if test="null != startTimeNEnd and '' != startTimeNEnd">
+			AND to_number(a.starttimen) &lt;= to_number(#{startTimeNEnd})
+		</if>
+		<if test="null != endTimeStart and '' != endTimeStart">
+			AND to_number(a.endtime) >= to_number(#{endTimeStart})
+		</if>
+		<if test="null != endTimeEnd and '' != endTimeEnd">
+			AND to_number(a.endtime) &lt;= to_number(#{endTimeEnd})
+		</if>
+		
+		<if test="null != createBy and null != createBy.office and '' != createBy.office.id">
+			AND c.id = #{createBy.office.id}
+		</if>
+		<choose>
+		<when test="null != sjly and '1'.toString() == sjly">
+			AND to_number(c.grade) = to_number(#{currentUser.office.grade})
+		</when>
+		<when test="null != sjly and '2'.toString() == sjly">
+			AND (to_number(c.grade) &lt; to_number(#{currentUser.office.grade}) or c.grade is null)
+		</when>
+	  </choose>
+		
+	
+		<choose>
+			<when test="sfkg != null and '1'.toString() == sfkg">
+				AND (h.SJKGSJ is null or h.SJKGSJ= '' )
+			</when>
+			<when test="sfkg != null and '2'.toString() == sfkg">
+				AND (h.SJKGSJ is not null or h.SJKGSJ != '' )
+			</when>
+		</choose>
+		<if test="bslb != null and bslb != ''">
+			AND a.REMARKS =#{bslb}
+		</if>
+		 <choose>
+			<when test="wyjhyf !=null and wyjhyf != '' and wyjhyf >= '1'.toString()">
+			AND  MONTHS_BETWEEN(TO_DATE(SUBSTR(TO_CHAR(h.SJKGSJ,'yyyy-mm-dd hh24:mi:ss'),1,7),'yyyy-mm'),TO_DATE((A.STARTTIMEN
+        || '-'
+        || A.STARTTIMEY),'yyyy-mm'))<![CDATA[ >= ]]>#{wyjhyf}
+			</when>
+			<when test="wyjhyf !=null and wyjhyf != '' ">
+				AND  MONTHS_BETWEEN(TO_DATE(SUBSTR(TO_CHAR(h.SJKGSJ,'yyyy-mm-dd hh24:mi:ss'),1,7),'yyyy-mm'),TO_DATE((A.STARTTIMEN
+        || '-'
+        || A.STARTTIMEY),'yyyy-mm'))<![CDATA[ <= ]]>1
+			</when>
+		</choose>
+		
+	
+		<choose>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '1'.toString() == tzwcqkbj">
+				AND hbl <![CDATA[<]]> #{tzwcqkbl}
+			</when>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '2'.toString() == tzwcqkbj">
+				AND hbl <![CDATA[>]]>  #{tzwcqkbl}
+			</when>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '3'.toString() == tzwcqkbj">
+				AND hbl <![CDATA[!<]]> #{tzwcqkbl}
+			</when>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '4'.toString() == tzwcqkbj">
+				AND hbl <![CDATA[!>]]>  #{tzwcqkbl}
+			</when>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '5'.toString() == tzwcqkbj">
+				AND hbl = #{tzwcqkbl}
+			</when>
+		</choose>
+		<choose>
+		
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date DESC
+			</otherwise>
+			
+		</choose>
+		
+	</select>
+	
+		<sql id="xmjbxxColumnstj">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_by_name AS "createByName",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.zdkbmgj AS "zdkbmgj",
+		a.spjgptdm AS "spjgptdm",
+		a.xmmc AS "xmmc",
+		a.xmlx AS "xmlx",
+		a.jsxz AS "jsxz",
+		a.gb AS "gb",
+		a.xmfrdw AS "xmfrdw",
+		a.jsdd AS "jsdd",
+		a.jsddxq AS "jsddxq",
+		a.jsxxdz AS "jsxxdz",
+		a.gbhy AS "gbhy",
+		a.sshy AS "sshy",
+		a.ztz as "ztz",
+		a.starttimen AS "starttimen",
+		a.starttimey AS "starttimey",
+		a.endtime AS "endtime",
+		a.zyjsgm AS "zyjsgm",
+		a.lhjsgm AS "lhjsgm",
+		a.ndzhjsnr AS "ndzhjsnr",
+		a.bz AS "bz",
+		a.fhcyzc AS "fhcyzc",
+		a.fhgh AS "fhgh",
+		a.fhzdzn AS "fhzdzn",
+		a.fhzftzfx AS "fhzftzfx",
+		a.zrname AS "zrname",
+		a.zrphone AS "zrphone",
+		a.zrcall AS "zrcall",
+		a.zremail AS "zremail",
+		a.zrwxzh AS "zrwxzh",
+		a.lxnameone AS "lxnameone",
+		a.lxphoneone AS "lxphoneone",
+		a.lxcallone AS "lxcallone",
+		a.lxemailone AS "lxemailone",
+		a.lxwxzhone AS "lxwxzhone",
+		a.lxnametwo AS "lxnametwo",
+		a.lxphonetwo AS "lxphonetwo",
+		a.lxcalltwo AS "lxcalltwo",
+		a.lxemailtwo AS "lxemailtwo",
+		a.lxwxzhtwo AS "lxwxzhtwo",
+		a.shfzbsone AS "shfzbsone",
+		a.shfzbstwo AS "shfzbstwo",
+		a.shfzbsthree AS "shfzbsthree",
+		a.xmpx AS "xmpx",
+		a.stage AS "stage",
+		a.cj AS "cj",
+		a.zt AS "zt",
+		a.rcjgzjzrdw AS "rcjgzjzrdw",
+		a.rcjgzrdwjgzrr AS "rcjgzrdwjgzrr",
+		a.sfsqzyysnzj AS "sfsqzyysnzj",
+		a.sfppp AS "sfppp",
+		a.pppzl AS "pppzl",
+		a.zfcyfs AS "zfcyfs",
+		a.ncypppczms AS "ncypppczms",
+		a.qtdw AS "qtdw",
+		a.yzdw AS "yzdw",
+		a.jsdw AS "jsdw",
+		a.tjqk AS "tjqk",
+		a.shbm AS "shbm.id",
+		a.ks AS "ks",
+		a.szt AS "szt",
+		a.rcjgzjzrdwlxdh AS "rcjgzjzrdwlxdh",
+		a.xmssjgmc AS "xmssjgmc",
+		a.ssjgxz AS "ssjgxz",
+		a.jhssnd AS "jhssnd",
+		a.sfsqzxjsjj AS "sfsqzxjsjj",
+		a.dfzbsf AS "dfzbsf",
+		a.lx AS "lx",
+		a.sfth AS "sfth",
+		a.jtxmnr AS "jtxmnr",
+		a.xmtze AS "xmtze",
+		a.ssfabzjg AS "ssfabzjg",
+		a.bzjgdm AS "bzjgdm",
+		a.hbfs AS "hbfs",
+		a.nhzqx AS "nhzqx",
+		a.scdw AS "scdw",
+		a.scfs AS "scfs",
+		a.fapzsj AS "fapzsj",
+		a.szfs AS "szfs",
+		a.shzbf AS "shzbf",
+		a.zfczrdb AS "zfczrdb",
+		a.xmzbj AS "xmzbj",
+		a.xmzbjShzb AS "xmzbjShzb",
+		a.xmzbjZfcz AS "xmzbjZfcz",
+		a.sfzjxmgs AS "sfzjxmgs",
+		a.xmgszjrq AS "xmgszjrq",
+		a.hzqx AS "hzqx",
+		a.shzbyqsy AS "shzbyqsy",
+		a.shzbzhnhsyl AS "shzbzhnhsyl",
+		a.zxlb AS "zxlb",
+		a.zxzqxxHbfs AS "zxzqxxHbfs",
+		((f.ljwctz/a.ztz)*100) AS "hbl",
+		a.hbzq AS "hbzq",
+		a.ldxg AS "ldxg",
+		a.jyyh AS "jyyh",
+		a.wjbt AS "wjbt",
+		a.bswh AS "bswh",
+		a.jhbz_date AS "jhbzDate",
+		a.xmlsgx AS "xmlsgx",
+		b.name AS "createBy.name",
+		c.id AS "createBy.office.id",
+		c.grade AS "createBy.office.grade",
+		d.name AS "shbm.name",
+		d.grade AS "shbm.grade",
+		e.name AS "updateBy.name",
+		h.SJKGSJ AS "ssjkgsj"
+	    
+	</sql>
+	
+	<sql id="xmjbxxJoinstj">
+		LEFT JOIN sys_user b on b.id = a.create_by
+		LEFT JOIN sys_office c on c.id = b.office_id
+		LEFT JOIN sys_office d on d.id = a.shbm
+		LEFT JOIN sys_user e on e.id = a.update_by
+		LEFT JOIN (SELECT XMJBXX_ID,SUM(NVL(LJWCTZ,0)) as ljwctz FROM C_INS_BUSINESS_TZQK where zjlb in( '中央预算内投资','其他中央财政性建设资金','中央专项建设基金','地方预算内投资','地方财政性建设资金') GROUP BY XMJBXX_ID)f 
+on a.id = f.xmjbxx_id
+     
+        LEFT JOIN C_INS_BUSINESS_SSQK h on a.id=h.xmjbxx_id
+      
+	</sql>
+	<!-- 根据参数类 XmjbxxSearchParameter 查询列表，查询参数更多，返回信息更全 -->
+	<select id="findFullListByParametertj" resultType="Xmjbxx" >
+		SELECT
+		<include refid="xmjbxxColumnstj"/>
+		FROM xmjbxx a
+		<include refid="xmjbxxJoinstj"/>
+		WHERE
+		a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="shbm != null and shbm.id != null and shbm.id != ''">
+			AND a.shbm = #{shbm.id}
+		</if>
+		<if test="xmmc != null and xmmc != ''">
+			AND a.xmmc like '%'||#{xmmc}||'%'
+		</if>
+		<if test="zdkbmgj != null and zdkbmgj != ''">
+			AND a.zdkbmgj like '%'||#{zdkbmgj}||'%'
+		</if>
+		<if test="stage != null and stage != ''">
+			AND a.stage = #{stage}
+		</if>
+		<if test="sshy != null and sshy != ''">
+			AND a.sshy = #{sshy}
+		</if>
+		<if test="jsdd != null and jsdd != ''">
+			AND a.jsdd = #{jsdd}
+		</if>
+		<if test="xmlx != null and xmlx != ''">
+			AND a.xmlx = #{xmlx}
+		</if>
+		<if test="cj != null and cj != ''">
+			AND a.cj = #{cj}
+		</if>
+		<if test="zt != null and zt != ''">
+			AND a.zt = #{zt}
+		</if>
+		<if test="sfth != null and sfth != ''">
+			AND a.sfth = #{sfth}
+		</if>
+		<if test="fhzdzn != null and fhzdzn != ''">
+			AND a.fhzdzn = #{fhzdzn}
+		</if>
+		<if test="sfsqzxjsjj != null and sfsqzxjsjj != ''">
+			AND a.sfsqzxjsjj = #{sfsqzxjsjj}
+		</if>
+		<if test="sfppp != null and sfppp != ''">
+			AND a.sfppp = #{sfppp}
+		</if>
+		<if test="fhzftzfx != null and fhzftzfx != ''">
+			AND a.fhzftzfx = #{fhzftzfx}
+		</if>
+		<if test="sfsqzyysnzj != null and sfsqzyysnzj != ''">
+			AND a.sfsqzyysnzj = #{sfsqzyysnzj}
+		</if>
+		<if test="shfzbsone != null and shfzbsone != ''">
+			AND a.shfzbsone like '%'||#{shfzbsone}||'%'
+		</if>
+		<if test="shfzbstwo != null and shfzbstwo != ''">
+			AND a.shfzbstwo like '%'||#{shfzbstwo}||'%'
+		</if>
+		<if test="shfzbsthree != null and shfzbsthree != ''">
+			AND a.shfzbsthree like '%'||#{shfzbsthree}||'%'
+		</if>
+		<if test="xmfrdw != null and xmfrdw != ''">
+			AND a.xmfrdw like '%'||#{xmfrdw}||'%'
+		</if>
+		<choose>
+			<when test="szt != null and '0'.toString() == szt">
+				AND a.szt = '0'
+			</when>
+			<when test="szt != null and '1'.toString() == szt">
+				AND a.szt in ('1','2','3','4')
+			</when>
+		</choose>
+		<if test="bswh != null and bswh != ''">
+			AND a.bswh = #{bswh}
+		</if>
+		<if test="zxlb != null and zxlb != ''">
+			AND a.zxlb = #{zxlb}
+		</if>
+		<if test="jyyh != null and jyyh != ''">
+			AND a.jyyh = #{jyyh}
+		</if>
+		<if test="null != ztzMin">
+			AND a.ztz >= #{ztzMin}
+		</if>
+		<if test="null != ztzMax">
+			AND a.ztz &lt;= #{ztzMax}
+		</if>
+		<if test="null != createDateStart">
+			AND a.create_date >= #{createDateStart}
+		</if>
+		<if test="null != createDateEnd">
+			AND a.create_date &lt;= #{createDateEnd}
+		</if>
+		<if test="null != updateDateStart">
+			AND a.update_date >= #{updateDateStart}
+		</if>
+		<if test="null != updateDateEnd">
+			AND a.update_date &lt;= #{updateDateEnd}
+		</if>
+		<if test="null != jhbzDateStart">
+			AND a.jhbz_date >= #{jhbzDateStart}
+		</if>
+		<if test="null != jhbzDateEnd">
+			AND a.jhbz_date &lt;= #{jhbzDateEnd}
+		</if>
+		<if test="null != startTimeNStart and '' != startTimeNStart">
+			AND to_number(a.starttimen) >= to_number(#{startTimeNStart})
+		</if>
+		<if test="null != startTimeNEnd and '' != startTimeNEnd">
+			AND to_number(a.starttimen) &lt;= to_number(#{startTimeNEnd})
+		</if>
+		<if test="null != endTimeStart and '' != endTimeStart">
+			AND to_number(a.endtime) >= to_number(#{endTimeStart})
+		</if>
+		<if test="null != endTimeEnd and '' != endTimeEnd">
+			AND to_number(a.endtime) &lt;= to_number(#{endTimeEnd})
+		</if>
+		
+		<if test="null != createBy and null != createBy.office and '' != createBy.office.id">
+			AND c.id = #{createBy.office.id}
+		</if>
+		<choose>
+		<when test="null != sjly and '1'.toString() == sjly">
+			AND to_number(c.grade) = to_number(#{currentUser.office.grade})
+		</when>
+		<when test="null != sjly and '2'.toString() == sjly">
+			AND (to_number(c.grade) &lt; to_number(#{currentUser.office.grade}) or c.grade is null)
+		</when>
+	  </choose>
+		
+	
+		<choose>
+			<when test="sfkg != null and '1'.toString() == sfkg">
+				AND (h.SJKGSJ is null or h.SJKGSJ= '' )
+			</when>
+			<when test="sfkg != null and '2'.toString() == sfkg">
+				AND (h.SJKGSJ is not null or h.SJKGSJ != '' )
+			</when>
+		</choose>
+		<if test="bslb != null and bslb != ''">
+			AND a.REMARKS =#{bslb}
+		</if>
+		 <choose>
+			<when test="wyjhyf !=null and wyjhyf != '' and wyjhyf >= '1'.toString()">
+			AND  MONTHS_BETWEEN(TO_DATE(SUBSTR(TO_CHAR(h.SJKGSJ,'yyyy-mm-dd hh24:mi:ss'),1,7),'yyyy-mm'),TO_DATE((A.STARTTIMEN
+        || '-'
+        || A.STARTTIMEY),'yyyy-mm'))<![CDATA[ >= ]]>#{wyjhyf}
+			</when>
+			<when test="wyjhyf !=null and wyjhyf != '' ">
+				AND  MONTHS_BETWEEN(TO_DATE(SUBSTR(TO_CHAR(h.SJKGSJ,'yyyy-mm-dd hh24:mi:ss'),1,7),'yyyy-mm'),TO_DATE((A.STARTTIMEN
+        || '-'
+        || A.STARTTIMEY),'yyyy-mm'))<![CDATA[ <= ]]>1
+			</when>
+		</choose>
+		
+	
+		<choose>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '1'.toString() == tzwcqkbj">
+				AND hbl <![CDATA[<]]> #{tzwcqkbl}
+			</when>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '2'.toString() == tzwcqkbj">
+				AND hbl <![CDATA[>]]>  #{tzwcqkbl}
+			</when>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '3'.toString() == tzwcqkbj">
+				AND hbl <![CDATA[!<]]> #{tzwcqkbl}
+			</when>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '4'.toString() == tzwcqkbj">
+				AND hbl <![CDATA[!>]]>  #{tzwcqkbl}
+			</when>
+			<when test="null != tzwcqklb and tzwcqklb !=''and null != tzwcqkbj and tzwcqkbj !='' and null != tzwcqkbl and tzwcqkbl !=''  and '1'.toString() == tzwcqklb and '5'.toString() == tzwcqkbj">
+				AND hbl = #{tzwcqkbl}
+			</when>
+	
+		</choose>
+		
+		<choose>
+		
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date DESC
+			</otherwise>
+			
+		</choose>
+		</select>
+	
+	<!-- 根据参数类 XmjbxxSearchParameter 查询列表，查询参数更多，返回信息更全 -->
+	
+	<select id="findFullListByParameterdxfs" resultType="Xmjbxx" >
+				select distinct
+		        d.xmjbxx_id as "id",
+		        d.dept_id  as "spjgptdm" ,
+		        a.LXPHONEONE as "LXPHONEONE",
+		        a.XMMC as "xmmc",
+		        c.phone as "xmlx"
+		from
+		        xmjbxx a                             ,
+		        sys_user b                           ,
+		        sys_office c                         ,
+		        c_ins_business_xmjbxx_dept_relation d
+		      
+		where
+		        a.id       =d.xmjbxx_id
+		    and d.dept_id  =b.office_id
+		    and b.office_id=c.id
+		    and c.type     ='3'
+		    and a.id=#{id}
+		order by
+		        d.xmjbxx_id
+		
+	</select>
+	
+	
+	<select id="findFullListByParameterdxtj" resultType="xmjbxx" parameterType="map">
+			select id, spjgptdm , xmlx  , count(id) as jsxz  from 
+				(select distinct
+				        d.xmjbxx_id  as id        ,
+				        d.dept_id    as spjgptdm  ,
+				        a.LXPHONEONE as LXPHONEONE,
+				        a.XMMC       as xmmc      ,
+				        c.phone      as xmlx
+				from
+				        xmjbxx a    ,
+				        sys_user b  ,
+				        sys_office c,
+				        c_ins_business_xmjbxx_dept_relation d
+				where
+				        a.id       =d.xmjbxx_id
+				    and d.dept_id  =b.office_id
+				    and b.office_id=c.id
+				    and c.type     ='3'
+				     and a.id in 
+						<foreach  item="item" collection="jsdd" index="index"  open="(" separator="," close=")">#{item}</foreach>
+    )  group by id, XMLX,spjgptdm
+	</select>
+	
+	
+	
+	
+	
+	
+	<insert id="insert">
+		INSERT INTO xmjbxx(
+			id,
+			create_by,
+			create_by_name,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			zdkbmgj,
+			spjgptdm,
+			xmmc,
+			xmlx,
+			jsxz,
+			gb,
+			xmfrdw,
+			jsdd,
+			jsddxq,
+			jsxxdz,
+			gbhy,
+			sshy,
+			ztz,
+			starttimen,
+			starttimey,
+			endtime,
+			zyjsgm,
+			lhjsgm,
+			ndzhjsnr,
+			bz,
+			fhcyzc,
+			fhgh,
+			fhzdzn,
+			fhzftzfx,
+			zrname,
+			zrphone,
+			zrcall,
+			zremail,
+			zrwxzh,
+			lxnameone,
+			lxphoneone,
+			lxcallone,
+			lxemailone,
+			lxwxzhone,
+			lxnametwo,
+			lxphonetwo,
+			lxcalltwo,
+			lxemailtwo,
+			lxwxzhtwo,
+			shfzbsone,
+			shfzbstwo,
+			shfzbsthree,
+			xmpx,
+			stage,
+			cj,
+			zt,
+			rcjgzjzrdw,
+			rcjgzrdwjgzrr,
+			sfsqzyysnzj,
+			sfppp,
+			pppzl,
+			zfcyfs,
+			ncypppczms,
+			qtdw,
+			yzdw,
+			jsdw,
+			tjqk,
+			shbm,
+			ks,
+			szt,
+			rcjgzjzrdwlxdh,
+			xmssjgmc,
+			ssjgxz,
+			jhssnd,
+			sfsqzxjsjj,
+			dfzbsf,
+			lx,
+			sfth,
+			jtxmnr,
+			xmtze,
+			ssfabzjg,
+			bzjgdm,
+			hbfs,
+			nhzqx,
+			scdw,
+			scfs,
+			fapzsj,
+			szfs,
+			shzbf,
+			zfczrdb,
+			xmzbj,
+			xmzbjShzb,
+			xmzbjZfcz,
+			sfzjxmgs,
+			xmgszjrq,
+			hzqx,
+			shzbyqsy,
+			shzbzhnhsyl,
+			zxlb,
+			zxzqxxHbfs,
+			hbl,
+			hbzq,
+			ldxg,
+			jyyh,
+			wjbt,
+			bswh,
+			jhbz_date,
+			xmlsgx,
+			updatestatus,
+			heimd,
+			hongmd,
+			sfjkylxm,		
+    		jkyldwxz,	
+    		jkylxmfj,	
+   			jkylxmlx
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createByName},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{zdkbmgj},
+			#{spjgptdm},
+			#{xmmc},
+			#{xmlx},
+			#{jsxz},
+			#{gb},
+			#{xmfrdw},
+			#{jsdd},
+			#{jsddxq},
+			#{jsxxdz},
+			#{gbhy},
+			#{sshy},
+			#{ztz},
+			#{starttimen},
+			#{starttimey},
+			#{endtime},
+			#{zyjsgm},
+			#{lhjsgm},
+			#{ndzhjsnr},
+			#{bz},
+			#{fhcyzc},
+			#{fhgh},
+			#{fhzdzn},
+			#{fhzftzfx},
+			#{zrname},
+			#{zrphone},
+			#{zrcall},
+			#{zremail},
+			#{zrwxzh},
+			#{lxnameone},
+			#{lxphoneone},
+			#{lxcallone},
+			#{lxemailone},
+			#{lxwxzhone},
+			#{lxnametwo},
+			#{lxphonetwo},
+			#{lxcalltwo},
+			#{lxemailtwo},
+			#{lxwxzhtwo},
+			#{shfzbsone},
+			#{shfzbstwo},
+			#{shfzbsthree},
+			#{xmpx},
+			#{stage},
+			#{cj},
+			#{zt},
+			#{rcjgzjzrdw},
+			#{rcjgzrdwjgzrr},
+			#{sfsqzyysnzj},
+			#{sfppp},
+			#{pppzl},
+			#{zfcyfs},
+			#{ncypppczms},
+			#{qtdw},
+			#{yzdw},
+			#{jsdw},
+			#{tjqk},
+			#{shbm.id},
+			#{ks},
+			#{szt},
+			#{rcjgzjzrdwlxdh},
+			#{xmssjgmc},
+			#{ssjgxz},
+			#{jhssnd},
+			#{sfsqzxjsjj},
+			#{dfzbsf},
+			#{lx},
+			#{sfth},
+			#{jtxmnr},
+			#{xmtze},
+			#{ssfabzjg},
+			#{bzjgdm},
+			#{hbfs},
+			#{nhzqx},
+			#{scdw},
+			#{scfs},
+			#{fapzsj},
+			#{szfs},
+			#{shzbf},
+			#{zfczrdb},
+			#{xmzbj},
+			#{xmzbjShzb},
+			#{xmzbjZfcz},
+			#{sfzjxmgs},
+			#{xmgszjrq},
+			#{hzqx},
+			#{shzbyqsy},
+			#{shzbzhnhsyl},
+			#{zxlb},
+			#{zxzqxxHbfs},
+			#{hbl},
+			#{hbzq},
+			#{ldxg},
+			#{jyyh},
+			#{wjbt},
+			#{bswh},
+			#{jhbzDate},
+			#{xmlsgx},
+			#{updatestatus},
+			#{heimd},
+			#{hongmd},
+			#{sfjkylxm},		
+    		#{jkyldwxz},	
+    		#{jkylxmfj},	
+   			#{jkylxmlx}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE xmjbxx SET
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			zdkbmgj = #{zdkbmgj},
+			spjgptdm = #{spjgptdm},
+			xmmc = #{xmmc},
+			xmlx = #{xmlx},
+			jsxz = #{jsxz},
+			gb = #{gb},
+			xmfrdw = #{xmfrdw},
+			jsdd = #{jsdd},
+			jsddxq = #{jsddxq},
+			jsxxdz = #{jsxxdz},
+			gbhy = #{gbhy},
+			sshy = #{sshy},
+			ztz = #{ztz},
+			starttimen = #{starttimen},
+			starttimey = #{starttimey},
+			endtime = #{endtime},
+			zyjsgm = #{zyjsgm},
+			lhjsgm = #{lhjsgm},
+			ndzhjsnr = #{ndzhjsnr},
+			bz = #{bz},
+			fhcyzc = #{fhcyzc},
+			fhgh = #{fhgh},
+			fhzdzn = #{fhzdzn},
+			fhzftzfx = #{fhzftzfx},
+			zrname = #{zrname},
+			zrphone = #{zrphone},
+			zrcall = #{zrcall},
+			zremail = #{zremail},
+			zrwxzh = #{zrwxzh},
+			lxnameone = #{lxnameone},
+			lxphoneone = #{lxphoneone},
+			lxcallone = #{lxcallone},
+			lxemailone = #{lxemailone},
+			lxwxzhone = #{lxwxzhone},
+			lxnametwo = #{lxnametwo},
+			lxphonetwo = #{lxphonetwo},
+			lxcalltwo = #{lxcalltwo},
+			lxemailtwo = #{lxemailtwo},
+			lxwxzhtwo = #{lxwxzhtwo},
+			shfzbsone = #{shfzbsone},
+			shfzbstwo = #{shfzbstwo},
+			shfzbsthree = #{shfzbsthree},
+			xmpx = #{xmpx},
+			stage = #{stage},
+			cj = #{cj},
+			zt = #{zt},
+			rcjgzjzrdw = #{rcjgzjzrdw},
+			rcjgzrdwjgzrr = #{rcjgzrdwjgzrr},
+			sfsqzyysnzj = #{sfsqzyysnzj},
+			sfppp = #{sfppp},
+			pppzl = #{pppzl},
+			zfcyfs = #{zfcyfs},
+			ncypppczms = #{ncypppczms},
+			qtdw = #{qtdw},
+			yzdw = #{yzdw},
+			jsdw = #{jsdw},
+			tjqk = #{tjqk},
+			shbm = #{shbm.id},
+			ks = #{ks},
+			szt = #{szt},
+			rcjgzjzrdwlxdh = #{rcjgzjzrdwlxdh},
+			xmssjgmc = #{xmssjgmc},
+			ssjgxz = #{ssjgxz},
+			jhssnd = #{jhssnd},
+			sfsqzxjsjj = #{sfsqzxjsjj},
+			dfzbsf = #{dfzbsf},
+			lx = #{lx},
+			sfth = #{sfth},
+			jtxmnr = #{jtxmnr},
+			xmtze = #{xmtze},
+			ssfabzjg = #{ssfabzjg},
+			bzjgdm = #{bzjgdm},
+			hbfs = #{hbfs},
+			nhzqx = #{nhzqx},
+			scdw = #{scdw},
+			scfs = #{scfs},
+			fapzsj = #{fapzsj},
+			szfs = #{szfs},
+			shzbf = #{shzbf},
+			zfczrdb = #{zfczrdb},
+			xmzbj = #{xmzbj},
+			xmzbjShzb = #{xmzbjShzb},
+			xmzbjZfcz = #{xmzbjZfcz},
+			sfzjxmgs = #{sfzjxmgs},
+			xmgszjrq = #{xmgszjrq},
+			hzqx = #{hzqx},
+			shzbyqsy = #{shzbyqsy},
+			shzbzhnhsyl = #{shzbzhnhsyl},
+			zxlb = #{zxlb},
+			zxzqxxHbfs = #{zxzqxxHbfs},
+			hbl = #{hbl},
+			hbzq = #{hbzq},
+			ldxg = #{ldxg},
+			jyyh = #{jyyh},
+			wjbt = #{wjbt},
+			bswh = #{bswh},
+			jhbz_date = #{jhbzDate},
+			xmlsgx = #{xmlsgx},
+			updatestatus = #{updatestatus},
+			heimd=#{heimd},
+			hongmd=#{hongmd},
+			sfjkylxm=#{sfjkylxm},		
+    		jkyldwxz=#{jkyldwxz},	
+    		jkylxmfj=#{jkylxmfj},	
+   			jkylxmlx=#{jkylxmlx}
+		WHERE id = #{id}
+	</update>
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM xmjbxx
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE xmjbxx SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Xmjbxx" statementType="STATEMENT">
+		select * FROM xmjbxx  where ${propertyName} = '${value}'
+	</select>
+
+	<select id="getCInsBusinessInfo" resultType="Xmjbxx">
+		SELECT
+			spjgptdm as "spjgptdm",
+			xmmc as "xmmc",
+			xmlx as "xmlx",
+			jsxz as "jsxz",
+			gb as "gb",
+			jsdd as "jsdd",
+			gbhy as "gbhy",
+			sshy as "sshy",
+			ztz as "ztz",
+			starttimen as "starttimen",
+			starttimey as "starttimey",
+			endtime as "endtime",
+			zyjsgm as "zyjsgm",
+			ndzhjsnr as "ndzhjsnr",
+			xmfrdw as "xmfrdw",
+			zrname as "zrname",
+			zrcall as "zrcall",
+			lxnameone as "lxnameone",
+			lxphoneone as "lxphoneone",
+			lxcallone as "lxcallone",
+			lxemailone as "lxemailone",
+			updatestatus AS "updatestatus"
+		FROM v_c_ins_business_info
+		WHERE spjgptdm = #{spjgptdm} and lxphoneone = #{lxphoneone}
+	</select>
+
+	<!-- 获取投资平台的国别行业列表 -->
+	<select id="findTzptGbhyList" resultType="HashMap">
+		select sortcode as "sortCode",sortname as "sortName",parentname as "parentName",to_char(layer) as "layer",parentid as "parentId"
+		from v_t_spsx_permissionsort
+		where parentid != '002' and sortcode != '002'
+		order by layer
+	</select>
+
+	<!-- 根据 sortcode 获取国别行业 -->
+	<select id="getTzptGbhy" resultType="HashMap">
+		select sortcode as "sortCode",sortname as "sortName",parentname as "parentName",to_char(layer) as "layer",parentid as "parentId"
+		from v_t_spsx_permissionsort
+		where sortcode = #{sortCode}
+		order by layer
+	</select>
+
+	<!-- 获取投资平台的所属行业列表 -->
+	<select id="findTzptSshyList" resultType="HashMap">
+		select a.value as "sortCode",a.label as "sortName"
+		from v_zy_sys_dict a
+		where type = '411'
+		order by length(a.value) asc
+	</select>
+
+	<!-- 根据 sortcode 获取所属行业 -->
+	<select id="getTzptSshy" resultType="HashMap">
+		select a.value as "sortCode",a.label as "sortName"
+		from v_zy_sys_dict a
+		where a.type = '411' and a.value = #{sortCode}
+	</select>
+	<select id="getSbbmByXmjbxx" resultType="HashMap">
+		SELECT 
+			g.name As name
+		FROM xmjbxx a
+		LEFT JOIN c_ins_business_xmjbxx_dept_relation f on a.id = f.xmjbxx_id and f.type='2'
+        LEFT JOIN sys_office g on g.id = f.dept_id
+		WHERE a.id = #{xmjbxxid}
+	</select>
+	<select id="getnamebyuserid" resultType="HashMap">
+		SELECT 
+			name As name
+		From SYS_USER
+		WHERE id = #{userid}
+	</select>
+	
+</mapper>

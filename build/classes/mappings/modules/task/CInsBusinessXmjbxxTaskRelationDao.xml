@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.task.dao.CInsBusinessXmjbxxTaskRelationDao">
+    
+	<sql id="cInsBusinessXmjbxxTaskRelationColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.xmjbxx_id AS "xmjbxx.id",
+		a.task_id AS "task.id",
+		a.status AS "status",
+		a.finish_date AS "finishDate",
+		a.feedback AS "feedback",
+		a.dest_dept_id AS "destDeptId",
+		x.xmmc AS "xmjbxx.xmmc",
+		x.sshy AS "xmjbxx.sshy",
+        x.xmlx AS "xmjbxx.xmlx",
+        x.jsxz AS "xmjbxx.jsxz",
+        x.jsdd AS "xmjbxx.jsdd",
+        x.ztz AS "xmjbxx.ztz",
+        b.name as "task.name",
+        b.type as "task.type"
+	</sql>
+
+	<sql id="cInsBusinessXmjbxxTaskRelationFullColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.xmjbxx_id AS "xmjbxx.id",
+		a.task_id AS "task.id",
+		a.status AS "status",
+		a.finish_date AS "finishDate",
+		a.feedback AS "feedback",
+		a.dest_dept_id AS "destDeptId",
+		b.xmmc AS "xmjbxx.xmmc",
+		b.xmlx AS "xmjbxx.xmlx",
+		b.jsdd AS "xmjbxx.jsdd",
+		b.sshy AS "xmjbxx.sshy",
+		b.ztz AS "xmjbxx.ztz",
+		c.status AS "task.status",
+		c.type AS "task.type",
+		c.name AS "task.name",
+		c.start_date AS "task.startDate",
+		c.end_date AS "task.endDate",
+		c.requirement AS "task.requirement",
+		d.id AS "task.dept_id",
+		d.name AS "task.dept.name"
+	</sql>
+
+	<sql id="cInsBusinessXmjbxxTaskRelationJoins">
+	</sql>
+
+	<sql id="cInsBusinessXmjbxxTaskRelationFullJoins">
+		LEFT JOIN xmjbxx b on b.id = a.xmjbxx_id
+		LEFT JOIN c_ins_business_scheduler_task c on c.id = a.task_id
+		LEFT JOIN sys_office d on d.id = c.dept_id
+	</sql>
+
+	<select id="get" resultType="CInsBusinessXmjbxxTaskRelation" >
+		SELECT 
+			<include refid="cInsBusinessXmjbxxTaskRelationFullColumns"/>
+		FROM c_ins_business_xmjbxx_task_relation a
+			<include refid="cInsBusinessXmjbxxTaskRelationFullJoins"/>
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="findList" resultType="CInsBusinessXmjbxxTaskRelation" >
+		SELECT 
+			<include refid="cInsBusinessXmjbxxTaskRelationColumns"/>
+		FROM c_ins_business_xmjbxx_task_relation a
+		,c_ins_business_scheduler_task b,
+        xmjbxx x
+		<include refid="cInsBusinessXmjbxxTaskRelationJoins"/>
+		<where>
+			b.id        = a.task_id
+            AND a.XMJBXX_ID = x.id
+			AND a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="xmjbxx != null and xmjbxx.id != null and xmjbxx.id != ''">
+				AND a.xmjbxx_id = #{xmjbxx.id}
+			</if>
+			<if test="task != null and task.id != null and task.id != ''">
+				AND a.task_id = #{task.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="finishDate != null and finishDate != ''">
+				AND a.finish_date = #{finishDate}
+			</if>
+			<if test="feedback != null and feedback != ''">
+				AND a.feedback = #{feedback}
+			</if>
+			<if test="destDeptId != null and destDeptId != ''">
+				AND a.dest_dept_id = #{destDeptId}
+			</if>
+			<if test="task_id != null and task_id != null and task_id != ''">
+				AND a.task_id = #{task_id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findAllList" resultType="CInsBusinessXmjbxxTaskRelation" >
+		SELECT
+			<include refid="cInsBusinessXmjbxxTaskRelationColumns"/>
+		FROM c_ins_business_xmjbxx_task_relation a
+		<include refid="cInsBusinessXmjbxxTaskRelationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO c_ins_business_xmjbxx_task_relation(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			xmjbxx_id,
+			task_id,
+			status,
+			finish_date,
+			feedback,
+			dest_dept_id
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{xmjbxx.id},
+			#{task.id},
+			#{status},
+			#{finishDate},
+			#{feedback},
+			#{destDeptId}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE c_ins_business_xmjbxx_task_relation SET
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			xmjbxx_id = #{xmjbxx.id},
+			task_id = #{task.id},
+			status = #{status},
+			finish_date = #{finishDate},
+			feedback = #{feedback},
+			dest_dept_id = #{destDeptId}
+		WHERE id = #{id}
+	</update>
+
+
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_xmjbxx_task_relation
+		WHERE id = #{id}
+	</update>
+
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_xmjbxx_task_relation SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessXmjbxxTaskRelation" statementType="STATEMENT">
+		select * FROM c_ins_business_xmjbxx_task_relation  where ${propertyName} = '${value}'
+	</select>
+
+	<select id="findFullListByParameter" resultType="CInsBusinessXmjbxxTaskRelation" >
+		SELECT
+			<include refid="cInsBusinessXmjbxxTaskRelationFullColumns"/>
+		FROM c_ins_business_xmjbxx_task_relation a
+		<include refid="cInsBusinessXmjbxxTaskRelationFullJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and (c.wdddrwdc is  null or c.wdddrwdc  != '1')
+			
+			<if test="task != null and task.id != null and task.id != ''">
+				AND a.task_id = #{task.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="finishDate != null and finishDate != ''">
+				AND a.finish_date = #{finishDate}
+			</if>
+			<if test="feedback != null and feedback != ''">
+				AND a.feedback = #{feedback}
+			</if>
+	        <if test="destDeptId != null and destDeptId != ''">
+				AND a.xmjbxx_id  in (select distinct xmjbxx_id from C_INS_BUSINESS_XMJBXX_DEPT_RELATION  where dept_id=#{destDeptId}) 
+			</if> 
+			<if test="null != startDateStart">
+				AND c.start_date >= #{startDateStart}
+			</if>
+			<if test="null != startDateEnd">
+				AND c.start_date &lt;= #{startDateEnd}
+			</if>
+			<if test="null != endDateStart">
+				AND c.end_date >= #{endDateStart}
+			</if>
+			<if test="null != endDateEnd">
+				AND c.end_date &lt;= #{endDateEnd}
+			</if>
+			<if test="xmjbxx != null">
+				<if test="xmjbxx.id != null and xmjbxx.id != ''">
+					AND a.xmjbxx_id = #{xmjbxx.id}
+				</if>
+				<if test="xmjbxx.xmmc != null and xmjbxx.xmmc != ''">
+					AND b.xmmc LIKE
+					<if test="dbName == 'oracle'">'%'||#{xmjbxx.xmmc}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{xmjbxx.xmmc}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{xmjbxx.xmmc},'%')</if>
+				</if>
+				<if test="xmjbxx.stage != null and xmjbxx.stage != ''">
+					AND b.stage = #{xmjbxx.stage}
+				</if>
+				<if test="xmjbxx.cj != null and xmjbxx.cj != ''">
+					AND b.cj = #{xmjbxx.cj}
+				</if>
+				<if test="xmjbxx.zt != null and xmjbxx.zt != ''">
+					AND b.zt = #{xmjbxx.zt}
+				</if>
+				<if test="xmjbxx.sshy != null and xmjbxx.sshy != ''">
+					AND b.sshy = #{xmjbxx.sshy}
+				</if>
+				<if test="xmjbxx.jsdd != null and xmjbxx.jsdd != ''">
+					AND b.jsdd = #{xmjbxx.jsdd}
+				</if>
+			</if>
+			<if test="task != null">
+				<if test="task.name != null and task.name != ''">
+					AND c.name LIKE
+					<if test="dbName == 'oracle'">'%'||#{task.name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{task.name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{task.name},'%')</if>
+				</if>
+				<if test="task.type != null and task.type != ''">
+					AND c.type = #{task.type}
+				</if>
+				<if test="task.origin != null and task.origin != ''">
+					AND c.origin = #{task.origin}
+				</if>
+				<if test="task.issueDate != null and task.issueDate != ''">
+					AND c.issue_date = #{task.issueDate}
+				</if>
+				<if test="task.status != null and task.status != ''">
+					AND c.status = #{task.status}
+				</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findFullListByParameterTwo" resultType="CInsBusinessXmjbxxTaskRelation" >
+		SELECT
+			<include refid="cInsBusinessXmjbxxTaskRelationFullColumns"/>
+		FROM c_ins_business_xmjbxx_task_relation a
+		LEFT JOIN xmjbxx b on b.id = a.xmjbxx_id
+		LEFT JOIN c_ins_business_scheduler_task c on c.id = a.task_id
+		LEFT JOIN sys_office d on d.id = c.dept_id
+		LEFT JOIN c_ins_business_ssqk e on b.id = e.xmjbxx_id
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and e.name is null
+			
+			<if test="task != null and task.id != null and task.id != ''">
+				AND a.task_id = #{task.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="finishDate != null and finishDate != ''">
+				AND a.finish_date = #{finishDate}
+			</if>
+			<if test="feedback != null and feedback != ''">
+				AND a.feedback = #{feedback}
+			</if>
+	        <if test="destDeptId != null and destDeptId != ''">
+				AND a.xmjbxx_id  in (select distinct xmjbxx_id from C_INS_BUSINESS_XMJBXX_DEPT_RELATION  where dept_id=#{destDeptId}) 
+			</if> 
+			<if test="null != startDateStart">
+				AND c.start_date >= #{startDateStart}
+			</if>
+			<if test="null != startDateEnd">
+				AND c.start_date &lt;= #{startDateEnd}
+			</if>
+			<if test="null != endDateStart">
+				AND c.end_date >= #{endDateStart}
+			</if>
+			<if test="null != endDateEnd">
+				AND c.end_date &lt;= #{endDateEnd}
+			</if>
+			<if test="xmjbxx != null">
+				<if test="xmjbxx.id != null and xmjbxx.id != ''">
+					AND a.xmjbxx_id = #{xmjbxx.id}
+				</if>
+				<if test="xmjbxx.xmmc != null and xmjbxx.xmmc != ''">
+					AND b.xmmc LIKE
+					<if test="dbName == 'oracle'">'%'||#{xmjbxx.xmmc}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{xmjbxx.xmmc}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{xmjbxx.xmmc},'%')</if>
+				</if>
+				<if test="xmjbxx.stage != null and xmjbxx.stage != ''">
+					AND b.stage = #{xmjbxx.stage}
+				</if>
+				<if test="xmjbxx.cj != null and xmjbxx.cj != ''">
+					AND b.cj = #{xmjbxx.cj}
+				</if>
+				<if test="xmjbxx.zt != null and xmjbxx.zt != ''">
+					AND b.zt = #{xmjbxx.zt}
+				</if>
+				<if test="xmjbxx.sshy != null and xmjbxx.sshy != ''">
+					AND b.sshy = #{xmjbxx.sshy}
+				</if>
+				<if test="xmjbxx.jsdd != null and xmjbxx.jsdd != ''">
+					AND b.jsdd = #{xmjbxx.jsdd}
+				</if>
+			</if>
+			<if test="task != null">
+				<if test="task.name != null and task.name != ''">
+					AND c.name LIKE
+					<if test="dbName == 'oracle'">'%'||#{task.name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{task.name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{task.name},'%')</if>
+				</if>
+				<if test="task.type != null and task.type != ''">
+					AND c.type = #{task.type}
+				</if>
+				<if test="task.origin != null and task.origin != ''">
+					AND c.origin = #{task.origin}
+				</if>
+				<if test="task.issueDate != null and task.issueDate != ''">
+					AND c.issue_date = #{task.issueDate}
+				</if>
+				<if test="task.status != null and task.status != ''">
+					AND c.status = #{task.status}
+				</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findFullListByParameterOne" resultType="CInsBusinessXmjbxxTaskRelation" >
+		SELECT
+			<include refid="cInsBusinessXmjbxxTaskRelationFullColumns"/>
+		FROM c_ins_business_xmjbxx_task_relation a
+		<include refid="cInsBusinessXmjbxxTaskRelationFullJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and c.wdddrwdc = '1'
+			
+			<if test="task != null and task.id != null and task.id != ''">
+				AND a.task_id = #{task.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="finishDate != null and finishDate != ''">
+				AND a.finish_date = #{finishDate}
+			</if>
+			<if test="feedback != null and feedback != ''">
+				AND a.feedback = #{feedback}
+			</if>
+	        <if test="destDeptId != null and destDeptId != ''">
+				AND a.xmjbxx_id  in (select distinct xmjbxx_id from C_INS_BUSINESS_XMJBXX_DEPT_RELATION  where dept_id=#{destDeptId}) 
+			</if> 
+			<if test="null != startDateStart">
+				AND c.start_date >= #{startDateStart}
+			</if>
+			<if test="null != startDateEnd">
+				AND c.start_date &lt;= #{startDateEnd}
+			</if>
+			<if test="null != endDateStart">
+				AND c.end_date >= #{endDateStart}
+			</if>
+			<if test="null != endDateEnd">
+				AND c.end_date &lt;= #{endDateEnd}
+			</if>
+			<if test="xmjbxx != null">
+				<if test="xmjbxx.id != null and xmjbxx.id != ''">
+					AND a.xmjbxx_id = #{xmjbxx.id}
+				</if>
+				<if test="xmjbxx.xmmc != null and xmjbxx.xmmc != ''">
+					AND b.xmmc LIKE
+					<if test="dbName == 'oracle'">'%'||#{xmjbxx.xmmc}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{xmjbxx.xmmc}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{xmjbxx.xmmc},'%')</if>
+				</if>
+				<if test="xmjbxx.stage != null and xmjbxx.stage != ''">
+					AND b.stage = #{xmjbxx.stage}
+				</if>
+				<if test="xmjbxx.cj != null and xmjbxx.cj != ''">
+					AND b.cj = #{xmjbxx.cj}
+				</if>
+				<if test="xmjbxx.zt != null and xmjbxx.zt != ''">
+					AND b.zt = #{xmjbxx.zt}
+				</if>
+				<if test="xmjbxx.sshy != null and xmjbxx.sshy != ''">
+					AND b.sshy = #{xmjbxx.sshy}
+				</if>
+				<if test="xmjbxx.jsdd != null and xmjbxx.jsdd != ''">
+					AND b.jsdd = #{xmjbxx.jsdd}
+				</if>
+			</if>
+			<if test="task != null">
+				<if test="task.name != null and task.name != ''">
+					AND c.name LIKE
+					<if test="dbName == 'oracle'">'%'||#{task.name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{task.name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{task.name},'%')</if>
+				</if>
+				<if test="task.type != null and task.type != ''">
+					AND c.type = #{task.type}
+				</if>
+				<if test="task.origin != null and task.origin != ''">
+					AND c.origin = #{task.origin}
+				</if>
+				<if test="task.issueDate != null and task.issueDate != ''">
+					AND c.issue_date = #{task.issueDate}
+				</if>
+				<if test="task.status != null and task.status != ''">
+					AND c.status = #{task.status}
+				</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<update id="updadate">
+		UPDATE c_ins_business_xmjbxx_task_relation SET
+			update_date = #{day}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findFullPageByParameterfive" resultType="CInsBusinessXmjbxxTaskRelation" >
+		SELECT
+			<include refid="cInsBusinessXmjbxxTaskRelationFullColumns"/>
+		FROM c_ins_business_xmjbxx_task_relation a
+		<include refid="cInsBusinessXmjbxxTaskRelationFullJoins"/>
+		LEFT JOIN C_INS_BUSINESS_SSQK h on a.id = h.task_relation_id
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and (c.wdddrwdc is  null or c.wdddrwdc  != '1')
+			and h.ztbxs is null
+			
+			<if test="task != null and task.id != null and task.id != ''">
+				AND a.task_id = #{task.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="finishDate != null and finishDate != ''">
+				AND a.finish_date = #{finishDate}
+			</if>
+			<if test="feedback != null and feedback != ''">
+				AND a.feedback = #{feedback}
+			</if>
+	        <if test="destDeptId != null and destDeptId != ''">
+				AND a.xmjbxx_id  in (select distinct xmjbxx_id from C_INS_BUSINESS_XMJBXX_DEPT_RELATION  where dept_id=#{destDeptId}) 
+			</if> 
+			<if test="null != startDateStart">
+				AND c.start_date >= #{startDateStart}
+			</if>
+			<if test="null != startDateEnd">
+				AND c.start_date &lt;= #{startDateEnd}
+			</if>
+			<if test="null != endDateStart">
+				AND c.end_date >= #{endDateStart}
+			</if>
+			<if test="null != endDateEnd">
+				AND c.end_date &lt;= #{endDateEnd}
+			</if>
+			<if test="xmjbxx != null">
+				<if test="xmjbxx.id != null and xmjbxx.id != ''">
+					AND a.xmjbxx_id = #{xmjbxx.id}
+				</if>
+				<if test="xmjbxx.xmmc != null and xmjbxx.xmmc != ''">
+					AND b.xmmc LIKE
+					<if test="dbName == 'oracle'">'%'||#{xmjbxx.xmmc}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{xmjbxx.xmmc}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{xmjbxx.xmmc},'%')</if>
+				</if>
+				<if test="xmjbxx.stage != null and xmjbxx.stage != ''">
+					AND b.stage = #{xmjbxx.stage}
+				</if>
+				<if test="xmjbxx.cj != null and xmjbxx.cj != ''">
+					AND b.cj = #{xmjbxx.cj}
+				</if>
+				<if test="xmjbxx.zt != null and xmjbxx.zt != ''">
+					AND b.zt = #{xmjbxx.zt}
+				</if>
+				<if test="xmjbxx.sshy != null and xmjbxx.sshy != ''">
+					AND b.sshy = #{xmjbxx.sshy}
+				</if>
+				<if test="xmjbxx.jsdd != null and xmjbxx.jsdd != ''">
+					AND b.jsdd = #{xmjbxx.jsdd}
+				</if>
+			</if>
+			<if test="task != null">
+				<if test="task.name != null and task.name != ''">
+					AND c.name LIKE
+					<if test="dbName == 'oracle'">'%'||#{task.name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{task.name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{task.name},'%')</if>
+				</if>
+				<if test="task.type != null and task.type != ''">
+					AND c.type = #{task.type}
+				</if>
+				<if test="task.origin != null and task.origin != ''">
+					AND c.origin = #{task.origin}
+				</if>
+				<if test="task.issueDate != null and task.issueDate != ''">
+					AND c.issue_date = #{task.issueDate}
+				</if>
+				<if test="task.status != null and task.status != ''">
+					AND c.status = #{task.status}
+				</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findFullPageByParametersix" resultType="CInsBusinessXmjbxxTaskRelation" >
+		SELECT
+			<include refid="cInsBusinessXmjbxxTaskRelationFullColumns"/>
+		FROM c_ins_business_xmjbxx_task_relation a
+		<include refid="cInsBusinessXmjbxxTaskRelationFullJoins"/>
+		LEFT JOIN C_INS_BUSINESS_SSQK h on a.id = h.task_relation_id
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and (c.wdddrwdc is  null or c.wdddrwdc  != '1')
+			and h.ztbxs is null
+			and ((to_date(sysdate,'syyyy-mm-dd')-to_date(c.END_DATE,'syyyy-mm-dd'))> 3) 
+			<if test="task != null and task.id != null and task.id != ''">
+				AND a.task_id = #{task.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="finishDate != null and finishDate != ''">
+				AND a.finish_date = #{finishDate}
+			</if>
+			<if test="feedback != null and feedback != ''">
+				AND a.feedback = #{feedback}
+			</if>
+	        <if test="destDeptId != null and destDeptId != ''">
+				AND a.xmjbxx_id  in (select distinct xmjbxx_id from C_INS_BUSINESS_XMJBXX_DEPT_RELATION  where dept_id=#{destDeptId}) 
+			</if> 
+			<if test="null != startDateStart">
+				AND c.start_date >= #{startDateStart}
+			</if>
+			<if test="null != startDateEnd">
+				AND c.start_date &lt;= #{startDateEnd}
+			</if>
+			<if test="null != endDateStart">
+				AND c.end_date >= #{endDateStart}
+			</if>
+			<if test="null != endDateEnd">
+				AND c.end_date &lt;= #{endDateEnd}
+			</if>
+			<if test="xmjbxx != null">
+				<if test="xmjbxx.id != null and xmjbxx.id != ''">
+					AND a.xmjbxx_id = #{xmjbxx.id}
+				</if>
+				<if test="xmjbxx.xmmc != null and xmjbxx.xmmc != ''">
+					AND b.xmmc LIKE
+					<if test="dbName == 'oracle'">'%'||#{xmjbxx.xmmc}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{xmjbxx.xmmc}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{xmjbxx.xmmc},'%')</if>
+				</if>
+				<if test="xmjbxx.stage != null and xmjbxx.stage != ''">
+					AND b.stage = #{xmjbxx.stage}
+				</if>
+				<if test="xmjbxx.cj != null and xmjbxx.cj != ''">
+					AND b.cj = #{xmjbxx.cj}
+				</if>
+				<if test="xmjbxx.zt != null and xmjbxx.zt != ''">
+					AND b.zt = #{xmjbxx.zt}
+				</if>
+				<if test="xmjbxx.sshy != null and xmjbxx.sshy != ''">
+					AND b.sshy = #{xmjbxx.sshy}
+				</if>
+				<if test="xmjbxx.jsdd != null and xmjbxx.jsdd != ''">
+					AND b.jsdd = #{xmjbxx.jsdd}
+				</if>
+			</if>
+			<if test="task != null">
+				<if test="task.name != null and task.name != ''">
+					AND c.name LIKE
+					<if test="dbName == 'oracle'">'%'||#{task.name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{task.name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{task.name},'%')</if>
+				</if>
+				<if test="task.type != null and task.type != ''">
+					AND c.type = #{task.type}
+				</if>
+				<if test="task.origin != null and task.origin != ''">
+					AND c.origin = #{task.origin}
+				</if>
+				<if test="task.issueDate != null and task.issueDate != ''">
+					AND c.issue_date = #{task.issueDate}
+				</if>
+				<if test="task.status != null and task.status != ''">
+					AND c.status = #{task.status}
+				</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

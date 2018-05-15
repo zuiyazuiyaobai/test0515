@@ -1,0 +1,1 @@
+alter table "ZDXM_JEEPLUS"."C_INS_BUSINESS_SCHEDULER_TASK" add column("STATUS" VARCHAR2(64));comment on column "ZDXM_JEEPLUS"."C_INS_BUSINESS_SCHEDULER_TASK"."STATUS" is '任务状态（1.未下发）';

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.sjjxm.dao.CInsSjjxmDao">
+    
+	<sql id="cInsSjjxmColumns">
+		a.id AS "id",
+		a.ereaid AS "ereaid",
+		a.ereaname AS "ereaname",
+		a.hyid AS "hyid",
+		a.hnname AS "hnname",
+		a.xmgs AS "xmgs",
+		a.ztz AS "ztz",
+		a.xdtzze AS "xdtzze",
+		a.xdtz_sjjtz AS "xdtzSjjtz",
+		a.ykgxmgs AS "ykgxmgs",
+		a.ywgxmgs AS "ywgxmgs",
+		a.ztzwcqk AS "ztzwcqk",
+		a.sjjtzwcqk AS "sjjtzwcqk",
+		a.tzwcl AS "tzwcl",
+		a.sjjtzwcl AS "sjjtzwcl",
+		a.ztzdwqk AS "ztzdwqk",
+		a.sjjtzdwqk AS "sjjtzdwqk",
+		a.zjdwl AS "zjdwl",
+		a.sjjtzdwl AS "sjjtzdwl",
+		a.ztzzfqk AS "ztzzfqk",
+		a.sjjtzzfqk AS "sjjtzzfqk",
+		a.zjzfl AS "zjzfl",
+		a.sjjtzzfl AS "sjjtzzfl",
+		a.kgl AS "kgl",
+		a.wgl AS "wgl"
+	</sql>
+	
+	<sql id="cInsSjjxmJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsSjjxm" >
+		SELECT 
+			<include refid="cInsSjjxmColumns"/>
+		FROM c_ins_sjjxm a
+		<include refid="cInsSjjxmJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsSjjxm" >
+		SELECT 
+			<include refid="cInsSjjxmColumns"/>
+		FROM c_ins_sjjxm a
+		<include refid="cInsSjjxmJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsSjjxm" >
+		SELECT 
+			<include refid="cInsSjjxmColumns"/>
+		FROM c_ins_sjjxm a
+		<include refid="cInsSjjxmJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_sjjxm(
+			id,
+			ereaid,
+			ereaname,
+			hyid,
+			hnname,
+			xmgs,
+			ztz,
+			xdtzze,
+			xdtz_sjjtz,
+			ykgxmgs,
+			ywgxmgs,
+			ztzwcqk,
+			sjjtzwcqk,
+			tzwcl,
+			sjjtzwcl,
+			ztzdwqk,
+			sjjtzdwqk,
+			zjdwl,
+			sjjtzdwl,
+			ztzzfqk,
+			sjjtzzfqk,
+			zjzfl,
+			sjjtzzfl,
+			kgl,
+			wgl
+		) VALUES (
+			#{id},
+			#{ereaid},
+			#{ereaname},
+			#{hyid},
+			#{hnname},
+			#{xmgs},
+			#{ztz},
+			#{xdtzze},
+			#{xdtzSjjtz},
+			#{ykgxmgs},
+			#{ywgxmgs},
+			#{ztzwcqk},
+			#{sjjtzwcqk},
+			#{tzwcl},
+			#{sjjtzwcl},
+			#{ztzdwqk},
+			#{sjjtzdwqk},
+			#{zjdwl},
+			#{sjjtzdwl},
+			#{ztzzfqk},
+			#{sjjtzzfqk},
+			#{zjzfl},
+			#{sjjtzzfl},
+			#{kgl},
+			#{wgl}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_sjjxm SET 	
+			ereaid = #{ereaid},
+			ereaname = #{ereaname},
+			hyid = #{hyid},
+			hnname = #{hnname},
+			xmgs = #{xmgs},
+			ztz = #{ztz},
+			xdtzze = #{xdtzze},
+			xdtz_sjjtz = #{xdtzSjjtz},
+			ykgxmgs = #{ykgxmgs},
+			ywgxmgs = #{ywgxmgs},
+			ztzwcqk = #{ztzwcqk},
+			sjjtzwcqk = #{sjjtzwcqk},
+			tzwcl = #{tzwcl},
+			sjjtzwcl = #{sjjtzwcl},
+			ztzdwqk = #{ztzdwqk},
+			sjjtzdwqk = #{sjjtzdwqk},
+			zjdwl = #{zjdwl},
+			sjjtzdwl = #{sjjtzdwl},
+			ztzzfqk = #{ztzzfqk},
+			sjjtzzfqk = #{sjjtzzfqk},
+			zjzfl = #{zjzfl},
+			sjjtzzfl = #{sjjtzzfl},
+			kgl = #{kgl},
+			wgl = #{wgl}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_sjjxm
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_sjjxm SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsSjjxm" statementType="STATEMENT">
+		select * FROM c_ins_sjjxm  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

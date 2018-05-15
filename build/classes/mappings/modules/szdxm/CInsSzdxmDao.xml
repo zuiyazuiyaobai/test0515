@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.szdxm.dao.CInsSzdxmDao">
+    
+	<sql id="cInsSzdxmColumns">
+		a.id AS "id",
+		a.hyid AS "hyid",
+		a.hyname AS "hyname",
+		a.xmgs AS "xmgs",
+		a.ztz AS "ztz",
+		a.ndjhtz AS "ndjhtz",
+		a.ywctz AS "ywctz",
+		a.bndywctz AS "bndywctz",
+		a.ykgxmgs AS "ykgxmgs",
+		a.ywgxmgs AS "ywgxmgs",
+		a.tzwcl AS "tzwcl",
+		a.ndtzwcl AS "ndtzwcl",
+		a.ykgzykgbl AS "ykgzykgbl",
+		a.ywgzywgbl AS "ywgzywgbl"
+	</sql>
+	
+	<sql id="cInsSzdxmJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsSzdxm" >
+		SELECT 
+			<include refid="cInsSzdxmColumns"/>
+		FROM c_ins_szdxm a
+		<include refid="cInsSzdxmJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsSzdxm" >
+		SELECT 
+			<include refid="cInsSzdxmColumns"/>
+		FROM c_ins_szdxm a
+		<include refid="cInsSzdxmJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsSzdxm" >
+		SELECT 
+			<include refid="cInsSzdxmColumns"/>
+		FROM c_ins_szdxm a
+		<include refid="cInsSzdxmJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_szdxm(
+			id,
+			hyid,
+			hyname,
+			xmgs,
+			ztz,
+			ndjhtz,
+			ywctz,
+			bndywctz,
+			ykgxmgs,
+			ywgxmgs,
+			tzwcl,
+			ndtzwcl,
+			ykgzykgbl,
+			ywgzywgbl
+		) VALUES (
+			#{id},
+			#{hyid},
+			#{hyname},
+			#{xmgs},
+			#{ztz},
+			#{ndjhtz},
+			#{ywctz},
+			#{bndywctz},
+			#{ykgxmgs},
+			#{ywgxmgs},
+			#{tzwcl},
+			#{ndtzwcl},
+			#{ykgzykgbl},
+			#{ywgzywgbl}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_szdxm SET 	
+			hyid = #{hyid},
+			hyname = #{hyname},
+			xmgs = #{xmgs},
+			ztz = #{ztz},
+			ndjhtz = #{ndjhtz},
+			ywctz = #{ywctz},
+			bndywctz = #{bndywctz},
+			ykgxmgs = #{ykgxmgs},
+			ywgxmgs = #{ywgxmgs},
+			tzwcl = #{tzwcl},
+			ndtzwcl = #{ndtzwcl},
+			ykgzykgbl = #{ykgzykgbl},
+			ywgzywgbl = #{ywgzywgbl}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_szdxm
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_szdxm SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsSzdxm" statementType="STATEMENT">
+		select * FROM c_ins_szdxm  where ${propertyName} = '${value}'
+	</select>
+	<select id="findPageByhylb" resultType="HashMap" >
+		select a.zyjsgm AS jszgm, nvl(a.ztz,'0') AS ztz, 
+		b.sjkgsj AS sjkgsj, 
+		b.sjjgsj AS sjjgsj, 
+		nvl(c.ndljwc,'0') AS ndljwc ,
+		d.zjxq AS zjxq,
+		nvl(b.zyysntz_jzbbgljwcjj,'0') AS zyysntz_jzbbgljwcjj,  
+		nvl(b.qtzyczxjszj_jzbbgljwcjj,'0') AS qtzyczxjszj_jzbbgljwcjj,  
+		nvl(b.zxzqmjjszj_jzbbgljwcjj,'0') AS zxzqmjjszj_jzbbgljwcjj,  
+		nvl(b.zysljszj_jzbbgljwcjj,'0') AS zysljszj_jzbbgljwcjj,  
+		nvl(b.nsbdgczj_jzbbgljwcjj,'0') AS nsbdgczj_jzbbgljwcjj,  
+		nvl(b.tljszxzj_jzbbgljwcjj,'0') AS tljszxzj_jzbbgljwcjj,  
+		nvl(b.mhfzzj_jzbbgljwcjj,'0') AS mhfzzj_jzbbgljwcjj,  
+		nvl(b.gjzdslgcjszj_jzbbgljwcjj,'0') AS gjzdslgcjszj_jzbbgljwcjj,  
+		nvl(b.dzxskymhqfczj_jzbbgljwcjj,'0') AS dzxskymhqfczj_jzbbgljwcjj,  
+		nvl(b.dzxskymhqfcjyzj_jzbbgljwcjj,'0') AS dzxskymhqfcjyzj_jzbbgljwcjj, 
+		nvl(b.glgkjszj_jzbbgljwcjj,'0') AS glgkjszj_jzbbgljwcjj,  
+		nvl(b.sjysntz_jzbbgljwcjj,'0') AS sjysntz_jzbbgljwcjj, 
+		nvl(b.cityjysntz_jzbbgljwcjj,'0') AS cityjysntz_jzbbgljwcjj, 
+		nvl(b.xjysntz_jzbbgljwcjj,'0') AS xjysntz_jzbbgljwcjj,  
+		nvl(b.sjczzj_jzbbgljwcjj,'0') AS sjczzj_jzbbgljwcjj,  
+		nvl(b.cityjczzj_jzbbgljwcjj,'0') AS cityjczzj_jzbbgljwcjj, 
+		nvl(b.xjczzj_jzbbgljwcjj,'0') AS xjczzj_jzbbgljwcjj,  
+		nvl(b.dfzxjszj_jzbbgljwcjj,'0') AS dfzxjszj_jzbbgljwcjj, 
+		nvl(b.qyzytz_jzbbgljwcjj,'0') AS qyzytz_jzbbgljwcjj, 
+		nvl(b.yhdk_jzbbgljwcjj,'0') AS yhdk_jzbbgljwcjj,
+		nvl(b.lywz_jzbbgljwcjj,'0') AS lywz_jzbbgljwcjj ,
+		nvl(b.zjqddd_jzbbgljwcjj,'0') AS zjqddd_jzbbgljwcjj, 
+		nvl(b.qtzj_jzbbgljwcjj,'0') AS qtzj_jzbbgljwcjj 
+		from xmjbxx a 
+		left join (select xmjbxx_id,sjkgsj,sjjgsj,id,update_date,
+					zyysntz_jzbbgljwcjj,qtzyczxjszj_jzbbgljwcjj,zxzqmjjszj_jzbbgljwcjj,zysljszj_jzbbgljwcjj,nsbdgczj_jzbbgljwcjj  
+					,tljszxzj_jzbbgljwcjj,mhfzzj_jzbbgljwcjj,gjzdslgcjszj_jzbbgljwcjj,dzxskymhqfczj_jzbbgljwcjj,dzxskymhqfcjyzj_jzbbgljwcjj 
+					,glgkjszj_jzbbgljwcjj,sjysntz_jzbbgljwcjj,cityjysntz_jzbbgljwcjj,xjysntz_jzbbgljwcjj,sjczzj_jzbbgljwcjj  
+					,cityjczzj_jzbbgljwcjj,xjczzj_jzbbgljwcjj,dfzxjszj_jzbbgljwcjj,qyzytz_jzbbgljwcjj,yhdk_jzbbgljwcjj
+					,lywz_jzbbgljwcjj,zjqddd_jzbbgljwcjj,qtzj_jzbbgljwcjj, row_number() over(partition by xmjbxx_id order by update_date desc) as row_index  from c_ins_business_ssqk e ) b on a.id = b.xmjbxx_id 
+		left join c_ins_business_zdxmk c on a.id = c.xmjbxx_id 
+		left join (select sum(zjxq) zjxq,xmjbxx_id from c_ins_business_tzqk group by xmjbxx_id) d on a.id=d.xmjbxx_id
+		where c.zdkhylb=#{hylb} and row_index='1'
+	</select>
+	<select id="findPageByhylb2" resultType="HashMap" >
+		select a.zyjsgm AS jszgm, nvl(a.ztz,'0') AS ztz, 
+		b.sjkgsj AS sjkgsj, 
+		b.sjjgsj AS sjjgsj, 
+		nvl(c.ndljwc,'0') AS ndljwc ,
+		nvl(b.zyysntz_jzbbgljwcjj,'0') AS zyysntz_jzbbgljwcjj,  
+		nvl(b.qtzyczxjszj_jzbbgljwcjj,'0') AS qtzyczxjszj_jzbbgljwcjj,  
+		nvl(b.zxzqmjjszj_jzbbgljwcjj,'0') AS zxzqmjjszj_jzbbgljwcjj,  
+		nvl(b.zysljszj_jzbbgljwcjj,'0') AS zysljszj_jzbbgljwcjj,  
+		nvl(b.nsbdgczj_jzbbgljwcjj,'0') AS nsbdgczj_jzbbgljwcjj,  
+		nvl(b.tljszxzj_jzbbgljwcjj,'0') AS tljszxzj_jzbbgljwcjj,  
+		nvl(b.mhfzzj_jzbbgljwcjj,'0') AS mhfzzj_jzbbgljwcjj,  
+		nvl(b.gjzdslgcjszj_jzbbgljwcjj,'0') AS gjzdslgcjszj_jzbbgljwcjj,  
+		nvl(b.dzxskymhqfczj_jzbbgljwcjj,'0') AS dzxskymhqfczj_jzbbgljwcjj,  
+		nvl(b.dzxskymhqfcjyzj_jzbbgljwcjj,'0') AS dzxskymhqfcjyzj_jzbbgljwcjj, 
+		nvl(b.glgkjszj_jzbbgljwcjj,'0') AS glgkjszj_jzbbgljwcjj,  
+		nvl(b.sjysntz_jzbbgljwcjj,'0') AS sjysntz_jzbbgljwcjj, 
+		nvl(b.cityjysntz_jzbbgljwcjj,'0') AS cityjysntz_jzbbgljwcjj, 
+		nvl(b.xjysntz_jzbbgljwcjj,'0') AS xjysntz_jzbbgljwcjj,  
+		nvl(b.sjczzj_jzbbgljwcjj,'0') AS sjczzj_jzbbgljwcjj,  
+		nvl(b.cityjczzj_jzbbgljwcjj,'0') AS cityjczzj_jzbbgljwcjj, 
+		nvl(b.xjczzj_jzbbgljwcjj,'0') AS xjczzj_jzbbgljwcjj,  
+		nvl(b.dfzxjszj_jzbbgljwcjj,'0') AS dfzxjszj_jzbbgljwcjj, 
+		nvl(b.qyzytz_jzbbgljwcjj,'0') AS qyzytz_jzbbgljwcjj, 
+		nvl(b.yhdk_jzbbgljwcjj,'0') AS yhdk_jzbbgljwcjj,
+		nvl(b.lywz_jzbbgljwcjj,'0') AS lywz_jzbbgljwcjj ,
+		nvl(b.zjqddd_jzbbgljwcjj,'0') AS zjqddd_jzbbgljwcjj, 
+		nvl(b.qtzj_jzbbgljwcjj,'0') AS qtzj_jzbbgljwcjj 
+		from xmjbxx a 
+		left join (select xmjbxx_id,sjkgsj,sjjgsj,id,update_date,
+					zyysntz_jzbbgljwcjj,qtzyczxjszj_jzbbgljwcjj,zxzqmjjszj_jzbbgljwcjj,zysljszj_jzbbgljwcjj,nsbdgczj_jzbbgljwcjj  
+					,tljszxzj_jzbbgljwcjj,mhfzzj_jzbbgljwcjj,gjzdslgcjszj_jzbbgljwcjj,dzxskymhqfczj_jzbbgljwcjj,dzxskymhqfcjyzj_jzbbgljwcjj 
+					,glgkjszj_jzbbgljwcjj,sjysntz_jzbbgljwcjj,cityjysntz_jzbbgljwcjj,xjysntz_jzbbgljwcjj,sjczzj_jzbbgljwcjj  
+					,cityjczzj_jzbbgljwcjj,xjczzj_jzbbgljwcjj,dfzxjszj_jzbbgljwcjj,qyzytz_jzbbgljwcjj,yhdk_jzbbgljwcjj
+					,lywz_jzbbgljwcjj,zjqddd_jzbbgljwcjj,qtzj_jzbbgljwcjj, row_number() over(partition by xmjbxx_id order by update_date desc) as row_index  from c_ins_business_ssqk e ) b on a.id = b.xmjbxx_id 
+		left join c_ins_business_zdxmk c on a.id = c.xmjbxx_id 
+		where c.zdkhylb=#{hylb} and row_index='2'
+	</select>
+	
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.xmjbxx.dao.sub.CInsBusinessZjlbNtzDao">
+    
+	<sql id="cInsBusinessZjlbNtzColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.year AS "year",
+		a.tzqk_id AS "tzqk.id",
+		a.je AS "je",
+		a.type AS "type",
+		a.sort AS "sort"
+	</sql>
+	
+	<sql id="cInsBusinessZjlbNtzJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessZjlbNtz" >
+		SELECT 
+			<include refid="cInsBusinessZjlbNtzColumns"/>
+		FROM c_ins_business_zjlb_ntz a
+		<include refid="cInsBusinessZjlbNtzJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessZjlbNtz" >
+		SELECT 
+			<include refid="cInsBusinessZjlbNtzColumns"/>
+		FROM c_ins_business_zjlb_ntz a
+		<include refid="cInsBusinessZjlbNtzJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="tzqk != null and tzqk.id != null and tzqk.id != ''">
+				and a.tzqk_id = #{tzqk.id}
+			</if>
+			<if test="type != null and type != ''">
+				and a.type = #{type}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.sort ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessZjlbNtz" >
+		SELECT 
+			<include refid="cInsBusinessZjlbNtzColumns"/>
+		FROM c_ins_business_zjlb_ntz a
+		<include refid="cInsBusinessZjlbNtzJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_zjlb_ntz(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			year,
+			tzqk_id,
+			je,
+			type,
+			sort
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{year},
+			#{tzqk.id},
+			#{je},
+			#{type},
+			#{sort}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_zjlb_ntz SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			year = #{year},
+			tzqk_id = #{tzqk.id},
+			je = #{je},
+			type = #{type},
+			sort = #{sort}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_zjlb_ntz
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_zjlb_ntz SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessZjlbNtz" statementType="STATEMENT">
+		select * FROM c_ins_business_zjlb_ntz  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

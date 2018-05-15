@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.dkxmxx.dao.DkxmxxDao">
+    
+	<sql id="dkxmxxColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.dkxmh AS "dkxmh",
+		a.dkxmmc AS "dkxmmc",
+		a.project_id AS "project_id",
+		a.project_name AS "project_name",
+		a.dkzje AS "dkzje",
+		a.project_je AS "project_je",
+		a.dkxmjsnr AS "dkxmjsnr"
+	</sql>
+	
+	<sql id="dkxmxxJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="Dkxmxx" >
+		SELECT 
+			<include refid="dkxmxxColumns"/>
+		FROM dkxmxx a
+		<include refid="dkxmxxJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Dkxmxx" >
+		SELECT 
+			<include refid="dkxmxxColumns"/>
+		FROM dkxmxx a
+		<include refid="dkxmxxJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Dkxmxx" >
+		SELECT 
+			<include refid="dkxmxxColumns"/>
+		FROM dkxmxx a
+		<include refid="dkxmxxJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO dkxmxx(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			dkxmh,
+			dkxmmc,
+			project_id,
+			project_name,
+			dkzje,
+			project_je,
+			dkxmjsnr
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{dkxmh},
+			#{dkxmmc},
+			#{project_id},
+			#{project_name},
+			#{dkzje},
+			#{project_je},
+			#{dkxmjsnr}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE dkxmxx SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			dkxmh = #{dkxmh},
+			dkxmmc = #{dkxmmc},
+			project_id = #{project_id},
+			project_name = #{project_name},
+			dkzje = #{dkzje},
+			project_je = #{project_je},
+			dkxmjsnr = #{dkxmjsnr}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM dkxmxx
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE dkxmxx SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Dkxmxx" statementType="STATEMENT">
+		select * FROM dkxmxx  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

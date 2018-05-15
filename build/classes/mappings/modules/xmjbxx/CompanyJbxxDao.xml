@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.xmjbxx.dao.CompanyJbxxDao">
+    
+	<sql id="companyJbxxColumns">
+		a.id AS "id",
+		a.qymc AS "qymc",
+		a.yyzzzch AS "yyzzzch",
+		a.fddbr AS "fddbr",
+		a.zs AS "zs",
+		a.clrq AS "clrq",
+		a.zczb AS "zczb",
+		a.jyfw AS "jyfw",
+		a.djzt AS "djzt",
+		a.lx AS "lx",
+		a.zzjgdm AS "zzjgdm",
+		a.swdjh AS "swdjh",
+		a.tyshxydm AS "tyshxydm",
+		a.hongmdsl AS "hongmdsl",
+		a.heimdsl AS "heimdsl"
+	</sql>
+	
+	<select id="getCompanyJbxx" parameterType="java.util.Map" resultType="java.util.Map" >
+		SELECT 
+			<include refid="companyJbxxColumns"/>
+		FROM companyjbxx a
+		<where>
+			1=1
+			<if test="incidtype ==2">
+				and a.yyzzzch = #{incid}
+			</if>
+			<if test="incidtype ==1">
+				and a.tyshxydm = #{incid}
+			</if>
+			<if test="incidtype ==0">
+				and a.zzjgdm = #{incid}
+			</if>
+		</where>
+	</select>
+</mapper>

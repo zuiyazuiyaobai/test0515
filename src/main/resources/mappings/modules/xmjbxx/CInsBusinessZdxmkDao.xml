@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.xmjbxx.dao.CInsBusinessZdxmkDao">
+    
+	<sql id="cInsBusinessZdxmkColumns">
+		a.xmtjdw AS "xmtjdw",
+		a.sszt AS "sszt",
+		a.jdlb AS "jdlb",
+		a.sfzsdcyjjq AS "sfzsdcyjjq",
+		a.sdcyjjqmc AS "sdcyjjqmc",
+		a.sfgjzdzl AS "sfgjzdzl",
+		a.gjzdzlqmc AS "gjzdzlqmc",
+		a.tzwce AS "tzwce",
+		a.zyyy AS "zyyy",
+		a.ndljwc AS "ndljwc",
+		a.gcxxjd AS "gcxxjd",
+		a.gyxmxzxk AS "gyxmxzxk",
+		a.gyydghxk AS "gyydghxk",
+		a.gygcghxk AS "gygcghxk",
+		a.gwxmxzxk AS "gwxmxzxk",
+		a.gwydghxk AS "gwydghxk",
+		a.gwgcghxk AS "gwgcghxk",
+		a.hytxpzh AS "hytxpzh",
+		a.hwblbpjd AS "hwblbpjd",
+		a.hwzzpfjg AS "hwzzpfjg",
+		a.sytxpzwh AS "sytxpzwh",
+		a.swpzjzqk AS "swpzjzqk",
+		a.swzzpfjg AS "swzzpfjg",
+		a.gxyd AS "gxyd",
+		a.yzdtdz AS "yzdtdz",
+		a.tdzh AS "tdzh",
+		a.dnjhzd AS "dnjhzd",
+		a.sfjbnt AS "sfjbnt",
+		a.dnzdbpqk AS "dnzdbpqk",
+		a.pfwh AS "pfwh",
+		a.zyxxjda AS "zyxxjda",
+		a.zyxxjdb AS "zyxxjdb",
+		a.zyxxjdc AS "zyxxjdc",
+		a.zyxxjdd AS "zyxxjdd",
+		a.tzjdjdmba AS "tzjdjdmba",
+		a.tzjdjdmbb AS "tzjdjdmbb",
+		a.tzjdjdmbc AS "tzjdjdmbc",
+		a.tzjdjdmbd AS "tzjdjdmbd",
+		a.jhkgrq AS "jhkgrq",
+		a.jhjgrq AS "jhjgrq",
+		a.zbdldw AS "zbdldw",
+		a.kcdw AS "kcdw",
+		a.sjdw AS "sjdw",
+		a.jldw AS "jldw",
+		a.zysgdw AS "zysgdw",
+		a.zysbmc AS "zysbmc",
+		a.id AS "id",
+		a.projectid AS "projectid",
+		a.xmjbxx_id AS "xmjbxxId",
+		a.sfsbsbib AS "sfsbsbib",
+		a.sfsjjxm AS "sfsjjxm",
+		a.ndjhtzje AS "ndjhtzje",
+		a.ndjhtzjet AS "ndjhtzjet",
+		a.ssly AS "ssly",
+		a.updatestatus AS "updatestatus",
+		a.sfsfwyzdxm AS sfsfwyzdxm,
+		a.fwyssly AS fwyssly,
+		a.sfszdold AS sfszdold,
+		a.zdkhylb AS zdkhylb,
+		a.sfzdgjcy As sfzdgjcy,
+		a.sfszdgjcy As sfszdgjcy,
+		a.sfxszdgjcy As sfxszdgjcy,
+		a.szdgjcylx As szdgjcylx,
+		a.xszdgjcylx As xszdgjcylx,
+		a.sfjsgzcy As sfjsgzcy
+	</sql>
+	
+	<sql id="cInsBusinessZdxmkJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessZdxmk" >
+		SELECT 
+			<include refid="cInsBusinessZdxmkColumns"/>
+		FROM c_ins_business_zdxmk a
+		<include refid="cInsBusinessZdxmkJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessZdxmk" >
+		SELECT 
+			<include refid="cInsBusinessZdxmkColumns"/>
+		FROM c_ins_business_zdxmk a
+		<include refid="cInsBusinessZdxmkJoins"/>
+		<where>
+			<if test="xmjbxx != null and xmjbxx.id != null and xmjbxx.id != ''">
+				AND a.xmjbxx_id = #{xmjbxx.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessZdxmk" >
+		SELECT 
+			<include refid="cInsBusinessZdxmkColumns"/>
+		FROM c_ins_business_zdxmk a
+		<include refid="cInsBusinessZdxmkJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_zdxmk(
+			xmtjdw,
+			sszt,
+			jdlb,
+			sfzsdcyjjq,
+			sdcyjjqmc,
+			sfgjzdzl,
+			gjzdzlqmc,
+			tzwce,
+			zyyy,
+			ndljwc,
+			gcxxjd,
+			gyxmxzxk,
+			gyydghxk,
+			gygcghxk,
+			gwxmxzxk,
+			gwydghxk,
+			gwgcghxk,
+			hytxpzh,
+			hwblbpjd,
+			hwzzpfjg,
+			sytxpzwh,
+			swpzjzqk,
+			swzzpfjg,
+			gxyd,
+			yzdtdz,
+			tdzh,
+			dnjhzd,
+			sfjbnt,
+			dnzdbpqk,
+			pfwh,
+			zyxxjda,
+			zyxxjdb,
+			zyxxjdc,
+			zyxxjdd,
+			tzjdjdmba,
+			tzjdjdmbb,
+			tzjdjdmbc,
+			tzjdjdmbd,
+			jhkgrq,
+			jhjgrq,
+			zbdldw,
+			kcdw,
+			sjdw,
+			jldw,
+			zysgdw,
+			zysbmc,
+			id,
+			projectid,
+			xmjbxx_id,
+			sfsbsbib,
+			sfsjjxm,
+			ndjhtzje,
+			ndjhtzjet,
+			ssly,
+			updatestatus,
+			zdkhylb ,
+			sfzdgjcy,
+			sfszdgjcy,  
+			sfxszdgjcy, 
+			szdgjcylx,  
+			xszdgjcylx,
+			sfjsgzcy
+		) VALUES (
+			#{xmtjdw},
+			#{sszt},
+			#{jdlb},
+			#{sfzsdcyjjq},
+			#{sdcyjjqmc},
+			#{sfgjzdzl},
+			#{gjzdzlqmc},
+			#{tzwce},
+			#{zyyy},
+			#{ndljwc},
+			#{gcxxjd},
+			#{gyxmxzxk},
+			#{gyydghxk},
+			#{gygcghxk},
+			#{gwxmxzxk},
+			#{gwydghxk},
+			#{gwgcghxk},
+			#{hytxpzh},
+			#{hwblbpjd},
+			#{hwzzpfjg},
+			#{sytxpzwh},
+			#{swpzjzqk},
+			#{swzzpfjg},
+			#{gxyd},
+			#{yzdtdz},
+			#{tdzh},
+			#{dnjhzd},
+			#{sfjbnt},
+			#{dnzdbpqk},
+			#{pfwh},
+			#{zyxxjda},
+			#{zyxxjdb},
+			#{zyxxjdc},
+			#{zyxxjdd},
+			#{tzjdjdmba},
+			#{tzjdjdmbb},
+			#{tzjdjdmbc},
+			#{tzjdjdmbd},
+			#{jhkgrq},
+			#{jhjgrq},
+			#{zbdldw},
+			#{kcdw},
+			#{sjdw},
+			#{jldw},
+			#{zysgdw},
+			#{zysbmc},
+			#{id},
+			#{projectid},
+			#{xmjbxxId},
+			#{sfsbsbib},
+			#{sfsjjxm},
+			#{ndjhtzje}, 
+			#{ndjhtzjet},
+			#{ssly},
+			#{updatestatus},
+			#{zdkhylb},
+			#{sfzdgjcy},
+			#{sfszdgjcy},  
+			#{sfxszdgjcy}, 
+			#{szdgjcylx},  
+			#{xszdgjcylx},
+			#{sfjsgzcy}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_zdxmk SET 	
+			xmtjdw = #{xmtjdw},
+			sszt = #{sszt},
+			jdlb = #{jdlb},
+			sfzsdcyjjq = #{sfzsdcyjjq},
+			sdcyjjqmc = #{sdcyjjqmc},
+			sfgjzdzl = #{sfgjzdzl},
+			gjzdzlqmc = #{gjzdzlqmc},
+			tzwce = #{tzwce},
+			zyyy = #{zyyy},
+			ndljwc = #{ndljwc},
+			gcxxjd = #{gcxxjd},
+			gyxmxzxk = #{gyxmxzxk},
+			gyydghxk = #{gyydghxk},
+			gygcghxk = #{gygcghxk},
+			gwxmxzxk = #{gwxmxzxk},
+			gwydghxk = #{gwydghxk},
+			gwgcghxk = #{gwgcghxk},
+			hytxpzh = #{hytxpzh},
+			hwblbpjd = #{hwblbpjd},
+			hwzzpfjg = #{hwzzpfjg},
+			sytxpzwh = #{sytxpzwh},
+			swpzjzqk = #{swpzjzqk},
+			swzzpfjg = #{swzzpfjg},
+			gxyd = #{gxyd},
+			yzdtdz = #{yzdtdz},
+			tdzh = #{tdzh},
+			dnjhzd = #{dnjhzd},
+			sfjbnt = #{sfjbnt},
+			dnzdbpqk = #{dnzdbpqk},
+			pfwh = #{pfwh},
+			zyxxjda = #{zyxxjda},
+			zyxxjdb = #{zyxxjdb},
+			zyxxjdc = #{zyxxjdc},
+			zyxxjdd = #{zyxxjdd},
+			tzjdjdmba = #{tzjdjdmba},
+			tzjdjdmbb = #{tzjdjdmbb},
+			tzjdjdmbc = #{tzjdjdmbc},
+			tzjdjdmbd = #{tzjdjdmbd},
+			jhkgrq = #{jhkgrq},
+			jhjgrq = #{jhjgrq},
+			zbdldw = #{zbdldw},
+			kcdw = #{kcdw},
+			sjdw = #{sjdw},
+			jldw = #{jldw},
+			zysgdw = #{zysgdw},
+			zysbmc = #{zysbmc},
+			projectid = #{projectid},
+			xmjbxx_id = #{xmjbxxId},
+			sfsbsbib = #{sfsbsbib},
+			sfsjjxm = #{sfsjjxm},
+			ndjhtzje = #{ndjhtzje}, 
+			ndjhtzjet = #{ndjhtzjet},
+			ssly = #{ssly},
+			updatestatus = #{updatestatus},
+			sfszdold = #{sfszdold},
+			zdkhylb = #{zdkhylb},
+			sfzdgjcy = #{sfzdgjcy},
+			sfszdgjcy = #{sfszdgjcy},  
+			sfxszdgjcy = #{sfxszdgjcy}, 
+			szdgjcylx = #{szdgjcylx},  
+			xszdgjcylx = #{xszdgjcylx},
+			sfjsgzcy == #{sfjsgzcy}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_zdxmk
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_zdxmk SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessZdxmk" statementType="STATEMENT">
+		select * FROM c_ins_business_zdxmk  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

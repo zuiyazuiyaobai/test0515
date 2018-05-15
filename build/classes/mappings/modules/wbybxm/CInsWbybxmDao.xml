@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.wbybxm.dao.CInsWbybxmDao">
+    
+	<sql id="cInsWbybxmColumns">
+		a.id AS "id",
+		a.areaid AS "areaid",
+		a.qhtype AS "qhtype",
+		a.qhname AS "qhname",
+		a.sshy AS "sshy",
+		a.xmgs AS "xmgs",
+		a.ztz AS "ztz",
+		a.bndjhtz AS "bndjhtz",
+		a.bndywctz AS "bndywctz",
+		a.ykgxmgs AS "ykgxmgs",
+		a.ywgxmgs AS "ywgxmgs",
+		a.ndtzwcl AS "ndtzwcl",
+		a.kgl AS "kgl",
+		a.wgl AS "wgl",
+		a.sslyid AS "sslyid",
+		a.sslyname AS "sslyname"
+	</sql>
+	
+	<sql id="cInsWbybxmJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsWbybxm" >
+		SELECT 
+			<include refid="cInsWbybxmColumns"/>
+		FROM c_ins_wbybxm a
+		<include refid="cInsWbybxmJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsWbybxm" >
+		SELECT 
+			<include refid="cInsWbybxmColumns"/>
+		FROM c_ins_wbybxm a
+		<include refid="cInsWbybxmJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsWbybxm" >
+		SELECT 
+			<include refid="cInsWbybxmColumns"/>
+		FROM c_ins_wbybxm a
+		<include refid="cInsWbybxmJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_wbybxm(
+			id,
+			areaid,
+			qhtype,
+			qhname,
+			sshy,
+			xmgs,
+			ztz,
+			bndjhtz,
+			bndywctz,
+			ykgxmgs,
+			ywgxmgs,
+			ndtzwcl,
+			kgl,
+			wgl,
+			sslyid,
+			sslyname
+		) VALUES (
+			#{id},
+			#{areaid},
+			#{qhtype},
+			#{qhname},
+			#{sshy},
+			#{xmgs},
+			#{ztz},
+			#{bndjhtz},
+			#{bndywctz},
+			#{ykgxmgs},
+			#{ywgxmgs},
+			#{ndtzwcl},
+			#{kgl},
+			#{wgl},
+			#{sslyid},
+			#{sslyname}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_wbybxm SET 	
+			areaid = #{areaid},
+			qhtype = #{qhtype},
+			qhname = #{qhname},
+			sshy = #{sshy},
+			xmgs = #{xmgs},
+			ztz = #{ztz},
+			bndjhtz = #{bndjhtz},
+			bndywctz = #{bndywctz},
+			ykgxmgs = #{ykgxmgs},
+			ywgxmgs = #{ywgxmgs},
+			ndtzwcl = #{ndtzwcl},
+			kgl = #{kgl},
+			wgl = #{wgl},
+			sslyid = #{sslyid},
+			sslyname = #{sslyname}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_wbybxm
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_wbybxm SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsWbybxm" statementType="STATEMENT">
+		select * FROM c_ins_wbybxm  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

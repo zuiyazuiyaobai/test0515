@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.zdxmcs.dao.CInsBusinessInfoDao">
+    
+	<sql id="cInsBusinessInfoColumns">
+		a.cbsnum AS "cbsnum",
+		a.areaid AS "areaid",
+		a.incid AS "incid",
+		a.incname AS "incname",
+		a.ageadds AS "ageadds",
+		a.inctype AS "inctype",
+		a.inctypedesc AS "inctypedesc",
+		a.increlation AS "increlation",
+		a.psortparent AS "psortparent",
+		a.psort AS "psort",
+		a.psortparentname AS "psortparentname",
+		a.psortname AS "psortname",
+		a.areaname AS "areaname",
+		a.projectnature AS "projectnature",
+		a.agename AS "agename",
+		a.agephone AS "agephone",
+		a.agemobile AS "agemobile",
+		a.ageemail AS "ageemail",
+		a.agepostcode AS "agepostcode",
+		a.grossinvestment AS "grossinvestment",
+		a.projectname AS "projectname",
+		a.idtype AS "idtype",
+		a.projectid AS "projectid",
+		a.user_uid AS "userUid",
+		a.constructionscale AS "constructionscale",
+		a.psortone AS "psortone",
+		a.psortonename AS "psortonename",
+		a.psorttwo AS "psorttwo",
+		a.psorttwoname AS "psorttwoname",
+		a.areaidtwo AS "areaidtwo",
+		a.areaidtwoname AS "areaidtwoname",
+		a.createtime AS "createtime",
+		a.zyzj AS "zyzj",
+		a.sqzftz AS "sqzftz",
+		a.yhdk AS "yhdk",
+		a.qt AS "qt",
+		a.pagename AS "pagename",
+		a.pagephone AS "pagephone",
+		a.sxid AS "sxid",
+		a.flowid AS "flowid",
+		a.status AS "status",
+		a.ageidcardno AS "ageidcardno",
+		a.starttime AS "starttime",
+		a.endtime AS "endtime",
+		a.cjtype AS "cjtype",
+		a.type AS "type",
+		a.ybsxzhid AS "ybsxzhid",
+		a.sxzhid AS "sxzhid",
+		a.zyxmid AS "zyxmid",
+		a.zyexchange AS "zyexchange",
+		a.areaidstreet AS "areaidstreet",
+		a.areaidstreetname AS "areaidstreetname",
+		a.shxydm AS "shxydm",
+		a.ksqzt AS "ksqzt",
+		a.shihecode AS "shihecode",
+		a.shihename AS "shihename",
+		a.shiheshicode AS "shiheshicode",
+		a.shiheshiname AS "shiheshiname",
+		a.xsqcode AS "xsqcode",
+		a.xsqname AS "xsqname",
+		a.xishiqucode AS "xishiqucode",
+		a.xishiquname AS "xishiquname",
+		a.sxxz AS "sxxz",
+		a.the_industry AS "theIndustry",
+		a.zy_exchange_v2 AS "zyExchangeV2",
+		a.blicense AS "blicense",
+		a.xmsfcz AS "xmsfcz",
+		a.xxsfxg AS "xxsfxg",
+		a.incidtype AS "incidtype"
+	</sql>
+	
+	<sql id="cInsBusinessInfoJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessInfo" >
+		SELECT 
+			<include refid="cInsBusinessInfoColumns"/>
+		FROM c_ins_business_info a
+		<include refid="cInsBusinessInfoJoins"/>
+		WHERE a.cbsnum = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessInfo" >
+		SELECT 
+			<include refid="cInsBusinessInfoColumns"/>
+		FROM c_ins_business_info a
+		<include refid="cInsBusinessInfoJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessInfo" >
+		SELECT 
+			<include refid="cInsBusinessInfoColumns"/>
+		FROM c_ins_business_info a
+		<include refid="cInsBusinessInfoJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_info(
+			cbsnum,
+			areaid,
+			incid,
+			incname,
+			ageadds,
+			inctype,
+			inctypedesc,
+			increlation,
+			psortparent,
+			psort,
+			psortparentname,
+			psortname,
+			areaname,
+			projectnature,
+			agename,
+			agephone,
+			agemobile,
+			ageemail,
+			agepostcode,
+			grossinvestment,
+			projectname,
+			idtype,
+			projectid,
+			user_uid,
+			constructionscale,
+			psortone,
+			psortonename,
+			psorttwo,
+			psorttwoname,
+			areaidtwo,
+			areaidtwoname,
+			createtime,
+			zyzj,
+			sqzftz,
+			yhdk,
+			qt,
+			pagename,
+			pagephone,
+			sxid,
+			flowid,
+			status,
+			ageidcardno,
+			starttime,
+			endtime,
+			cjtype,
+			type,
+			ybsxzhid,
+			sxzhid,
+			zyxmid,
+			zyexchange,
+			areaidstreet,
+			areaidstreetname,
+			shxydm,
+			ksqzt,
+			shihecode,
+			shihename,
+			shiheshicode,
+			shiheshiname,
+			xsqcode,
+			xsqname,
+			xishiqucode,
+			xishiquname,
+			sxxz,
+			the_industry,
+			zy_exchange_v2,
+			blicense,
+			xmsfcz,
+			xxsfxg,
+			incidtype
+		) VALUES (
+			#{cbsnum},
+			#{areaid},
+			#{incid},
+			#{incname},
+			#{ageadds},
+			#{inctype},
+			#{inctypedesc},
+			#{increlation},
+			#{psortparent},
+			#{psort},
+			#{psortparentname},
+			#{psortname},
+			#{areaname},
+			#{projectnature},
+			#{agename},
+			#{agephone},
+			#{agemobile},
+			#{ageemail},
+			#{agepostcode},
+			#{grossinvestment},
+			#{projectname},
+			#{idtype},
+			#{projectid},
+			#{userUid},
+			#{constructionscale},
+			#{psortone},
+			#{psortonename},
+			#{psorttwo},
+			#{psorttwoname},
+			#{areaidtwo},
+			#{areaidtwoname},
+			#{createtime},
+			#{zyzj},
+			#{sqzftz},
+			#{yhdk},
+			#{qt},
+			#{pagename},
+			#{pagephone},
+			#{sxid},
+			#{flowid},
+			#{status},
+			#{ageidcardno},
+			#{starttime},
+			#{endtime},
+			#{cjtype},
+			#{type},
+			#{ybsxzhid},
+			#{sxzhid},
+			#{zyxmid},
+			#{zyexchange},
+			#{areaidstreet},
+			#{areaidstreetname},
+			#{shxydm},
+			#{ksqzt},
+			#{shihecode},
+			#{shihename},
+			#{shiheshicode},
+			#{shiheshiname},
+			#{xsqcode},
+			#{xsqname},
+			#{xishiqucode},
+			#{xishiquname},
+			#{sxxz},
+			#{theIndustry},
+			#{zyExchangeV2},
+			#{blicense},
+			#{xmsfcz},
+			#{xxsfxg},
+			#{incidtype}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_info SET 	
+			cbsnum = #{cbsnum},
+			areaid = #{areaid},
+			incid = #{incid},
+			incname = #{incname},
+			ageadds = #{ageadds},
+			inctype = #{inctype},
+			inctypedesc = #{inctypedesc},
+			increlation = #{increlation},
+			psortparent = #{psortparent},
+			psort = #{psort},
+			psortparentname = #{psortparentname},
+			psortname = #{psortname},
+			areaname = #{areaname},
+			projectnature = #{projectnature},
+			agename = #{agename},
+			agephone = #{agephone},
+			agemobile = #{agemobile},
+			ageemail = #{ageemail},
+			agepostcode = #{agepostcode},
+			grossinvestment = #{grossinvestment},
+			projectname = #{projectname},
+			idtype = #{idtype},
+			projectid = #{projectid},
+			user_uid = #{userUid},
+			constructionscale = #{constructionscale},
+			psortone = #{psortone},
+			psortonename = #{psortonename},
+			psorttwo = #{psorttwo},
+			psorttwoname = #{psorttwoname},
+			areaidtwo = #{areaidtwo},
+			areaidtwoname = #{areaidtwoname},
+			createtime = #{createtime},
+			zyzj = #{zyzj},
+			sqzftz = #{sqzftz},
+			yhdk = #{yhdk},
+			qt = #{qt},
+			pagename = #{pagename},
+			pagephone = #{pagephone},
+			sxid = #{sxid},
+			flowid = #{flowid},
+			status = #{status},
+			ageidcardno = #{ageidcardno},
+			starttime = #{starttime},
+			endtime = #{endtime},
+			cjtype = #{cjtype},
+			type = #{type},
+			ybsxzhid = #{ybsxzhid},
+			sxzhid = #{sxzhid},
+			zyxmid = #{zyxmid},
+			zyexchange = #{zyexchange},
+			areaidstreet = #{areaidstreet},
+			areaidstreetname = #{areaidstreetname},
+			shxydm = #{shxydm},
+			ksqzt = #{ksqzt},
+			shihecode = #{shihecode},
+			shihename = #{shihename},
+			shiheshicode = #{shiheshicode},
+			shiheshiname = #{shiheshiname},
+			xsqcode = #{xsqcode},
+			xsqname = #{xsqname},
+			xishiqucode = #{xishiqucode},
+			xishiquname = #{xishiquname},
+			sxxz = #{sxxz},
+			the_industry = #{theIndustry},
+			zy_exchange_v2 = #{zyExchangeV2},
+			blicense = #{blicense},
+			xmsfcz = #{xmsfcz},
+			xxsfxg = #{xxsfxg},
+			incidtype = #{incidtype}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_info
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessInfo" statementType="STATEMENT">
+		select * FROM c_ins_business_info  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.gcjz.dao.CInsBusinessGcjzqkDao">
+    
+	<sql id="cInsBusinessGcjzqkColumns">
+		a.id AS "id",
+		a.xmid AS "xmid",
+		a.year AS "year",
+		a.month AS "month",
+		a.gcjdjzqk_fileid AS "gcjdjzqkFileid",
+		a.gcjdjzqk_filename AS "gcjdjzqkFilename",
+		a.gcjdjzqk_filepath AS "gcjdjzqkFilepath",
+		a.gcsjxxqk_fileid AS "gcsjxxqkFileid",
+		a.gcsjxxqk_filename AS "gcsjxxqkFilename",
+		a.gcsjxxqk_filepath AS "gcsjxxqkFilepath",
+		a.createtime AS "createtime",
+		a.jdpj AS "jdpj"
+	</sql>
+	
+	<sql id="cInsBusinessGcjzqkJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessGcjzqk" >
+		SELECT 
+			<include refid="cInsBusinessGcjzqkColumns"/>
+		FROM c_ins_business_gcjzqk a
+		<include refid="cInsBusinessGcjzqkJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessGcjzqk" >
+		select g.xmid,g.year,g.month,g.jdpj,i.projectname,i.incname,i.areaname,z.id
+		FROM C_INS_BUSINESS_GCJZQK g
+		LEFT JOIN C_INS_BUSINESS_ZDGCXM z on z.zdgcxmbh=g.xmid
+		LEFT JOIN C_INS_BUSINESS_INFO i on i.cbsnum=z.cbsnum
+		<where>
+			1=1
+			<if test="projectname!=null and projectname!=''">and i.projectname=#{projectname}</if>
+			<if test="incname!=null and incname!=''">and i.incname=#{incname}</if>
+			<if test="areaname!=null and areaname!=''">and i.areaname=#{areaname}</if>
+			<if test="year!=null and year!=''">and g.year=#{year}</if>
+			<if test="month!=null and month!=''">and g.month=#{month}</if>
+			<if test="jdpj!=null and jdpj!=''">and g.jdpj=#{jdpj}</if>
+			<if test="xmid!=null and xmid!=''">and g.xmid=#{xmid}</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 工程进展情况分页 -->
+	<select id="findJzqkList" resultType="CInsBusinessGcjzqk" >
+		select g.xmid,g.year,g.month,g.jdpj,i.projectname,i.incname,i.areaname,i.projectid,z.id
+		FROM C_INS_BUSINESS_GCJZQK g
+		LEFT JOIN C_INS_BUSINESS_ZDGCXM z on z.zdgcxmbh=g.xmid
+		LEFT JOIN C_INS_BUSINESS_INFO i on i.cbsnum=z.cbsnum
+		<where>
+			1=1
+			<if test="projectname!=null and projectname!=''">and i.projectname=#{projectname}</if>
+			<if test="incname!=null and incname!=''">and i.incname=#{incname}</if>
+			<if test="areaname!=null and areaname!=''">and i.areaname=#{areaname}</if>
+			<if test="year!=null and year!=''">and g.year=#{year}</if>
+			<if test="month!=null and month!=''">and g.month=#{month}</if>
+			<if test="jdpj!=null and jdpj!=''">and g.jdpj=#{jdpj}</if>
+			<if test="xmid!=null and xmid!=''">and g.xmid=#{xmid}</if>
+			<if test="id!=null and id!=''">and z.id=#{id}</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 工程进展分市统计 -->
+	<select id="findGcjzqk" resultType="CInsBusinessGcjzqk" >
+		select temp.areaname,temp.year,temp.month,count(temp.xmid) as "xmTotal",
+		sum(case when temp.jdpj='1' then 1 else 0 end) as "cqNum",
+		sum(case when temp.jdpj='2' then 1 else 0 end) as "slNum",
+		sum(case when temp.jdpj='3' then 1 else 0 end) as "hmNum",
+		sum(case when temp.jdpj='4' then 1 else 0 end) as "zhNum",
+		sum(case when temp.jdpj='5' then 1 else 0 end) as "tgNum"
+		FROM
+		(select g.id,g.xmid,g.year,g.month,g.jdpj,i.areaname
+		FROM C_INS_BUSINESS_GCJZQK g
+		LEFT JOIN C_INS_BUSINESS_ZDGCXM z on z.zdgcxmbh=g.xmid
+		LEFT JOIN C_INS_BUSINESS_INFO i on i.cbsnum=z.cbsnum) temp 
+		where 1=1
+	    <if test="year!=null and year!=''">and temp.year=#{year}</if> 
+	    <if test="month!=null and month!=''">and temp.month=#{month}</if> 
+		group by temp.areaname,temp.year,temp.month
+	</select>
+	<!-- 工程进展分市统计 -->
+	<select id="findTotal" resultType="CInsBusinessGcjzqk" >
+		select temp.year,temp.month,count(temp.xmid) as "xmTotal",
+		sum(case when temp.jdpj='1' then 1 else 0 end) as "cqNum",
+		sum(case when temp.jdpj='2' then 1 else 0 end) as "slNum",
+		sum(case when temp.jdpj='3' then 1 else 0 end) as "hmNum",
+		sum(case when temp.jdpj='4' then 1 else 0 end) as "zhNum",
+		sum(case when temp.jdpj='5' then 1 else 0 end) as "tgNum"
+		FROM
+		(select g.id,g.xmid,g.year,g.month,g.jdpj,i.areaname
+		FROM C_INS_BUSINESS_GCJZQK g
+		LEFT JOIN C_INS_BUSINESS_ZDGCXM z on z.zdgcxmbh=g.xmid
+		LEFT JOIN C_INS_BUSINESS_INFO i on i.cbsnum=z.cbsnum) temp 
+		where 1=1
+	    <if test="year!=null and year!=''">and temp.year=#{year}</if> 
+	    <if test="month!=null and month!=''">and temp.month=#{month}</if> 
+		group by temp.year,temp.month
+	</select>
+	<select id="findYears" resultType="string">
+		select distinct year from C_INS_BUSINESS_GCJZQK order by year
+	</select>
+	<select id="findAllList" resultType="CInsBusinessGcjzqk" >
+		SELECT 
+			<include refid="cInsBusinessGcjzqkColumns"/>
+		FROM c_ins_business_gcjzqk a
+		<include refid="cInsBusinessGcjzqkJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_gcjzqk(
+			id,
+			xmid,
+			year,
+			month,
+			gcjdjzqk_fileid,
+			gcjdjzqk_filename,
+			gcjdjzqk_filepath,
+			gcsjxxqk_fileid,
+			gcsjxxqk_filename,
+			gcsjxxqk_filepath,
+			createtime,
+			jdpj
+		) VALUES (
+			#{id},
+			#{xmid},
+			#{year},
+			#{month},
+			#{gcjdjzqkFileid},
+			#{gcjdjzqkFilename},
+			#{gcjdjzqkFilepath},
+			#{gcsjxxqkFileid},
+			#{gcsjxxqkFilename},
+			#{gcsjxxqkFilepath},
+			#{createtime},
+			#{jdpj}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_gcjzqk SET 	
+			xmid = #{xmid},
+			year = #{year},
+			month = #{month},
+			gcjdjzqk_fileid = #{gcjdjzqkFileid},
+			gcjdjzqk_filename = #{gcjdjzqkFilename},
+			gcjdjzqk_filepath = #{gcjdjzqkFilepath},
+			gcsjxxqk_fileid = #{gcsjxxqkFileid},
+			gcsjxxqk_filename = #{gcsjxxqkFilename},
+			gcsjxxqk_filepath = #{gcsjxxqkFilepath},
+			createtime = #{createtime},
+			jdpj = #{jdpj}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_gcjzqk
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_gcjzqk SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessGcjzqk" statementType="STATEMENT">
+		select * FROM c_ins_business_gcjzqk  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

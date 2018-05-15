@@ -1,0 +1,42 @@
+.tab:hover {
+    cursor: pointer;
+}
+
+.tab {
+    float: left;
+    min-width: 10%;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    padding-bottom: 0;
+    list-style-type: none;
+}
+
+/* 六个字的tab */
+.tab_6w {
+    min-width: 15%;
+}
+
+.tab_cur {
+    float: left;
+    width: 10%;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    padding-bottom: 0;
+    list-style-type: none;
+    background: linear-gradient(#477cb3, #FFFFFF);
+}
+
+/* 去掉 input number 的箭头 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type="number"]{
+    -moz-appearance: textfield;
+}
+
+.hideScroll .top_tip {
+    margin: 15px;
+}

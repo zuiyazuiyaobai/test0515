@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.xmjbxx.dao.CInsBusinessSsqkDao">
+    
+	<sql id="cInsBusinessSsqkColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.xmjbxx_id AS "xmjbxx.id",
+		a.task_relation_id AS "taskRelation.id",
+		a.name AS "name",
+		a.office AS "office",
+		a.mobile AS "mobile",
+		a.sjkgsj AS "sjkgsj",
+		a.sjjgsj AS "sjjgsj",
+		a.ztbxs AS "ztbxs",
+		a.ssqkjsdw AS "ssqkjsdw",
+		a.ssqkxxjd AS "ssqkxxjd",
+		a.ssqkndjsnr AS "ssqkndjsnr",
+		a.ssqkwtjjy AS "ssqkwtjjy",
+		a.ssqkrcjgzjzrdw AS "ssqkrcjgzjzrdw",
+		a.ssqktzjhtzqk AS "ssqktzjhtzqk",
+		a.ssqkzfjcjglxr AS "ssqkzfjcjglxr",
+		a.ssqkdcjglxfs AS "ssqkdcjglxfs",
+		a.ssqkfgbmlxr AS "ssqkfgbmlxr",
+		a.ssqlfgbmlxfs AS "ssqlfgbmlxfs",
+		a.type AS "type",
+		a.zyysntzljwczj AS "zyysntzljwczj",
+		a.zyysntzljzfqk AS "zyysntzljzfqk",
+		a.zxzqmjdzxjszjljwczj AS "zxzqmjdzxjszjljwczj",
+		a.zxzqmjdzxjszjljzfqk AS "zxzqmjdzxjszjljzfqk",
+		a.qtlbhzljwczj AS "qtlbhzljwczj",
+		a.qtlbhzljwcqk AS "qtlbhzljwcqk",
+		a.zyysntz_ljdwzj AS "zyysntzLjdwzj",
+		a.qtzyczxjszj_ljdwzj AS "qtzyczxjszjLjdwzj",
+		a.zxzqmjdzxjszj_ljdwzj AS "zxzqmjdzxjszjLjdwzj",
+		a.zysljsjj_ljdwzj AS "zysljsjjLjdwzj",
+		a.nsbdgcjj_ljdwzj AS "nsbdgcjjLjdwzj",
+		a.tljszxjj_ljdwzj AS "tljszxjjLjdwzj",
+		a.mhfzjj_ljdwzj AS "mhfzjjLjdwzj",
+		a.gjzdslgcjsjj_ljdwzj AS "gjzdslgcjsjjLjdwzj",
+		a.dzxskymhqfcjj_ljdwzj AS "dzxskymhqfcjjLjdwzj",
+		a.dzxskymhqfcjyjj_ljdwzj AS "dzxskymhqfcjyjjLjdwzj",
+		a.glgkjszxjj_ljdwzj AS "glgkjszxjjLjdwzj",
+		a.shengjiysntz_ljdwzj AS "shengjiysntzLjdwzj",
+		a.shijiysntz_ljdwzj AS "shijiysntzLjdwzj",
+		a.xianjiysntz_ljdwzj AS "xianjiysntzLjdwzj",
+		a.shengjiczzj_ljdwzj AS "shengjiczzjLjdwzj",
+		a.shijiczzj_ljdwzj AS "shijiczzjLjdwzj",
+		a.xianjiczzj_ljdwzj AS "xianjiczzjLjdwzj",
+		a.dfzxjsjj_ljdwzj AS "dfzxjsjjLjdwzj",
+		a.qyzytz_ljdwzj AS "qyzytzLjdwzj",
+		a.yhdk_ljdwzj AS "yhdkLjdwzj",
+		a.lywz_ljdwzj AS "lywzLjdwzj",
+		a.zjqddd_ljdwzj AS "zjqdddLjdwzj",
+		a.qtzj_ljdwzj AS "qtzjLjdwzj",
+						
+		a.zyysntz_jzbbgljwcjj AS "zyysntz_jzbbgljwcjj",
+		a.qtzyczxjszj_jzbbgljwcjj  AS  "qtzyczxjszj_jzbbgljwcjj",
+		a.zxzqmjjszj_jzbbgljwcjj AS "zxzqmjjszj_jzbbgljwcjj",
+		a.zyzxjszj_jzbbgljwcjj AS "zyzxjszj_jzbbgljwcjj",
+		a.zysljszj_jzbbgljwcjj AS "zysljszj_jzbbgljwcjj",
+		a.nsbdgczj_jzbbgljwcjj AS "nsbdgczj_jzbbgljwcjj",
+		a.tljszxzj_jzbbgljwcjj AS "tljszxzj_jzbbgljwcjj",
+		a.mhfzzj_jzbbgljwcjj  AS "mhfzzj_jzbbgljwcjj",
+		a.gjzdslgcjszj_jzbbgljwcjj AS "gjzdslgcjszj_jzbbgljwcjj",
+		a.dzxskymhqfczj_jzbbgljwcjj AS "dzxskymhqfczj_jzbbgljwcjj",
+		a.dzxskymhqfcjyzj_jzbbgljwcjj AS "dzxskymhqfcjyzj_jzbbgljwcjj",
+		a.glgkjszj_jzbbgljwcjj AS "glgkjszj_jzbbgljwcjj",
+		a.dfysntz_jzbbgljwcjj  AS "dfysntz_jzbbgljwcjj",
+		a.sjysntz_jzbbgljwcjj  AS "sjysntz_jzbbgljwcjj",
+		a.cityjysntz_jzbbgljwcjj AS "cityjysntz_jzbbgljwcjj",
+		a.xjysntz_jzbbgljwcjj AS "xjysntz_jzbbgljwcjj",
+		a.dfczxjszj_jzbbgljwcjj AS "dfczxjszj_jzbbgljwcjj",
+		a.sjczzj_jzbbgljwcjj AS "sjczzj_jzbbgljwcjj",
+		a.cityjczzj_jzbbgljwcjj AS "cityjczzj_jzbbgljwcjj",
+		a.xjczzj_jzbbgljwcjj AS "xjczzj_jzbbgljwcjj",
+		a.dfzxjszj_jzbbgljwcjj AS "dfzxjszj_jzbbgljwcjj",
+		a.qyzytz_jzbbgljwcjj AS "qyzytz_jzbbgljwcjj",
+		a.yhdk_jzbbgljwcjj AS "yhdk_jzbbgljwcjj",
+		a.lywz_jzbbgljwcjj AS "lywz_jzbbgljwcjj",
+		a.zjqddd_jzbbgljwcjj AS "zjqddd_jzbbgljwcjj",
+		a.qtzj_jzbbgljwcjj AS "qtzj_jzbbgljwcjj",
+		a.hj_jzbbgljwcjj AS "hj_jzbbgljwcjj",
+		  		  		  
+		a.zyysntz_ljzfzj AS "zyysntz_ljzfzj",
+		a.qtzyczxjszj_ljzfzj AS "qtzyczxjszj_ljzfzj",
+		a.zxzqmjdzxjszj_ljzfzj AS "zxzqmjdzxjszj_ljzfzj",
+		a.zysljsjj_ljzfzj AS "zysljsjj_ljzfzj",
+		a.nsbdgcjj_ljzfzj AS "nsbdgcjj_ljzfzj",
+		a.tljszxjj_ljzfzj AS "tljszxjj_ljzfzj",
+		a.mhfzjj_ljzfzj AS "mhfzjj_ljzfzj",
+		a.gjzdslgcjsjj_ljzfzj AS "gjzdslgcjsjj_ljzfzj",
+		a.dzxskymhqfcjj_ljzfzj AS "dzxskymhqfcjj_ljzfzj",
+		a.dzxskymhqfcjyjj_ljzfzj AS "dzxskymhqfcjyjj_ljzfzj",
+		a.glgkjszxjj_ljzfzj AS "glgkjszxjj_ljzfzj",
+		a.shengjiysntz_ljzfzj AS "shengjiysntz_ljzfzj",
+		a.shijiysntz_ljzfzj AS "shijiysntz_ljzfzj",
+		a.xianjiysntz_ljzfzj AS "xianjiysntz_ljzfzj",
+		a.shengjiczzj_ljzfzj AS "shengjiczzj_ljzfzj",
+		a.shijiczzj_ljzfzj AS "shijiczzj_ljzfzj",
+		a.xianjiczzj_ljzfzj AS "xianjiczzj_ljzfzj",
+		a.dfzxjsjj_ljzfzj AS "dfzxjsjj_ljzfzj",
+		a.qyzytz_ljzfzj AS "qyzytz_ljzfzj",
+		a.yhdk_ljzfzj AS "yhdk_ljzfzj",
+		a.lywz_ljzfzj AS "lywz_ljzfzj",
+		a.zjqddd_ljzfzj AS "zjqddd_ljzfzj",
+		a.qtzj_ljzfzj AS "qtzj_ljzfzj",
+				
+		a.zyysntz_ljdwzjtwo AS "zyysntz_ljdwzjtwo",
+		a.qtzyczxjszj_ljdwzjtwo AS "qtzyczxjszj_ljdwzjtwo",
+		a.zxzqmjdzxjszj_ljdwzjtwo AS "zxzqmjdzxjszj_ljdwzjtwo",
+		a.zysljsjj_ljdwzjtwo AS "zysljsjj_ljdwzjtwo",
+		a.nsbdgcjj_ljdwzjtwo AS "nsbdgcjj_ljdwzjtwo",
+		a.tljszxjj_ljdwzjtwo AS "tljszxjj_ljdwzjtwo",
+		a.mhfzjj_ljdwzjtwo AS "mhfzjj_ljdwzjtwo",
+		a.gjzdslgcjsjj_ljdwzjtwo AS "gjzdslgcjsjj_ljdwzjtwo",
+		a.dzxskymhqfcjj_ljdwzjtwo AS "dzxskymhqfcjj_ljdwzjtwo",
+		a.dzxskymhqfcjyjj_ljdwzjtwo AS "dzxskymhqfcjyjj_ljdwzjtwo",
+		a.glgkjszxjj_ljdwzjtwo AS "glgkjszxjj_ljdwzjtwo",
+		a.shengjiysntz_ljdwzjtwo AS "shengjiysntz_ljdwzjtwo",
+		a.shijiysntz_ljdwzjtwo AS "shijiysntz_ljdwzjtwo",
+		a.xianjiysntz_ljdwzjtwo AS "xianjiysntz_ljdwzjtwo",
+		a.shengjiczzj_ljdwzjtwo AS "shengjiczzj_ljdwzjtwo",
+		a.shijiczzj_ljdwzjtwo AS "shijiczzj_ljdwzjtwo",
+		a.xianjiczzj_ljdwzjtwo AS "xianjiczzj_ljdwzjtwo",
+		a.dfzxjsjj_ljdwzjtwo AS "dfzxjsjj_ljdwzjtwo",
+		a.qyzytz_ljdwzjtwo AS "qyzytz_ljdwzjtwo",
+		a.yhdk_ljdwzjtwo AS "yhdk_ljdwzjtwo",
+		a.lywz_ljdwzjtwo AS "lywz_ljdwzjtwo",
+		a.zjqddd_ljdwzjtwo AS "zjqddd_ljdwzjtwo",
+		a.qtzj_ljdwzjtwo  as  "qtzj_ljdwzjtwo",
+		a.sfkg  as  "sfkg"
+		
+		
+	</sql>
+	
+	<sql id="cInsBusinessSsqkJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessSsqk" >
+		SELECT 
+			<include refid="cInsBusinessSsqkColumns"/>
+		FROM c_ins_business_ssqk a
+		<include refid="cInsBusinessSsqkJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessSsqk" >
+		SELECT 
+			<include refid="cInsBusinessSsqkColumns"/>
+		FROM "ZDXM_JEEPLUS"."C_INS_BUSINESS_SSQK" a
+		<include refid="cInsBusinessSsqkJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="xmjbxx != null and xmjbxx.id != null and xmjbxx.id != ''">
+				AND a.xmjbxx_id = #{xmjbxx.id}
+			</if>
+			<if test="taskRelation != null and taskRelation.id != null and taskRelation.id != ''">
+				AND a.task_relation_id = #{taskRelation.id}
+			</if>
+			<!-- <if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if> -->
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				<!-- ORDER BY a.update_date DESC -->
+				order by nvl(update_date,'2000-01-22 11:40:59') desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessSsqk" >
+		SELECT 
+			<include refid="cInsBusinessSsqkColumns"/>
+		FROM c_ins_business_ssqk a
+		<include refid="cInsBusinessSsqkJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_ssqk(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			xmjbxx_id,
+			task_relation_id,
+			name,
+			office,
+			mobile,
+			sjkgsj,
+			sjjgsj,
+			ztbxs,
+			ssqkjsdw,
+			ssqkxxjd,
+			ssqkndjsnr,
+			ssqkwtjjy,
+			ssqkrcjgzjzrdw,
+			ssqktzjhtzqk,
+			ssqkzfjcjglxr,
+			ssqkdcjglxfs,
+			ssqkfgbmlxr,
+			ssqlfgbmlxfs,
+			type,
+			zyysntzljwczj,
+			zyysntzljzfqk,
+			zxzqmjdzxjszjljwczj,
+			zxzqmjdzxjszjljzfqk,
+			qtlbhzljwczj,
+			qtlbhzljwcqk,
+			zyysntz_ljdwzj,
+			qtzyczxjszj_ljdwzj,
+			zxzqmjdzxjszj_ljdwzj,
+			zysljsjj_ljdwzj,
+			nsbdgcjj_ljdwzj,
+			tljszxjj_ljdwzj,
+			mhfzjj_ljdwzj,
+			gjzdslgcjsjj_ljdwzj,
+			dzxskymhqfcjj_ljdwzj,
+			dzxskymhqfcjyjj_ljdwzj,
+			glgkjszxjj_ljdwzj,
+			shengjiysntz_ljdwzj,
+			shijiysntz_ljdwzj,
+			xianjiysntz_ljdwzj,
+			shengjiczzj_ljdwzj,
+			shijiczzj_ljdwzj,
+			xianjiczzj_ljdwzj,
+			dfzxjsjj_ljdwzj,
+			qyzytz_ljdwzj,
+			yhdk_ljdwzj,
+			lywz_ljdwzj,
+			zjqddd_ljdwzj,
+			qtzj_ljdwzj,
+			updatestatus,
+			
+			zyysntz_ljdwzjtwo,
+			qtzyczxjszj_ljdwzjtwo,
+			zxzqmjdzxjszj_ljdwzjtwo,
+			zysljsjj_ljdwzjtwo,
+			nsbdgcjj_ljdwzjtwo,
+			tljszxjj_ljdwzjtwo,
+			mhfzjj_ljdwzjtwo,
+			gjzdslgcjsjj_ljdwzjtwo,
+			dzxskymhqfcjj_ljdwzjtwo,
+			dzxskymhqfcjyjj_ljdwzjtwo,
+			glgkjszxjj_ljdwzjtwo,
+			shengjiysntz_ljdwzjtwo,
+			shijiysntz_ljdwzjtwo,
+			xianjiysntz_ljdwzjtwo,
+			shengjiczzj_ljdwzjtwo,
+			shijiczzj_ljdwzjtwo,
+			xianjiczzj_ljdwzjtwo,
+			dfzxjsjj_ljdwzjtwo,
+			qyzytz_ljdwzjtwo,
+			yhdk_ljdwzjtwo,
+			lywz_ljdwzjtwo,
+			zjqddd_ljdwzjtwo,
+			qtzj_ljdwzjtwo,
+			
+			zyysntz_jzbbgljwcjj,
+			qtzyczxjszj_jzbbgljwcjj,
+			zxzqmjjszj_jzbbgljwcjj,
+			zysljszj_jzbbgljwcjj,
+			nsbdgczj_jzbbgljwcjj,
+			tljszxzj_jzbbgljwcjj,
+			mhfzzj_jzbbgljwcjj,
+			gjzdslgcjszj_jzbbgljwcjj,
+			dzxskymhqfczj_jzbbgljwcjj,
+			dzxskymhqfcjyzj_jzbbgljwcjj,
+			glgkjszj_jzbbgljwcjj,
+			sjysntz_jzbbgljwcjj,
+			cityjysntz_jzbbgljwcjj,
+			xjysntz_jzbbgljwcjj,
+			sjczzj_jzbbgljwcjj,
+			cityjczzj_jzbbgljwcjj,
+			xjczzj_jzbbgljwcjj,
+			dfzxjszj_jzbbgljwcjj,
+			qyzytz_jzbbgljwcjj,
+			yhdk_jzbbgljwcjj, 
+			lywz_jzbbgljwcjj,
+			zjqddd_jzbbgljwcjj,
+			qtzj_jzbbgljwcjj,
+			
+			zyysntz_ljzfzj,
+			qtzyczxjszj_ljzfzj,
+			zxzqmjdzxjszj_ljzfzj,
+			zysljsjj_ljzfzj,
+			nsbdgcjj_ljzfzj,
+			tljszxjj_ljzfzj,
+			mhfzjj_ljzfzj,
+			gjzdslgcjsjj_ljzfzj,
+			dzxskymhqfcjj_ljzfzj,
+			dzxskymhqfcjyjj_ljzfzj,
+			glgkjszxjj_ljzfzj,
+			shengjiysntz_ljzfzj,
+			shijiysntz_ljzfzj,
+			xianjiysntz_ljzfzj,
+			shengjiczzj_ljzfzj,
+			shijiczzj_ljzfzj,
+			xianjiczzj_ljzfzj,
+			dfzxjsjj_ljzfzj,
+			qyzytz_ljzfzj,
+			yhdk_ljzfzj,
+			lywz_ljzfzj,
+			zjqddd_ljzfzj,
+			qtzj_ljzfzj,
+			sfkg
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{xmjbxx.id},
+			#{taskRelation.id},
+			#{name},
+			#{office},
+			#{mobile},
+			#{sjkgsj},
+			#{sjjgsj},
+			#{ztbxs},
+			#{ssqkjsdw},
+			#{ssqkxxjd},
+			#{ssqkndjsnr},
+			#{ssqkwtjjy},
+			#{ssqkrcjgzjzrdw},
+			#{ssqktzjhtzqk},
+			#{ssqkzfjcjglxr},
+			#{ssqkdcjglxfs},
+			#{ssqkfgbmlxr},
+			#{ssqlfgbmlxfs},
+			#{type},
+			#{zyysntzljwczj},
+			#{zyysntzljzfqk},
+			#{zxzqmjdzxjszjljwczj},
+			#{zxzqmjdzxjszjljzfqk},
+			#{qtlbhzljwczj},
+			#{qtlbhzljwcqk},
+			#{zyysntzLjdwzj},
+			#{qtzyczxjszjLjdwzj},
+			#{zxzqmjdzxjszjLjdwzj},
+			#{zysljsjjLjdwzj},
+			#{nsbdgcjjLjdwzj},
+			#{tljszxjjLjdwzj},
+			#{mhfzjjLjdwzj},
+			#{gjzdslgcjsjjLjdwzj},
+			#{dzxskymhqfcjjLjdwzj},
+			#{dzxskymhqfcjyjjLjdwzj},
+			#{glgkjszxjjLjdwzj},
+			#{shengjiysntzLjdwzj},
+			#{shijiysntzLjdwzj},
+			#{xianjiysntzLjdwzj},
+			#{shengjiczzjLjdwzj},
+			#{shijiczzjLjdwzj},
+			#{xianjiczzjLjdwzj},
+			#{dfzxjsjjLjdwzj},
+			#{qyzytzLjdwzj},
+			#{yhdkLjdwzj},
+			#{lywzLjdwzj},
+			#{zjqdddLjdwzj},
+			#{qtzjLjdwzj},
+			#{updatestatus},
+			
+			#{zyysntzljdwzjtwo},
+			#{qtzyczxjszjljdwzjtwo},
+			#{zxzqmjdzxjszjljdwzjtwo},
+			#{zysljsjjljdwzjtwo},
+			#{nsbdgcjjljdwzjtwo},
+			#{tljszxjjljdwzjtwo},
+			#{mhfzjjljdwzjtwo},
+			#{gjzdslgcjsjjljdwzjtwo},
+			#{dzxskymhqfcjjljdwzjtwo},
+			#{dzxskymhqfcjyjjljdwzjtwo},
+			#{glgkjszxjjljdwzjtwo},
+			#{shengjiysntzljdwzjtwo},
+			#{shijiysntzljdwzjtwo},
+			#{xianjiysntzljdwzjtwo},
+			#{shengjiczzjljdwzjtwo},
+			#{shijiczzjljdwzjtwo},
+			#{xianjiczzjljdwzjtwo},
+			#{dfzxjsjjljdwzjtwo},
+			#{qyzytzljdwzjtwo},
+			#{yhdkljdwzjtwo},
+			#{lywzljdwzjtwo},
+			#{zjqdddljdwzjtwo},
+			#{qtzjljdwzjtwo},
+			
+			#{zyysntzjzbbgljwcjj},
+			#{qtzyczxjszjjzbbgljwcjj},
+			#{zxzqmjjszjjzbbgljwcjj},
+			#{zysljszjjzbbgljwcjj},
+			#{nsbdgczjjzbbgljwcjj},
+			#{tljszxzjjzbbgljwcjj},
+			#{mhfzzjjzbbgljwcjj},
+			#{gjzdslgcjszjjzbbgljwcjj},
+			#{dzxskymhqfczjjzbbgljwcjj},
+			#{dzxskymhqfcjyzjjzbbgljwcjj},
+			#{glgkjszjjzbbgljwcjj},
+			#{sjysntzjzbbgljwcjj},
+			#{cityjysntzjzbbgljwcjj},
+			#{xjysntzjzbbgljwcjj},
+			#{sjczzjjzbbgljwcjj},
+			#{cityjczzjjzbbgljwcjj},
+			#{xjczzjjzbbgljwcjj},
+			#{dfzxjszjjzbbgljwcjj},
+			#{qyzytzjzbbgljwcjj},
+			#{yhdkjzbbgljwcjj}, 
+			#{lywzjzbbgljwcjj},
+			#{zjqdddjzbbgljwcjj},
+			#{qtzjjzbbgljwcjj},
+			
+			#{zyysntzljzfzj},
+			#{qtzyczxjszjljzfzj},
+			#{zxzqmjdzxjszjljzfzj},
+			#{zysljsjjljzfzj},
+			#{nsbdgcjjljzfzj},
+			#{tljszxjjljzfzj},
+			#{mhfzjjljzfzj},
+			#{gjzdslgcjsjjljzfzj},
+			#{dzxskymhqfcjjljzfzj},
+			#{dzxskymhqfcjyjjljzfzj},
+			#{glgkjszxjjljzfzj},
+			#{shengjiysntzljzfzj},
+			#{shijiysntzljzfzj},
+			#{xianjiysntzljzfzj},
+			#{shengjiczzjljzfzj},
+			#{shijiczzjljzfzj},
+			#{xianjiczzjljzfzj},
+			#{dfzxjsjjljzfzj},
+			#{qyzytzljzfzj},
+			#{yhdkljzfzj},
+			#{lywzljzfzj},
+			#{zjqdddljzfzj},
+			#{qtzjljzfzj},
+			#{sfkg}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_ssqk SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			xmjbxx_id = #{xmjbxx.id},
+			task_relation_id = #{taskRelation.id},
+			name = #{name},
+			office = #{office},
+			mobile = #{mobile},
+			sjkgsj = #{sjkgsj},
+			sjjgsj = #{sjjgsj},
+			ztbxs = #{ztbxs},
+			ssqkjsdw = #{ssqkjsdw},
+			ssqkxxjd = #{ssqkxxjd},
+			ssqkndjsnr = #{ssqkndjsnr},
+			ssqkwtjjy = #{ssqkwtjjy},
+			ssqkrcjgzjzrdw = #{ssqkrcjgzjzrdw},
+			ssqktzjhtzqk = #{ssqktzjhtzqk},
+			ssqkzfjcjglxr = #{ssqkzfjcjglxr},
+			ssqkdcjglxfs = #{ssqkdcjglxfs},
+			ssqkfgbmlxr = #{ssqkfgbmlxr},
+			ssqlfgbmlxfs = #{ssqlfgbmlxfs},
+			type = #{type},
+			zyysntzljwczj = #{zyysntzljwczj},
+			zyysntzljzfqk = #{zyysntzljzfqk},
+			zxzqmjdzxjszjljwczj = #{zxzqmjdzxjszjljwczj},
+			zxzqmjdzxjszjljzfqk = #{zxzqmjdzxjszjljzfqk},
+			qtlbhzljwczj = #{qtlbhzljwczj},
+			qtlbhzljwcqk = #{qtlbhzljwcqk},
+			zyysntz_ljdwzj = #{zyysntzLjdwzj},
+			qtzyczxjszj_ljdwzj = #{qtzyczxjszjLjdwzj},
+			zxzqmjdzxjszj_ljdwzj = #{zxzqmjdzxjszjLjdwzj},
+			zysljsjj_ljdwzj = #{zysljsjjLjdwzj},
+			nsbdgcjj_ljdwzj = #{nsbdgcjjLjdwzj},
+			tljszxjj_ljdwzj = #{tljszxjjLjdwzj},
+			mhfzjj_ljdwzj = #{mhfzjjLjdwzj},
+			gjzdslgcjsjj_ljdwzj = #{gjzdslgcjsjjLjdwzj},
+			dzxskymhqfcjj_ljdwzj = #{dzxskymhqfcjjLjdwzj},
+			dzxskymhqfcjyjj_ljdwzj = #{dzxskymhqfcjyjjLjdwzj},
+			glgkjszxjj_ljdwzj = #{glgkjszxjjLjdwzj},
+			shengjiysntz_ljdwzj = #{shengjiysntzLjdwzj},
+			shijiysntz_ljdwzj = #{shijiysntzLjdwzj},
+			xianjiysntz_ljdwzj = #{xianjiysntzLjdwzj},
+			shengjiczzj_ljdwzj = #{shengjiczzjLjdwzj},
+			shijiczzj_ljdwzj = #{shijiczzjLjdwzj},
+			xianjiczzj_ljdwzj = #{xianjiczzjLjdwzj},
+			dfzxjsjj_ljdwzj = #{dfzxjsjjLjdwzj},
+			qyzytz_ljdwzj = #{qyzytzLjdwzj},
+			yhdk_ljdwzj = #{yhdkLjdwzj},
+			lywz_ljdwzj = #{lywzLjdwzj},
+			zjqddd_ljdwzj = #{zjqdddLjdwzj},
+			qtzj_ljdwzj = #{qtzjLjdwzj},
+			updatestatus = #{updatestatus},
+			
+			zyysntz_ljdwzjtwo = #{zyysntzljdwzjtwo},
+			qtzyczxjszj_ljdwzjtwo = #{qtzyczxjszjljdwzjtwo},
+			zxzqmjdzxjszj_ljdwzjtwo = #{zxzqmjdzxjszjljdwzjtwo},
+			zysljsjj_ljdwzjtwo = #{zysljsjjljdwzjtwo},
+			nsbdgcjj_ljdwzjtwo = #{nsbdgcjjljdwzjtwo},
+			tljszxjj_ljdwzjtwo = #{tljszxjjljdwzjtwo},
+			mhfzjj_ljdwzjtwo = #{mhfzjjljdwzjtwo},
+			gjzdslgcjsjj_ljdwzjtwo = #{gjzdslgcjsjjljdwzjtwo},
+			dzxskymhqfcjj_ljdwzjtwo = #{dzxskymhqfcjjljdwzjtwo},
+			dzxskymhqfcjyjj_ljdwzjtwo = #{dzxskymhqfcjyjjljdwzjtwo},
+			glgkjszxjj_ljdwzjtwo = #{glgkjszxjjljdwzjtwo},
+			shengjiysntz_ljdwzjtwo = #{shengjiysntzljdwzjtwo},
+			shijiysntz_ljdwzjtwo = #{shijiysntzljdwzjtwo},
+			xianjiysntz_ljdwzjtwo = #{xianjiysntzljdwzjtwo},
+			shengjiczzj_ljdwzjtwo = #{shengjiczzjljdwzjtwo},
+			shijiczzj_ljdwzjtwo = #{shijiczzjljdwzjtwo},
+			xianjiczzj_ljdwzjtwo = #{xianjiczzjljdwzjtwo},
+			dfzxjsjj_ljdwzjtwo = #{dfzxjsjjljdwzjtwo},
+			qyzytz_ljdwzjtwo = #{qyzytzljdwzjtwo},
+			yhdk_ljdwzjtwo = #{yhdkljdwzjtwo},
+			lywz_ljdwzjtwo = #{lywzljdwzjtwo},
+			zjqddd_ljdwzjtwo = #{zjqdddljdwzjtwo},
+			qtzj_ljdwzjtwo = #{qtzjljdwzjtwo},
+			
+			zyysntz_jzbbgljwcjj = #{zyysntzjzbbgljwcjj},
+			qtzyczxjszj_jzbbgljwcjj = #{qtzyczxjszjjzbbgljwcjj},
+			zxzqmjjszj_jzbbgljwcjj = #{zxzqmjjszjjzbbgljwcjj},
+			zysljszj_jzbbgljwcjj = #{zysljszjjzbbgljwcjj},
+			nsbdgczj_jzbbgljwcjj = #{nsbdgczjjzbbgljwcjj},
+			tljszxzj_jzbbgljwcjj = #{tljszxzjjzbbgljwcjj},
+			mhfzzj_jzbbgljwcjj = #{mhfzzjjzbbgljwcjj},
+			gjzdslgcjszj_jzbbgljwcjj = #{gjzdslgcjszjjzbbgljwcjj},
+			dzxskymhqfczj_jzbbgljwcjj = #{dzxskymhqfczjjzbbgljwcjj},
+			dzxskymhqfcjyzj_jzbbgljwcjj = #{dzxskymhqfcjyzjjzbbgljwcjj},
+			glgkjszj_jzbbgljwcjj = #{glgkjszjjzbbgljwcjj},
+			sjysntz_jzbbgljwcjj = #{sjysntzjzbbgljwcjj},
+			cityjysntz_jzbbgljwcjj = #{cityjysntzjzbbgljwcjj},
+			xjysntz_jzbbgljwcjj = #{xjysntzjzbbgljwcjj},
+			sjczzj_jzbbgljwcjj = #{sjczzjjzbbgljwcjj},
+			cityjczzj_jzbbgljwcjj = #{cityjczzjjzbbgljwcjj},
+			xjczzj_jzbbgljwcjj = #{xjczzjjzbbgljwcjj},
+			dfzxjszj_jzbbgljwcjj = #{dfzxjszjjzbbgljwcjj},
+			qyzytz_jzbbgljwcjj = #{qyzytzjzbbgljwcjj},
+			yhdk_jzbbgljwcjj = #{yhdkjzbbgljwcjj}, 
+			lywz_jzbbgljwcjj = #{lywzjzbbgljwcjj},
+			zjqddd_jzbbgljwcjj = #{zjqdddjzbbgljwcjj},
+			qtzj_jzbbgljwcjj = #{qtzjjzbbgljwcjj},
+			
+			zyysntz_ljzfzj = #{zyysntzljzfzj},
+			qtzyczxjszj_ljzfzj = #{qtzyczxjszjljzfzj},
+			zxzqmjdzxjszj_ljzfzj = #{zxzqmjdzxjszjljzfzj},
+			zysljsjj_ljzfzj = #{zysljsjjljzfzj},
+			nsbdgcjj_ljzfzj = #{nsbdgcjjljzfzj},
+			tljszxjj_ljzfzj = #{tljszxjjljzfzj},
+			mhfzjj_ljzfzj = #{mhfzjjljzfzj},
+			gjzdslgcjsjj_ljzfzj = #{gjzdslgcjsjjljzfzj},
+			dzxskymhqfcjj_ljzfzj = #{dzxskymhqfcjjljzfzj},
+			dzxskymhqfcjyjj_ljzfzj = #{dzxskymhqfcjyjjljzfzj},
+			glgkjszxjj_ljzfzj = #{glgkjszxjjljzfzj},
+			shengjiysntz_ljzfzj = #{shengjiysntzljzfzj},
+			shijiysntz_ljzfzj = #{shijiysntzljzfzj},
+			xianjiysntz_ljzfzj = #{xianjiysntzljzfzj},
+			shengjiczzj_ljzfzj = #{shengjiczzjljzfzj},
+			shijiczzj_ljzfzj = #{shijiczzjljzfzj},
+			xianjiczzj_ljzfzj = #{xianjiczzjljzfzj},
+			dfzxjsjj_ljzfzj = #{dfzxjsjjljzfzj},
+			qyzytz_ljzfzj = #{qyzytzljzfzj},
+			yhdk_ljzfzj = #{yhdkljzfzj},
+			lywz_ljzfzj = #{lywzljzfzj},
+			zjqddd_ljzfzj = #{zjqdddljzfzj},
+			qtzj_ljzfzj = #{qtzjljzfzj},
+			sfkg = #{sfkg}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_ssqk
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_ssqk SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessSsqk" statementType="STATEMENT">
+		select * FROM c_ins_business_ssqk  where ${propertyName} = '${value}'
+	</select>
+	
+	<select id="getSsqkByXmjbxxid" resultType="CInsBusinessSsqk" >
+		SELECT 
+			<include refid="cInsBusinessSsqkColumns"/>
+		FROM c_ins_business_ssqk a
+		WHERE a.xmjbxx_id = #{xmjbxxid}
+		order by nvl(update_date,'2000-12-24 17:25:45')
+	</select>
+	<select id="findfkqkssxxbyssqkid" resultType="CInsBusinessSsqk" >
+		SELECT 
+			<include refid="cInsBusinessSsqkColumns"/>
+		FROM c_ins_business_ssqk a
+		WHERE a.id =  #{ssqkid}
+	</select>
+	
+</mapper>

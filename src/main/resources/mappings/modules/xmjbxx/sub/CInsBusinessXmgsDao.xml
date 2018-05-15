@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.xmjbxx.dao.sub.CInsBusinessXmgsDao">
+    
+	<sql id="cInsBusinessXmgsColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.xmjbxx_id AS "xmjbxx.id",
+		a.gdmc AS "gdmc",
+		a.xz AS "xz",
+		a.cz AS "cz",
+		a.bfb AS "bfb"
+	</sql>
+	
+	<sql id="cInsBusinessXmgsJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessXmgs" >
+		SELECT 
+			<include refid="cInsBusinessXmgsColumns"/>
+		FROM c_ins_business_xmgs a
+		<include refid="cInsBusinessXmgsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessXmgs" >
+		SELECT 
+			<include refid="cInsBusinessXmgsColumns"/>
+		FROM c_ins_business_xmgs a
+		<include refid="cInsBusinessXmgsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="xmjbxx != null and xmjbxx.id != null and xmjbxx.id != ''">
+				AND a.xmjbxx_id = #{xmjbxx.id}
+			</if>
+			<if test="gdmc != null and gdmc != ''">
+				AND a.gdmc LIKE 
+					<if test="dbName == 'oracle'">'%'||#{gdmc}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{gdmc}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{gdmc},'%')</if>
+			</if>
+			<if test="xz != null and xz != ''">
+				AND a.xz = #{xz}
+			</if>
+			<if test="cz != null and cz != ''">
+				AND a.cz = #{cz}
+			</if>
+			<if test="bfb != null and bfb != ''">
+				AND a.bfb = #{bfb}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessXmgs" >
+		SELECT 
+			<include refid="cInsBusinessXmgsColumns"/>
+		FROM c_ins_business_xmgs a
+		<include refid="cInsBusinessXmgsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_xmgs(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			xmjbxx_id,
+			gdmc,
+			xz,
+			cz,
+			bfb
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{xmjbxx.id},
+			#{gdmc},
+			#{xz},
+			#{cz},
+			#{bfb}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_xmgs SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			xmjbxx_id = #{xmjbxx.id},
+			gdmc = #{gdmc},
+			xz = #{xz},
+			cz = #{cz},
+			bfb = #{bfb}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_xmgs
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_xmgs SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessXmgs" statementType="STATEMENT">
+		select * FROM c_ins_business_xmgs  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

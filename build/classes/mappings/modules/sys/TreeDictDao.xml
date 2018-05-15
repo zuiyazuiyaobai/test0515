@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.sys.dao.TreeDictDao">
+    
+	<sql id="treeDictColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.parent_id AS "parent.id",
+		a.parent_ids AS "parentIds",
+		a.name AS "name",
+		a.sort AS "sort",
+		a.code AS "code",
+		a.type AS "type",
+		a.remarks AS "remarks"
+	</sql>
+	
+	<sql id="treeDictJoins">
+		LEFT JOIN sys_tree_dict b on b.id = a.parent_id
+	</sql>
+    
+	<select id="get" resultType="TreeDict">
+		SELECT 
+			<include refid="treeDictColumns"/>
+		FROM sys_tree_dict a
+		<include refid="treeDictJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TreeDict">
+		SELECT 
+			<include refid="treeDictColumns"/>
+		FROM sys_tree_dict a
+		<include refid="treeDictJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="parent != null and parent.id != null and parent.id != ''">
+				AND a.parent_id = #{parent.id}
+			</if>
+			<if test="parent != null and parent.name != null and parent.name != ''">
+				AND trim(b.name) = trim(#{parent.name})
+			</if>
+			<if test="parentIds != null and parentIds != ''">
+				AND a.parent_ids LIKE
+					<if test="dbName == 'oracle'">'%'||#{parentIds}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{parentIds}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{parentIds},'%')</if>
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="sort != null and sort != ''">
+				AND a.sort = #{sort}
+			</if>
+			<if test="code != null and code != ''">
+				AND a.code = #{code}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+	
+	<select id="findAllList" resultType="TreeDict">
+		SELECT 
+			<include refid="treeDictColumns"/>
+		FROM sys_tree_dict a
+		<include refid="treeDictJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+
+	<select id="findByParentIdsLike" resultType="TreeDict">
+		SELECT
+			a.id,
+			a.parent_id AS "parent.id",
+			a.parent_ids
+		FROM sys_tree_dict a
+		<include refid="treeDictJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND a.parent_ids LIKE #{parentIds}
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_tree_dict(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			parent_id,
+			parent_ids,
+			name,
+			sort,
+			code,
+			type,
+			remarks
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{parent.id},
+			#{parentIds},
+			#{name},
+			#{sort},
+			#{code},
+			#{type},
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_tree_dict SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			parent_id = #{parent.id},
+			parent_ids = #{parentIds},
+			name = #{name},
+			sort = #{sort},
+			code = #{code},
+			type = #{type},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateParentIds">
+		UPDATE sys_tree_dict SET
+			parent_id = #{parent.id},
+			parent_ids = #{parentIds}
+		WHERE id = #{id}
+	</update>
+
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM sys_tree_dict
+		WHERE id = #{id} OR parent_ids LIKE
+		<if test="dbName == 'oracle'">#{id}||'%'</if>
+		<if test="dbName == 'mssql'">#{id}+'%'</if>
+		<if test="dbName == 'mysql'">concat(#{id},'%')</if>
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE sys_tree_dict SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id} OR parent_ids LIKE
+		<if test="dbName == 'oracle'">#{id}||'%'</if>
+		<if test="dbName == 'mssql'">#{id}+'%'</if>
+		<if test="dbName == 'mysql'">concat(#{id},'%')</if>
+	</update>
+
+	<select id="findListByNameAndParentName" resultType="TreeDict">
+		SELECT
+		<include refid="treeDictColumns"/>
+		FROM sys_tree_dict a
+		<include refid="treeDictJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="parent != null and parent.name != null and parent.name != ''">
+				AND trim(b.name) = trim(#{parent.name})
+			</if>
+			<if test="parent != null and parent.code != null and parent.code != ''">
+				AND trim(b.code) = trim(#{parent.code})
+			</if>
+			<if test="name != null and name != ''">
+				AND trim(a.name) = trim(#{name})
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.sort ASC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.zdxmbj.dao.CInsBusinessZdgcxmbjDao">
+    
+	<sql id="cInsBusinessZdgcxmColumns">
+		a.id AS "id",
+		a.zdgcxmbh AS "zdgcxmbh",
+		a.zdxmlx AS "zdxmlx",
+		a.cylx AS "cylx",
+		a.cylxone AS "cylxone",
+		a.fzrname AS "fzrname",
+		a.fzrtel AS "fzrtel",
+		a.year AS "year",
+		a.ndjhtz AS "ndjhtz",
+		a.status AS "status",
+		a.layer AS "layer",
+		a.csmsg AS "csmsg",
+		a.fsmsg AS "fsmsg",
+		a.creattime AS "creattime",
+		a.sfyx AS "sfyx",
+		a.cbsnum AS "cbsnum",
+		a.csuserid as "csuserid",
+		a.fsuserid as "fsuserid"
+	</sql>
+	
+	<sql id="zdxmlistColumns">
+		a.id AS "id",
+		a.zdgcxmbh AS "zdgcxmbh",
+		a.cbsnum AS "info.cbsnum",
+		a.cbsnum AS "cbsnum",
+		a.zdxmlx  AS "zdxmlx",
+		a.cylx  AS  "cylx",
+		info.projectname As "info.projectname",
+		info.incname  AS "info.incname",
+		info.createtime AS "info.createtime",
+		a.status   AS "status"
+		
+	</sql>
+	
+	<sql id="cInsBusinessZdgcxmJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessZdgcxm" >
+		SELECT 
+			<include refid="cInsBusinessZdgcxmColumns"/>
+		FROM c_ins_business_zdgcxm a
+		<include refid="cInsBusinessZdgcxmJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessZdgcxm" >
+		SELECT 
+			<include refid="zdxmlistColumns"/>
+		FROM c_ins_business_zdgcxm a,c_ins_business_info info
+		WHERE a.cbsnum = info.cbsnum
+		and (a.status='1' or a.status='2')
+		and (case when a.status='1' then a.CSUSERID
+				  when a.status='2' then a.FSUSERID
+				  end)=#{currentuserid}
+		<if test="projectname!=null and projectname!=''">
+		and info.projectname like
+			<if test="dbName == 'oracle'">'%'||#{projectname}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{projectname}, '%')</if>
+		</if>
+		<if test="zdxmlx!=null and zdxmlx!=''">and a.zdxmlx=#{zdxmlx}</if>
+		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessZdgcxm" >
+		SELECT 
+			<include refid="cInsBusinessZdgcxmColumns"/>
+		FROM c_ins_business_zdgcxm a
+		<include refid="cInsBusinessZdgcxmJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_zdgcxm(
+			id,
+			zdgcxmbh,
+			zdxmlx,
+			cylx,
+			cylxone,
+			fzrname,
+			fzrtel,
+			year,
+			ndjhtz,
+			status,
+			layer,
+			csmsg,
+			fsmsg,
+			creattime,
+			sfyx
+		) VALUES (
+			#{id},
+			#{zdgcxmbh},
+			#{zdxmlx},
+			#{cylx},
+			#{cylxone},
+			#{fzrname},
+			#{fzrtel},
+			#{year},
+			#{ndjhtz},
+			#{status},
+			#{layer},
+			#{csmsg},
+			#{fsmsg},
+			#{creattime},
+			#{sfyx}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_zdgcxm SET 	
+			zdgcxmbh = #{zdgcxmbh},
+			zdxmlx = #{zdxmlx},
+			cylx = #{cylx},
+			cylxone = #{cylxone},
+			fzrname = #{fzrname},
+			fzrtel = #{fzrtel},
+			year = #{year},
+			ndjhtz = #{ndjhtz},
+			status = #{status},
+			layer = #{layer},
+			csmsg = #{csmsg},
+			fsmsg = #{fsmsg},
+			creattime = #{creattime},
+			sfyx = #{sfyx}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_zdgcxm
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_zdgcxm SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessZdgcxm" statementType="STATEMENT">
+		select * FROM c_ins_business_zdgcxm  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

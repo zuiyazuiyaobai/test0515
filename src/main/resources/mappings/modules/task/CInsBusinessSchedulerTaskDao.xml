@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.task.dao.CInsBusinessSchedulerTaskDao">
+    
+	<sql id="cInsBusinessSchedulerTaskColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.name AS "name",
+		a.type AS "type",
+		a.start_date AS "startDate",
+		a.end_date AS "endDate",
+		a.requirement AS "requirement",
+		a.origin AS "origin",
+		a.issue_date AS "issueDate",
+		a.status AS "status",
+		a.dept_id AS "dept.id"
+	</sql>
+	
+	<sql id="cInsBusinessSchedulerTaskJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="CInsBusinessSchedulerTask" >
+		SELECT 
+			<include refid="cInsBusinessSchedulerTaskColumns"/>
+		FROM c_ins_business_scheduler_task a
+		<include refid="cInsBusinessSchedulerTaskJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CInsBusinessSchedulerTask" >
+		SELECT 
+			<include refid="cInsBusinessSchedulerTaskColumns"/>
+		FROM c_ins_business_scheduler_task a
+		<include refid="cInsBusinessSchedulerTaskJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND a.start_date = #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND a.end_date = #{endDate}
+			</if>
+			<if test="origin != null and origin != ''">
+				AND a.origin = #{origin}
+			</if>
+			<if test="issueDate != null and issueDate != ''">
+				AND a.issue_date = #{issueDate}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="dept != null and dept.id != null and dept.id != ''">
+				AND a.dept_id = #{dept.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CInsBusinessSchedulerTask" >
+		SELECT 
+			<include refid="cInsBusinessSchedulerTaskColumns"/>
+		FROM c_ins_business_scheduler_task a
+		<include refid="cInsBusinessSchedulerTaskJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO c_ins_business_scheduler_task(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			name,
+			type,
+			start_date,
+			end_date,
+			requirement,
+			origin,
+			issue_date,
+			status,
+			dept_id
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{name},
+			#{type},
+			#{startDate},
+			#{endDate},
+			#{requirement},
+			#{origin},
+			#{issueDate},
+			#{status},
+			#{dept.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE c_ins_business_scheduler_task SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			name = #{name},
+			type = #{type},
+			start_date = #{startDate},
+			end_date = #{endDate},
+			requirement = #{requirement},
+			origin = #{origin},
+			issue_date = #{issueDate},
+			status = #{status},
+			dept_id = #{dept.id}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM c_ins_business_scheduler_task
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE c_ins_business_scheduler_task SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="CInsBusinessSchedulerTask" statementType="STATEMENT">
+		select * FROM c_ins_business_scheduler_task  where ${propertyName} = '${value}'
+	</select>
+
+	<select id="findFullListByParameter" resultType="CInsBusinessSchedulerTask" >
+			SELECT
+				a.id             AS "id"  ,
+		        a.name           AS "name",
+		        a.requirement AS "requirement",
+		        sum(x.ztz)            AS "type" ,
+		        count(*) AS "remarks",
+		        a.update_date AS update_date
+			FROM c_ins_business_scheduler_task a,
+				 c_ins_business_xmjbxx_task_relation b,
+        		 xmjbxx x
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND a.id = b.task_id
+    		AND b.XMJBXX_ID = x.id
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="origin != null and origin != ''">
+				AND a.origin = #{origin}
+			</if>
+			<if test="issueDate != null and issueDate != ''">
+				AND a.issue_date = #{issueDate}
+			</if>
+			
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="dept != null and dept.id != null and dept.id != ''">
+				AND a.dept_id = #{dept.id}
+			</if>
+			<if test="null != startDateStart">
+				AND a.start_date >= #{startDateStart}
+			</if>
+			<if test="null != startDateEnd">
+				AND a.start_date &lt;= #{startDateEnd}
+			</if>
+			<if test="null != endDateStart">
+				AND a.end_date >= #{endDateStart}
+			</if>
+			<if test="null != endDateEnd">
+				AND a.end_date &lt;= #{endDateEnd}
+			</if>
+			group by a.id, a.name,a.update_date,a.requirement
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findYxfListByParameter" resultType="CInsBusinessSchedulerTask" >
+		SELECT
+		<include refid="cInsBusinessSchedulerTaskColumns"/>
+		FROM c_ins_business_scheduler_task a
+		<include refid="cInsBusinessSchedulerTaskJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="origin != null and origin != ''">
+				AND a.origin = #{origin}
+			</if>
+			<if test="issueDate != null and issueDate != ''">
+				AND a.issue_date = #{issueDate}
+			</if>
+				AND a.status = '2' or a.status = '3'
+			<if test="dept != null and dept.id != null and dept.id != ''">
+				AND a.dept_id = #{dept.id}
+			</if>
+			<if test="null != startDateStart">
+				AND a.start_date >= #{startDateStart}
+			</if>
+			<if test="null != startDateEnd">
+				AND a.start_date &lt;= #{startDateEnd}
+			</if>
+			<if test="null != endDateStart">
+				AND a.end_date >= #{endDateStart}
+			</if>
+			<if test="null != endDateEnd">
+				AND a.end_date &lt;= #{endDateEnd}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 根据 xmjbxxid 从c_ins_business_ssqk获取信息 -->
+	<select id="getCountByXmjbxxid" resultType="HashMap">
+		select s.id as "id", s.xmjbxx_id as "xmjbxx_id" from c_ins_business_ssqk s where xmjbxx_id =#{xmjbxxid}
+	</select>
+	<!-- 向实施情况表中添加记录 id xmjbxx_id-->
+	<insert id="insertSsqkJl">
+		INSERT INTO c_ins_business_ssqk (id,xmjbxx_id)  VALUES (#{ssqkid},#{xmjbxxid})
+	</insert>
+	<!-- 根据 xmjbxxid 从c_ins_business_ssqk获取信息-->
+	<select id="getSsqkByXmjbxxid" resultType="CInsBusinessSsqk" >
+	SELECT 
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.xmjbxx_id AS "xmjbxx.id",
+		a.task_relation_id AS "taskRelation.id",
+		a.name AS "name",
+		a.office AS "office",
+		a.mobile AS "mobile",
+		a.sjkgsj AS "sjkgsj",
+		a.sjjgsj AS "sjjgsj",
+		a.ztbxs AS "ztbxs",
+		a.ssqkjsdw AS "ssqkjsdw",
+		a.ssqkxxjd AS "ssqkxxjd",
+		a.ssqkndjsnr AS "ssqkndjsnr",
+		a.ssqkwtjjy AS "ssqkwtjjy",
+		a.ssqkrcjgzjzrdw AS "ssqkrcjgzjzrdw",
+		a.ssqktzjhtzqk AS "ssqktzjhtzqk",
+		a.ssqkzfjcjglxr AS "ssqkzfjcjglxr",
+		a.ssqkdcjglxfs AS "ssqkdcjglxfs",
+		a.ssqkfgbmlxr AS "ssqkfgbmlxr",
+		a.ssqlfgbmlxfs AS "ssqlfgbmlxfs",
+		a.type AS "type",
+		a.zyysntzljwczj AS "zyysntzljwczj",
+		a.zyysntzljzfqk AS "zyysntzljzfqk",
+		a.zxzqmjdzxjszjljwczj AS "zxzqmjdzxjszjljwczj",
+		a.zxzqmjdzxjszjljzfqk AS "zxzqmjdzxjszjljzfqk",
+		a.qtlbhzljwczj AS "qtlbhzljwczj",
+		a.qtlbhzljwcqk AS "qtlbhzljwcqk",
+		a.zyysntz_ljdwzj AS "zyysntzLjdwzj",
+		a.qtzyczxjszj_ljdwzj AS "qtzyczxjszjLjdwzj",
+		a.zxzqmjdzxjszj_ljdwzj AS "zxzqmjdzxjszjLjdwzj",
+		a.zysljsjj_ljdwzj AS "zysljsjjLjdwzj",
+		a.nsbdgcjj_ljdwzj AS "nsbdgcjjLjdwzj",
+		a.tljszxjj_ljdwzj AS "tljszxjjLjdwzj",
+		a.mhfzjj_ljdwzj AS "mhfzjjLjdwzj",
+		a.gjzdslgcjsjj_ljdwzj AS "gjzdslgcjsjjLjdwzj",
+		a.dzxskymhqfcjj_ljdwzj AS "dzxskymhqfcjjLjdwzj",
+		a.dzxskymhqfcjyjj_ljdwzj AS "dzxskymhqfcjyjjLjdwzj",
+		a.glgkjszxjj_ljdwzj AS "glgkjszxjjLjdwzj",
+		a.shengjiysntz_ljdwzj AS "shengjiysntzLjdwzj",
+		a.shijiysntz_ljdwzj AS "shijiysntzLjdwzj",
+		a.xianjiysntz_ljdwzj AS "xianjiysntzLjdwzj",
+		a.shengjiczzj_ljdwzj AS "shengjiczzjLjdwzj",
+		a.shijiczzj_ljdwzj AS "shijiczzjLjdwzj",
+		a.xianjiczzj_ljdwzj AS "xianjiczzjLjdwzj",
+		a.dfzxjsjj_ljdwzj AS "dfzxjsjjLjdwzj",
+		a.qyzytz_ljdwzj AS "qyzytzLjdwzj",
+		a.yhdk_ljdwzj AS "yhdkLjdwzj",
+		a.lywz_ljdwzj AS "lywzLjdwzj",
+		a.zjqddd_ljdwzj AS "zjqdddLjdwzj",
+		a.qtzj_ljdwzj AS "qtzjLjdwzj",
+		
+		a.zyysntz_jzbbgljwcjj AS "zyysntzjzbbgljwcjj",
+		a.qtzyczxjszj_jzbbgljwcjj  AS  "qtzyczxjszjjzbbgljwcjj",
+		a.zxzqmjjszj_jzbbgljwcjj AS "zxzqmjjszjjzbbgljwcjj",
+		a.zyzxjszj_jzbbgljwcjj AS "zyzxjszjjzbbgljwcjj",
+		a.zysljszj_jzbbgljwcjj AS "zysljszjjzbbgljwcjj",
+		a.nsbdgczj_jzbbgljwcjj AS "nsbdgczjjzbbgljwcjj",
+		a.tljszxzj_jzbbgljwcjj AS "tljszxzjjzbbgljwcjj",
+		a.mhfzzj_jzbbgljwcjj  AS "mhfzzjjzbbgljwcjj",
+		a.gjzdslgcjszj_jzbbgljwcjj AS "gjzdslgcjszjjzbbgljwcjj",
+		a.dzxskymhqfczj_jzbbgljwcjj AS "dzxskymhqfczjjzbbgljwcjj",
+		a.dzxskymhqfcjyzj_jzbbgljwcjj AS "dzxskymhqfcjyzjjzbbgljwcjj",
+		a.glgkjszj_jzbbgljwcjj AS "glgkjszjjzbbgljwcjj",
+		a.dfysntz_jzbbgljwcjj  AS "dfysntzjzbbgljwcjj",
+		a.sjysntz_jzbbgljwcjj  AS "sjysntzjzbbgljwcjj",
+		a.cityjysntz_jzbbgljwcjj AS "cityjysntzjzbbgljwcjj",
+		a.xjysntz_jzbbgljwcjj AS "xjysntzjzbbgljwcjj",
+		a.dfczxjszj_jzbbgljwcjj AS "dfczxjszjjzbbgljwcjj",
+		a.sjczzj_jzbbgljwcjj AS "sjczzjjzbbgljwcjj",
+		a.cityjczzj_jzbbgljwcjj AS "cityjczzjjzbbgljwcjj",
+		a.xjczzj_jzbbgljwcjj AS "xjczzjjzbbgljwcjj",
+		a.dfzxjszj_jzbbgljwcjj AS "dfzxjszjjzbbgljwcjj",
+		a.qyzytz_jzbbgljwcjj AS "qyzytzjzbbgljwcjj",
+		a.yhdk_jzbbgljwcjj AS "yhdkjzbbgljwcjj",
+		a.lywz_jzbbgljwcjj AS "lywzjzbbgljwcjj",
+		a.zjqddd_jzbbgljwcjj AS "zjqdddjzbbgljwcjj",
+		a.qtzj_jzbbgljwcjj AS "qtzjjzbbgljwcjj",
+		a.hj_jzbbgljwcjj AS "hjjzbbgljwcjj",
+		  		  		  
+		a.zyysntz_ljzfzj AS "zyysntzljzfzj",
+		a.qtzyczxjszj_ljzfzj AS "qtzyczxjszjljzfzj",
+		a.zxzqmjdzxjszj_ljzfzj AS "zxzqmjdzxjszjljzfzj",
+		a.zysljsjj_ljzfzj AS "zysljsjjljzfzj",
+		a.nsbdgcjj_ljzfzj AS "nsbdgcjjljzfzj",
+		a.tljszxjj_ljzfzj AS "tljszxjjljzfzj",
+		a.mhfzjj_ljzfzj AS "mhfzjjljzfzj",
+		a.gjzdslgcjsjj_ljzfzj AS "gjzdslgcjsjjljzfzj",
+		a.dzxskymhqfcjj_ljzfzj AS "dzxskymhqfcjjljzfzj",
+		a.dzxskymhqfcjyjj_ljzfzj AS "dzxskymhqfcjyjjljzfzj",
+		a.glgkjszxjj_ljzfzj AS "glgkjszxjjljzfzj",
+		a.shengjiysntz_ljzfzj AS "shengjiysntzljzfzj",
+		a.shijiysntz_ljzfzj AS "shijiysntzljzfzj",
+		a.xianjiysntz_ljzfzj AS "xianjiysntzljzfzj",
+		a.shengjiczzj_ljzfzj AS "shengjiczzjljzfzj",
+		a.shijiczzj_ljzfzj AS "shijiczzjljzfzj",
+		a.xianjiczzj_ljzfzj AS "xianjiczzjljzfzj",
+		a.dfzxjsjj_ljzfzj AS "dfzxjsjjljzfzj",
+		a.qyzytz_ljzfzj AS "qyzytzljzfzj",
+		a.yhdk_ljzfzj AS "yhdkljzfzj",
+		a.lywz_ljzfzj AS "lywzljzfzj",
+		a.zjqddd_ljzfzj AS "zjqdddljzfzj",
+		a.qtzj_ljzfzj AS "qtzjljzfzj",
+				
+		a.zyysntz_ljdwzjtwo AS "zyysntzljdwzjtwo",
+		a.qtzyczxjszj_ljdwzjtwo AS "qtzyczxjszjljdwzjtwo",
+		a.zxzqmjdzxjszj_ljdwzjtwo AS "zxzqmjdzxjszjljdwzjtwo",
+		a.zysljsjj_ljdwzjtwo AS "zysljsjjljdwzjtwo",
+		a.nsbdgcjj_ljdwzjtwo AS "nsbdgcjjljdwzjtwo",
+		a.tljszxjj_ljdwzjtwo AS "tljszxjjljdwzjtwo",
+		a.mhfzjj_ljdwzjtwo AS "mhfzjjljdwzjtwo",
+		a.gjzdslgcjsjj_ljdwzjtwo AS "gjzdslgcjsjjljdwzjtwo",
+		a.dzxskymhqfcjj_ljdwzjtwo AS "dzxskymhqfcjjljdwzjtwo",
+		a.dzxskymhqfcjyjj_ljdwzjtwo AS "dzxskymhqfcjyjjljdwzjtwo",
+		a.glgkjszxjj_ljdwzjtwo AS "glgkjszxjjljdwzjtwo",
+		a.shengjiysntz_ljdwzjtwo AS "shengjiysntzljdwzjtwo",
+		a.shijiysntz_ljdwzjtwo AS "shijiysntzljdwzjtwo",
+		a.xianjiysntz_ljdwzjtwo AS "xianjiysntzljdwzjtwo",
+		a.shengjiczzj_ljdwzjtwo AS "shengjiczzjljdwzjtwo",
+		a.shijiczzj_ljdwzjtwo AS "shijiczzjljdwzjtwo",
+		a.xianjiczzj_ljdwzjtwo AS "xianjiczzjljdwzjtwo",
+		a.dfzxjsjj_ljdwzjtwo AS "dfzxjsjjljdwzjtwo",
+		a.qyzytz_ljdwzjtwo AS "qyzytzljdwzjtwo",
+		a.yhdk_ljdwzjtwo AS "yhdkljdwzjtwo",
+		a.lywz_ljdwzjtwo AS "lywzljdwzjtwo",
+		a.zjqddd_ljdwzjtwo AS "zjqdddljdwzjtwo",
+		a.qtzj_ljdwzjtwo  as  "qtzjljdwzjtwo"
+	FROM "ZDXM_JEEPLUS"."C_INS_BUSINESS_SSQK"  a
+	WHERE a.xmjbxx_id = #{xmjbxxid}
+	and a.del_flag ='0'
+	order by nvl(update_date,'2000-01-22 11:40:59') desc
+	</select>
+	<update id="saveRwlxByXmjbxxid">
+		UPDATE xmjbxx f set f.remarks = #{rwlx}
+        from xmjbxx f  		
+		where  f.id = #{xmjbxx_id}
+	</update>
+	<select id="findListByXmjbxxid" resultType="Xmjbxx" >
+		select f.* from  xmjbxx f where f.id = #{xmjbxxid} 
+		
+	</select>
+	
+	<select id="findLsxdListByXmjbxxid" resultType="CInsBusinessSchedulerTask" >
+		SELECT a.id AS "id" , a.name AS "name", a.requirement AS "requirement", sum(x.ztz) AS "type" , count(*) AS "remarks", 
+		a.update_date AS update_date 
+		FROM c_ins_business_scheduler_task a, c_ins_business_xmjbxx_task_relation b, xmjbxx x 
+		WHERE a.del_flag = '0' 
+		AND a.id = b.task_id 
+		AND b.XMJBXX_ID = x.id 
+		AND b.xmjbxx_id =  #{xmjbxxid}
+		group by a.id, a.name,a.update_date,a.requirement 
+		ORDER BY a.update_date DESC
+	</select>
+	
+	<update id="setdcrw">
+		UPDATE c_ins_business_scheduler_task SET
+			wdddrwdc = '1'
+		WHERE id = #{taskid}
+	</update>
+	
+</mapper>
