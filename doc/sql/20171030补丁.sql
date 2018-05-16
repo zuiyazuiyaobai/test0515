@@ -1,1 +1,0 @@
-alter table "ZDXM_JEEPLUS"."XMJBXX" add column("BSWH" VARCHAR2(64));comment on column "ZDXM_JEEPLUS"."XMJBXX"."BSWH" is '报送文号';

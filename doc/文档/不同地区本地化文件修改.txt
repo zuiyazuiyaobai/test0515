@@ -1,9 +1,0 @@
-配置文件修改
-src\main\resources\jeeplus.properties   修改文件中productName的值，以及其他数据库配置参数
-
-登录页面的title和大标题
-WebContent\webpage\modules\sys\sysLogin.jsp
-
-框架标题
-WebContent\webpage\modules\sys\sysIndex-ace.jsp
-
