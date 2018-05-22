@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.accounttask.dao.TYwTaskDao">
+    
+	<sql id="tYwTaskColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.task_title AS "taskTitle",
+		a.task_content AS "taskContent",
+		a.time_node AS "timeNode",
+		a.response_unit AS "responseUnit",
+		a.response_person AS "responsePerson",
+		a.response_unit_id AS "responseUnitId",
+		a.response_person_id AS "responsePersonId",
+		a.is_main AS "isMain",
+		a.frequency AS "frequency",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.create_time AS "createTime",
+		a.creater AS "creater",
+		a.task_status AS "taskStatus",
+		a.remark AS "remark"
+	</sql>
+	
+	<sql id="tYwTaskJoins">
+		LEFT JOIN sys_office responseUnit ON responseUnit.id = a.response_unit
+		LEFT JOIN sys_user responsePerson ON responsePerson.id = a.response_person
+	</sql>
+	
+    
+	<select id="get" resultType="TYwTask" >
+		SELECT 
+			<include refid="tYwTaskColumns"/>
+		FROM t_yw_task a
+		<include refid="tYwTaskJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TYwTask" >
+		SELECT 
+			<include refid="tYwTaskColumns"/>
+		FROM t_yw_task a
+		<include refid="tYwTaskJoins"/>
+		<where>
+			
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if>
+			<if test="taskTitle != null and taskTitle != ''">
+				AND a.task_title = #{taskTitle}
+			</if>
+			<if test="responseUnit != null and responseUnit != ''">
+				AND a.response_unit = #{responseUnit}
+			</if>
+			<if test="responsePerson != null and responsePerson != ''">
+				AND a.response_person = #{responsePerson}
+			</if>
+			<if test="responseUnitId != null and responseUnitId != ''">
+				AND a.response_unit_id = #{responseUnitId}
+			</if>
+			<if test="responsePersonId != null and responsePersonId != ''">
+				AND a.response_person_id = #{responsePersonId}
+			</if>
+			<if test="isMain != null and isMain != ''">
+				AND a.is_main = #{isMain}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy} , a.create_time desc
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TYwTask" >
+		SELECT 
+			<include refid="tYwTaskColumns"/>
+		FROM t_yw_task a
+		<include refid="tYwTaskJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_yw_task(
+			id,
+			parent_id,
+			task_title,
+			task_content,
+			time_node,
+			response_unit,
+			response_person,
+			response_unit_id,
+			response_person_id,
+			is_main,
+			frequency,
+			start_time,
+			end_time,
+			create_time,
+			creater,
+			task_status,
+			remark
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{taskTitle},
+			#{taskContent},
+			#{timeNode},
+			#{responseUnit},
+			#{responsePerson},
+			#{responseUnitId},
+			#{responsePersonId},
+			#{isMain},
+			#{frequency},
+			#{startTime},
+			#{endTime},
+			#{createTime},
+			#{creater},
+			#{taskStatus},
+			#{remark}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_yw_task SET 	
+			parent_id = #{parentId},
+			task_title = #{taskTitle},
+			task_content = #{taskContent},
+			time_node = #{timeNode},
+			response_unit = #{responseUnit},
+			response_person = #{responsePerson},
+			response_unit_id = #{responseUnitId},
+			response_person_id = #{responsePersonId},
+			is_main = #{isMain},
+			frequency = #{frequency},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			create_time = #{createTime},
+			creater = #{creater},
+			task_status = #{taskStatus},
+			remark = #{remark}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM t_yw_task
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE t_yw_task SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="TYwTask" statementType="STATEMENT">
+		select * FROM t_yw_task  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

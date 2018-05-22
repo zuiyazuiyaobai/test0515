@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.account.dao.TYwProjectDao">
+    
+	<sql id="tYwProjectColumns">
+		a.id AS "id",
+		a.category AS "category",
+		a.title AS "title",
+		a.content AS "content",
+		a.sort AS "sort",
+		a.time_node AS "timeNode",
+		a.main_leader AS "mainLeader",
+		a.main_leader_id AS "mainLeaderId",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.status AS "status",
+		a.contacts AS "contacts",
+		a.contactstel AS "contactstel",
+		a.create_time AS "createTime",
+		a.creater AS "creater",
+		a.remark AS "remark"
+	</sql>
+	
+	<sql id="tYwProjectJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="TYwProject" >
+		SELECT 
+			<include refid="tYwProjectColumns"/>
+		FROM t_yw_project a
+		<include refid="tYwProjectJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TYwProject" >
+		SELECT 
+			<include refid="tYwProjectColumns"/>
+		FROM t_yw_project a
+		<include refid="tYwProjectJoins"/>
+		<where>
+			
+			<if test="category != null and category != ''">
+				AND a.category = #{category}
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="mainLeader != null and mainLeader != ''">
+				AND a.main_leader = #{mainLeader}
+			</if>
+			<if test="mainLeaderId != null and mainLeaderId != ''">
+				AND a.main_leader_id = #{mainLeaderId}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TYwProject" >
+		SELECT 
+			<include refid="tYwProjectColumns"/>
+		FROM t_yw_project a
+		<include refid="tYwProjectJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_yw_project(
+			id,
+			category,
+			title,
+			content,
+			sort,
+			time_node,
+			main_leader,
+			main_leader_id,
+			start_time,
+			end_time,
+			status,
+			contacts,
+			contactstel,
+			create_time,
+			creater,
+			remark
+		) VALUES (
+			#{id},
+			#{category},
+			#{title},
+			#{content},
+			#{sort},
+			#{timeNode},
+			#{mainLeader},
+			#{mainLeaderId},
+			#{startTime},
+			#{endTime},
+			#{status},
+			#{contacts},
+			#{contactstel},
+			#{createTime},
+			#{creater},
+			#{remark}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_yw_project SET 	
+			category = #{category},
+			title = #{title},
+			content = #{content},
+			sort = #{sort},
+			time_node = #{timeNode},
+			main_leader = #{mainLeader},
+			main_leader_id = #{mainLeaderId},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			status = #{status},
+			contacts = #{contacts},
+			contactstel = #{contactstel},
+			create_time = #{createTime},
+			creater = #{creater},
+			remark = #{remark}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM t_yw_project
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE t_yw_project SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="TYwProject" statementType="STATEMENT">
+		select * FROM t_yw_project  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

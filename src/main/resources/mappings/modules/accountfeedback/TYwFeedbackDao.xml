@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.accountfeedback.dao.TYwFeedbackDao">
+    
+	<sql id="tYwFeedbackColumns">
+		a.id AS "id",
+		a.task_id AS "taskId",
+		a.parent_id AS "parentId",
+		a.feed_content AS "feedContent",
+		a.feed_person AS "feedPerson",
+		a.feed_person_id AS "feedPersonId",
+		a.feed_time AS "feedTime",
+		a.feed_file AS "feedFile",
+		a.schedule AS "schedule",
+		a.feed_status AS "feedStatus",
+		a.feed_remark AS "feedRemark",
+		a.audit_result AS "auditResult",
+		a.is_finish AS "isFinish",
+		a.audit_remark AS "auditRemark",
+		a.audit_person AS "auditPerson",
+		a.audit_person_id AS "auditPersonId",
+		a.audit_time AS "auditTime"
+	</sql>
+	
+	<sql id="tYwFeedbackJoins">
+	</sql>
+	
+    
+	<select id="get" resultType="TYwFeedback" >
+		SELECT 
+			<include refid="tYwFeedbackColumns"/>
+		FROM t_yw_feedback a
+		<include refid="tYwFeedbackJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TYwFeedback" >
+		SELECT 
+			<include refid="tYwFeedbackColumns"/>
+		FROM t_yw_feedback a
+		<include refid="tYwFeedbackJoins"/>
+		<where>
+			
+			<if test="taskId != null and taskId != ''">
+				AND a.task_id = #{taskId}
+			</if>
+			<if test="feedPerson != null and feedPerson != ''">
+				AND a.feed_person = #{feedPerson}
+			</if>
+			<if test="feedPersonId != null and feedPersonId != ''">
+				AND a.feed_person_id = #{feedPersonId}
+			</if>
+			<if test="schedule != null and schedule != ''">
+				AND a.schedule = #{schedule}
+			</if>
+			<if test="feedStatus != null and feedStatus != ''">
+				AND a.feed_status = #{feedStatus}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TYwFeedback" >
+		SELECT 
+			<include refid="tYwFeedbackColumns"/>
+		FROM t_yw_feedback a
+		<include refid="tYwFeedbackJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_yw_feedback(
+			id,
+			task_id,
+			parent_id,
+			feed_content,
+			feed_person,
+			feed_person_id,
+			feed_time,
+			feed_file,
+			schedule,
+			feed_status,
+			feed_remark,
+			audit_result,
+			is_finish,
+			audit_remark,
+			audit_person,
+			audit_person_id,
+			audit_time
+		) VALUES (
+			#{id},
+			#{taskId},
+			#{parentId},
+			#{feedContent},
+			#{feedPerson},
+			#{feedPersonId},
+			#{feedTime},
+			#{feedFile},
+			#{schedule},
+			#{feedStatus},
+			#{feedRemark},
+			#{auditResult},
+			#{isFinish},
+			#{auditRemark},
+			#{auditPerson},
+			#{auditPersonId},
+			#{auditTime}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_yw_feedback SET 	
+			task_id = #{taskId},
+			parent_id = #{parentId},
+			feed_content = #{feedContent},
+			feed_person = #{feedPerson},
+			feed_person_id = #{feedPersonId},
+			feed_time = #{feedTime},
+			feed_file = #{feedFile},
+			schedule = #{schedule},
+			feed_status = #{feedStatus},
+			feed_remark = #{feedRemark},
+			audit_result = #{auditResult},
+			is_finish = #{isFinish},
+			audit_remark = #{auditRemark},
+			audit_person = #{auditPerson},
+			audit_person_id = #{auditPersonId},
+			audit_time = #{auditTime}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM t_yw_feedback
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE t_yw_feedback SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="TYwFeedback" statementType="STATEMENT">
+		select * FROM t_yw_feedback  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>
