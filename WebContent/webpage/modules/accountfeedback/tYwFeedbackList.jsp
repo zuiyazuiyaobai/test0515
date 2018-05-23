@@ -177,7 +177,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right"><font color="red">*</font>是否按照节点完成：</label></td>
 					<td class="width-35">
-						${fns:getDictLabel(tYwFeedback.feedStatus, 'account_feedback_isFinish', '')}
+						${fns:getDictLabel(tYwFeedback.isFinish, 'account_feedback_isFinish', '')}
 					</td>
 					<td class="width-15 active"><label class="pull-right">审核备注：</label></td>
 					<td class="width-35">
@@ -218,9 +218,10 @@
 	
 	
 	<!--查询条件-->
-	<%-- <div class="row">
+	<div class="row">
 	<div class="col-sm-12">
 	<form:form id="searchForm" modelAttribute="tYwFeedback" action="${ctx}/accountfeedback/tYwFeedback/" method="post" class="form-inline">
+	<form:hidden path="id" value="${tYwTask.id}"/>
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<table:sortColumn id="orderBy" name="orderBy" value="${page.orderBy}" callback="sortOrRefresh();"/><!-- 支持排序 -->
@@ -230,7 +231,7 @@
 			<span>反馈进度：</span>
 				<form:input path="schedule" htmlEscape="false" maxlength="2000"  class=" form-control input-sm"/>
 			<span>反馈状态：</span>
-				<form:input path="feedStatus" htmlEscape="false" maxlength="20"  class=" form-control input-sm"/>
+				<%-- <form:input path="feedStatus" htmlEscape="false" maxlength="20"  class=" form-control input-sm"/> --%>
 				<form:select path="feedStatus" class="form-control ">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('account_feedback_status')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
@@ -239,13 +240,13 @@
 	</form:form>
 	<br/>
 	</div>
-	</div> --%>
+	</div>
 	
 	<!-- 工具栏 -->
-	<%-- <div class="row">
+	<div class="row">
 	<div class="col-sm-12">
 		<div class="pull-left">
-			<shiro:hasPermission name="accountfeedback:tYwFeedback:add">
+			<%-- <shiro:hasPermission name="accountfeedback:tYwFeedback:add">
 				<table:addRow url="${ctx}/accountfeedback/tYwFeedback/form" title="反馈信息"></table:addRow><!-- 增加按钮 -->
 			</shiro:hasPermission>
 			<shiro:hasPermission name="accountfeedback:tYwFeedback:edit">
@@ -259,7 +260,7 @@
 			</shiro:hasPermission>
 			<shiro:hasPermission name="accountfeedback:tYwFeedback:export">
 	       		<table:exportExcel url="${ctx}/accountfeedback/tYwFeedback/export"></table:exportExcel><!-- 导出按钮 -->
-	       	</shiro:hasPermission>
+	       	</shiro:hasPermission> --%>
 	       <button class="btn btn-white btn-sm " data-toggle="tooltip" data-placement="left" onclick="sortOrRefresh()" title="刷新"><i class="glyphicon glyphicon-repeat"></i> 刷新</button>
 		
 			</div>
@@ -268,7 +269,7 @@
 			<button  class="btn btn-primary btn-rounded btn-outline btn-sm " onclick="reset()" ><i class="fa fa-refresh"></i> 重置</button>
 		</div>
 	</div>
-	</div> --%>
+	</div>
 	
 	<!-- 表格 -->
 	<table id="contentTable" class="table table-striped table-bordered table-hover table-condensed dataTables-example dataTable">
@@ -316,6 +317,10 @@
     				</shiro:hasPermission>
     				<shiro:hasPermission name="accountfeedback:tYwFeedback:del">
 						<a href="${ctx}/accountfeedback/tYwFeedback/delete?id=${tYwFeedback.id}" onclick="return confirmx('确认要删除该反馈信息吗？', this.href)"   class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> 删除</a>
+					</shiro:hasPermission>
+					<shiro:hasPermission name="accountfeedback:tYwFeedback:audit">
+						<a href="${ctx}/accountfeedback/tYwFeedback/form?id=${tYwFeedback.id}&operation=audit"  class="btn btn-danger btn-xs"><i class="fa fa-edit"></i> 审核</a>
+						<%-- <a href="#" onclick="openDialogView('进度审核', '${ctx}/accountfeedback/tYwFeedback/form?id=${tYwFeedback.id}&operation=view','800px', '500px')" class="btn btn-danger btn-xs"><i class="fa fa-search-plus"></i> 审核</a> --%>
 					</shiro:hasPermission>
 				</td>
 			</tr>

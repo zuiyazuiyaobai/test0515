@@ -90,6 +90,10 @@ public class TYwFeedbackController extends BaseController {
 //		判断是更新操作还是 查看操作
 		model.addAttribute("operation", request.getParameter("operation"));
 		model.addAttribute("tYwFeedback", tYwFeedback);
+//		操作为审核操作， 则跳转到新的审核页面
+		if("audit".equals(request.getParameter("operation"))){
+			return "modules/accountfeedback/tYwFeedbackForm2";
+		}
 		return "modules/accountfeedback/tYwFeedbackForm";
 	}
 
@@ -213,6 +217,28 @@ public class TYwFeedbackController extends BaseController {
     }
 	
 	
+	/**
+	 * 保存反馈信息
+	 */
+	@RequiresPermissions(value={"accountfeedback:tYwFeedback:audit"},logical=Logical.OR)
+	@RequestMapping(value = "audit")
+	public String audit(TYwFeedback tYwFeedback, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request) throws Exception{
+		User user = UserUtils.getUser();
+//		if (!beanValidator(model, tYwFeedback)){
+//			return form(tYwFeedback, model, request);
+//		}
+		TYwFeedback t = tYwFeedbackService.get(tYwFeedback.getId());//从数据库取出记录的值
+		tYwFeedback.setAuditTime(new Date());
+		tYwFeedback.setAuditPerson(user.getName());
+		tYwFeedback.setAuditPersonId(user.getId());
+		tYwFeedback.setAuditTime(new Date());
+		MyBeanUtils.copyBeanNotNull2Bean(tYwFeedback, t);//将编辑表单中的非NULL值覆盖数据库记录中的值
+		tYwFeedbackService.save(t);//保存
+		addMessage(redirectAttributes, "审核信息录入成功");
+//		return "redirect:"+Global.getAdminPath()+"/accountfeedback/tYwFeedback/?repage";
+//		return "redirect:"+Global.getAdminPath()+"/accountfeedback/tYwFeedback/form?id="+tYwFeedback.getTaskId();
+		return "redirect:"+Global.getAdminPath()+"/accountfeedback/tYwFeedback/?id="+tYwFeedback.getTaskId();
+	}
 	
 
 }

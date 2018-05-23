@@ -138,7 +138,7 @@
 						<a href="${ctx}/account/tYwProject/delete?id=${tYwProject.id}" onclick="return confirmx('确认要删除该台账信息吗？', this.href)"   class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> 删除</a>
 					</shiro:hasPermission>
     				<shiro:hasPermission name="account:tYwProject:del">
-						<a href="#" onclick="openDialogView('任务分解', '${ctx}/accounttask/tYwTask/list?id=${tYwProject.id}','1000px', '600px')" class="btn btn-success btn-xs" ><i class="fa fa-edit"></i> 任务分解</a>
+						<a href="#" onclick="openDialogView('任务分解', '${ctx}/accounttask/tYwTask/list?id=${tYwProject.id}','80%', '90%')" class="btn btn-success btn-xs" ><i class="fa fa-edit"></i> 任务分解</a>
 					</shiro:hasPermission>
 				</td>
 			</tr>

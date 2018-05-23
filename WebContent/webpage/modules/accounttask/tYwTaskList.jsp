@@ -181,6 +181,7 @@
 	</div>
 	
 	<form:form id="searchForm" modelAttribute="tYwTask" action="${ctx}/accounttask/tYwTask/" method="post" class="form-inline">
+	<form:hidden path="id" value="${accountId}"/>
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<table:sortColumn id="orderBy" name="orderBy" value="${page.orderBy}" callback="sortOrRefresh();"/><!-- 支持排序 -->

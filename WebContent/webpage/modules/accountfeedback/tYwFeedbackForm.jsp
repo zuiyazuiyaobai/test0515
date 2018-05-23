@@ -5,7 +5,7 @@
 	<title>反馈信息管理</title>
 	<meta name="decorator" content="default"/>
 		<link rel="stylesheet" href="${ctxStatic}/module/xmjbxx/css/xmjbxxForm.css" type="text/css">
-		<script type="text/javascript" src="${ctxStatic}/module/account/js/account_feedback/feedbackForm.js"></script>
+		<%-- <script type="text/javascript" src="${ctxStatic}/module/account/js/account_feedback/feedbackForm.js"></script> --%>
 	<script type="text/javascript">
 		var validateForm;
 		function doSubmit(){//回调函数，在编辑和保存动作时，供openDialog调用提交表单。
@@ -40,7 +40,7 @@
 
 
 		<form:form id="inputForm" modelAttribute="tYwFeedback" action="${ctx}/accountfeedback/tYwFeedback/save" method="post" class="form-horizontal">
-		<%-- <form:hidden path="id"/> --%>
+		<form:hidden path="id"/>
 		<form:hidden path="taskId" value="${tYwTask.id}"/>
 		<form:hidden path="parentId" value="${tYwTask.parentId}"/>
 		<sys:message content="${message}"/>	
@@ -96,7 +96,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right"><font color="red">*</font>是否按照节点完成：</label></td>
 					<td class="width-35">
-						${fns:getDictLabel(tYwFeedback.feedStatus, 'account_feedback_isFinish', '')}
+						${fns:getDictLabel(tYwFeedback.isFinish, 'account_feedback_isFinish', '')}
 					</td>
 					<td class="width-15 active"><label class="pull-right">审核备注：</label></td>
 					<td class="width-35">
